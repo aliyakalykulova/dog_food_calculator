@@ -201,7 +201,7 @@ if ingredient_names:
                 
                 ax2.set_xticks(range(len(nutrients)))
                 ax2.set_xticklabels(nutrients, rotation=0)
-                ax2.set_ylabel("Граммы")
+                ax2.set_ylabel("Значение")
                 ax2.set_title("Питательные вещества: значения и допустимые границы")
                 ax2.set_ylim(0, 100)
                 ax2.grid(True, axis='y', linestyle='-', color='#e6e6e6', alpha=0.7)
