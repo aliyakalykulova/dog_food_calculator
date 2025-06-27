@@ -154,7 +154,7 @@ if ingredient_names:
 
             if best_recipe:
                 values, totals = best_recipe
-                st.success("⚙️ Найден состав вручную (перебором):")
+                st.success("⚙️ Найден состав перебором:")
 
                 st.markdown("### 📦 Состав (в граммах на 100 г):")
                 for name, val in values.items():
