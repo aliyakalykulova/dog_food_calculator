@@ -26,9 +26,9 @@ st.title("🍲 Выбор ингредиентов")
 for category in df_ingr_all['Категория'].dropna().unique():
     with st.expander(f"{category}"):
         df_cat = df_ingr_all[df_ingr_all['Категория'] == category]
-        for ingredient in df_cat['Ингредиент'].dropna().unique():
+        for ingredient in df_cat['Ингредиенты'].dropna().unique():
             with st.expander(f"{ingredient}"):
-                df_ing = df_cat[df_cat['Ингредиент'] == ingredient]
+                df_ing = df_cat[df_cat['Ингредиенты'] == ingredient]
                 for desc in df_ing['Описание'].dropna().unique():
                     label = f"{ingredient} — {desc}"
                     key = f"{category}_{ingredient}_{desc}"
