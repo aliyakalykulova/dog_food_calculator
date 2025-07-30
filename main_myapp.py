@@ -7,9 +7,8 @@ import matplotlib.pyplot as plt
 import textwrap
 
 
-
 # --- Загрузка данных ---
-df_ingr_all = pd.read_csv('food_ingredients.csv')
+df_ingr_all = pd.read_csv('food_ingrediets.csv')
 cols_to_divide = ['Влага', 'Белки', 'Углеводы', 'Жиры']
 
 for col in cols_to_divide:
