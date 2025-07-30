@@ -9,7 +9,7 @@ import textwrap
 
 
 # --- Загрузка данных ---
-df_ingr_all = pd.read_csv('ingredients_2.csv')
+df_ingr_all = pd.read_csv('food_ingredients.csv')
 cols_to_divide = ['Вода', 'Белки', 'Углеводы', 'Жиры']
 
 for col in cols_to_divide:
