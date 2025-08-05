@@ -263,7 +263,9 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
-        if st.session_state.generate_clicked:("Generate Recommendation"):
+        if st.button("Generate Recommendation"):
+            st.session_state.generate_clicked = True
+            st.session_state.calculate_clicked = False  
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -434,7 +436,8 @@ if user_breed:
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
                           # --- Запуск оптимизации ---
-                          if st.session_state.calculate_clicked("🔍 Рассчитать оптимальный состав"):
+                          if st.button("🔍 Рассчитать оптимальный состав"):
+                              st.session_state.calculate_clicked = True
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
