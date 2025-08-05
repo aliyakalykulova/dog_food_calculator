@@ -321,14 +321,11 @@ if user_breed:
             for ing in ingredients_finish:
                 st.write("• " + ing)
 
-    else:
-        st.info("No disease info found for this breed.")
-else:
-    st.info("Please select a breed to continue.")
 
 
 
-if len(ingredients_finish)>0:
+
+            if len(ingredients_finish)>0:
                
                       # --- Загрузка данных ---
                       df_ingr_all = pd.read_csv('food_ingrediets.csv')
@@ -467,5 +464,8 @@ if len(ingredients_finish)>0:
                           st.info("👈 Пожалуйста, выберите хотя бы один ингредиент.")
 
 
-
+    else:
+        st.info("No disease info found for this breed.")
+else:
+    st.info("Please select a breed to continue.")
 
