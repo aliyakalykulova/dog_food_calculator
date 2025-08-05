@@ -43,10 +43,6 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganous Oxide","Sodium Selenite","Lipoic Acid","Calcium Carbonate","Vitamin A Supplement","Manganese Sulfate","Derivatives Of Vegetable Origin","Cellulose","Potassium Citrate","Glycerin","Vegetable Protein Extracts",
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
-if "step" not in st.session_state:
-    st.session_state.step = 0
-
-
 
 def classify_breed_size(row):
     w = (row["min_weight"] + row["max_weight"]) / 2
@@ -247,11 +243,21 @@ st.sidebar.title("🐶 Smart Dog Diet Advisor")
 st.sidebar.write("Select breed + disorder → get personalized food suggestions")
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
 
+
+if "step" not in st.session_state:
+    st.session_state.step = 0
+if "selected_ingredients" not in st.session_state:
+    st.session_state.selected_ingredients = set()
+
 st.header("Dog Diet Recommendation")
 
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
+if not user_breed:
+    st.info("Please select a breed to continue.")
+    st.stop()
+    
 if user_breed:
     info = disease_df[disease_df["Breed"] == user_breed]
     if not info.empty:
@@ -259,9 +265,9 @@ if user_breed:
         disorders = info["Disease"].unique().tolist()
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
-
+ 
         if st.session_state.step == 0:
-         if st.button("Generate Recommendation"):
+         if st.button("Generate Recommendation"): 
             st.session_state.step = 1
             st.rerun()  # чтобы обновить UI
             # 10.1) Build query vector
@@ -314,19 +320,21 @@ if user_breed:
               oth=[]
             
             ingredients_finish = [i for i in list(set(prot))+list(set(carb_cer+carb_veg+fat))+list(set(oth+water)) if len(i)>0]
-                     
-            # 10.5) Display
-            st.subheader("🌿 Recommended Ingredients")
-            st.write(f"Based on disorder: **{disorder_type}**")
-            for ing in ingredients_finish:
-                st.write("• " + ing)
+            st.session_state.ingredients_finish = ingredients_finish
+            st.session_state.step = 1
+                       
+          # 10.5) Display
+            
+            st.rerun()
+            
+            
 
-
-
-
-
-            if len(ingredients_finish)>0:
-               
+if st.session_state.step == 1:
+                     ingredients_finish = st.session_state.get("ingredients_finish", [])
+                     st.subheader("🌿 Recommended Ingredients")
+                     st.write(f"Based on disorder: **{disorder_type}**")
+                     for ing in ingredients_finish:
+                          st.write("• " + ing)
                       # --- Загрузка данных ---
                       df_ingr_all = pd.read_csv('food_ingrediets.csv')
                       cols_to_divide = ['Влага', 'Белки', 'Углеводы', 'Жиры']
@@ -438,9 +446,11 @@ if user_breed:
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
-                        
-                          if st.session_state.step == 1:
+                          if st.session_state.selected_ingredients:
                            if st.button("🔍 Рассчитать оптимальный состав"):
+                              st.session_state.step = 2
+                              st.rerun()
+                          if st.session_state.step == 2:
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
