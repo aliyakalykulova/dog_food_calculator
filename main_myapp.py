@@ -43,6 +43,9 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganous Oxide","Sodium Selenite","Lipoic Acid","Calcium Carbonate","Vitamin A Supplement","Manganese Sulfate","Derivatives Of Vegetable Origin","Cellulose","Potassium Citrate","Glycerin","Vegetable Protein Extracts",
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
+if "step" not in st.session_state:
+    st.session_state.step = 0
+
 
 
 def classify_breed_size(row):
@@ -239,7 +242,7 @@ disorder_keywords = {
 # -----------------------------------
 # 10) STREAMLIT UI LAYOUT
 # -----------------------------------
-
+ingredients_finish=[]
 st.sidebar.title("🐶 Smart Dog Diet Advisor")
 st.sidebar.write("Select breed + disorder → get personalized food suggestions")
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
@@ -256,8 +259,11 @@ if user_breed:
         disorders = info["Disease"].unique().tolist()
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
-        
-        if st.button("Generate Recommendation"):
+
+        if st.session_state.step == 0:
+         if st.button("Generate Recommendation"):
+            st.session_state.step = 1
+            st.rerun()  # чтобы обновить UI
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -314,7 +320,8 @@ if user_breed:
             st.write(f"Based on disorder: **{disorder_type}**")
             for ing in ingredients_finish:
                 st.write("• " + ing)
-            if len(ingredients_finish)>0:
+                
+if len(ingredients_finish)>0:
                
                       # --- Загрузка данных ---
                       df_ingr_all = pd.read_csv('food_ingrediets.csv')
@@ -427,8 +434,9 @@ if user_breed:
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
-
-                          if st.button("🔍 Рассчитать оптимальный состав"):
+                        
+                         if st.session_state.step == 1:
+                          if st.button(🔍 Рассчитать оптимальный состав"):
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
