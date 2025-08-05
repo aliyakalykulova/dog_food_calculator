@@ -16,6 +16,22 @@ import matplotlib.pyplot as plt
 import textwrap
 
 
+if "step" not in st.session_state:
+    st.session_state.step = 0
+
+if st.session_state.step == 0:
+    if st.button("Шаг 1"):
+        st.session_state.step = 1
+
+elif st.session_state.step == 1:
+    st.write("Теперь Шаг 2!")
+    if st.button("Шаг 2"):
+        st.session_state.step = 2
+
+elif st.session_state.step == 2:
+    st.success("Все шаги завершены!")
+
+
 st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
 
 @st.cache_data(show_spinner=False)
