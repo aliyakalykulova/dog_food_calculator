@@ -435,8 +435,8 @@ if len(ingredients_finish)>0:
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
                         
-                         if st.session_state.step == 1:
-                          if st.button(🔍 Рассчитать оптимальный состав"):
+                          if st.session_state.step == 1:
+                           if st.button(🔍 Рассчитать оптимальный состав"):
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
