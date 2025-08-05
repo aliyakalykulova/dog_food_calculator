@@ -474,8 +474,8 @@ if st.session_state.step == 1:
                           st.info("👈 Пожалуйста, выберите хотя бы один ингредиент.")
 
 
-    else:
-        st.info("No disease info found for this breed.")
-else:
-    st.info("Please select a breed to continue.")
+   # else:
+        #st.info("No disease info found for this breed.")
+#else:
+  #  st.info("Please select a breed to continue.")
 
