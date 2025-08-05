@@ -16,21 +16,27 @@ import matplotlib.pyplot as plt
 import textwrap
 
 
-if "step" not in st.session_state:
-    st.session_state.step = 0
+# Инициализация состояний
+if "show_result_1" not in st.session_state:
+    st.session_state.show_result_1 = False
+if "show_result_2" not in st.session_state:
+    st.session_state.show_result_2 = False
 
-if st.session_state.step == 0:
-    if st.button("Шаг 1"):
-        st.session_state.step = 1
+# Первая кнопка
+if st.button("Показать результат 1"):
+    st.session_state.show_result_1 = True
 
-elif st.session_state.step == 1:
-    st.write("Теперь Шаг 2!")
-    if st.button("Шаг 2"):
-        st.session_state.step = 2
+# Показываем результат 1, если была нажата первая кнопка
+if st.session_state.show_result_1:
+    st.write("✅ Результат кнопки 1")
 
-elif st.session_state.step == 2:
-    st.success("Все шаги завершены!")
+    # Вторая кнопка появляется только после первой
+    if st.button("Показать результат 2"):
+        st.session_state.show_result_2 = True
 
+# Показываем результат 2, если была нажата вторая кнопка
+if st.session_state.show_result_2:
+    st.write("✅ Дополнительный результат кнопки 2")
 
 st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
 
