@@ -377,7 +377,7 @@ if user_breed:
                           ingr_ranges = []
                           for ingr in ingredient_names:
                               if ingr in proteins:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (40/meat_len, 60/meat_len)))
+                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, value=(int(40 / meat_len), int(60 / meat_len))))
 
                               elif ingr in oils:
                                 ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (1,10)))
