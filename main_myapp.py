@@ -44,10 +44,12 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
 
+# Инициализация состояния
+if "clicked1" not in st.session_state:
+    st.session_state.clicked1 = False
+if "clicked2" not in st.session_state:
+    st.session_state.clicked2 = False
 
-# Инициализируем состояния
-if "step" not in st.session_state:
-    st.session_state.step = 0
 
 def classify_breed_size(row):
     w = (row["min_weight"] + row["max_weight"]) / 2
@@ -260,12 +262,10 @@ if user_breed:
         disorders = info["Disease"].unique().tolist()
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
-
-
-        # Кнопка запуска рекомендаций
-        if st.session_state.step == 0:
-          if st.button("Generate Recommendation"):
-            st.session_state.step = 1
+        
+        if not st.session_state.clicked1:
+         if st.button("Generate Recommendation"):
+            st.session_state.clicked1 = True
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -434,12 +434,13 @@ if user_breed:
                           )
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
-   
-                          # --- Запуск оптимизации ---
-                          if st.session_state.step >= 1:
-                           if st.button("🔍 Рассчитать оптимальный состав"):
-                            st.session_state.step = 2
-                            if st.session_state.step == 2:
+
+
+                          if st.session_state.clicked1:                      
+                           if not st.session_state.clicked2:
+                            if st.button("Кнопка 2"):
+                             st.session_state.clicked2 = True
+                          if st.session_state.clicked2:
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
