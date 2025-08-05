@@ -44,6 +44,12 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
 
+# Инициализация состояний кнопок
+if "generate_clicked" not in st.session_state:
+    st.session_state.generate_clicked = False
+if "calculate_clicked" not in st.session_state:
+    st.session_state.calculate_clicked = False
+
 
 def classify_breed_size(row):
     w = (row["min_weight"] + row["max_weight"]) / 2
@@ -257,7 +263,7 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
-        if st.button("Generate Recommendation"):
+        if st.session_state.generate_clicked:("Generate Recommendation"):
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -428,7 +434,7 @@ if user_breed:
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
                           # --- Запуск оптимизации ---
-                          if st.button("🔍 Рассчитать оптимальный состав"):
+                          if st.session_state.calculate_clicked("🔍 Рассчитать оптимальный состав"):
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
