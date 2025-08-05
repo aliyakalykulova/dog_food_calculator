@@ -47,8 +47,7 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 
 # Инициализируем состояния
 if "step" not in st.session_state:
-    st.session_state.step = 0  # 0 — начальное, 1 — после генерации, 2 — после расчета
-
+    st.session_state.step = 0
 
 def classify_breed_size(row):
     w = (row["min_weight"] + row["max_weight"]) / 2
@@ -262,6 +261,7 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
+
         # Кнопка запуска рекомендаций
         if st.session_state.step == 0:
           if st.button("Generate Recommendation"):
@@ -434,9 +434,9 @@ if user_breed:
                           )
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
-
+   
                           # --- Запуск оптимизации ---
-                          if st.session_state.step == 1:
+                          if st.session_state.step >= 1:
                            if st.button("🔍 Рассчитать оптимальный состав"):
                             st.session_state.step = 2
                             if st.session_state.step == 2:
