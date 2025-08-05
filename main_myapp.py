@@ -44,11 +44,10 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
 
-# Инициализация состояний кнопок
-if "generate_clicked" not in st.session_state:
-    st.session_state.generate_clicked = False
-if "calculate_clicked" not in st.session_state:
-    st.session_state.calculate_clicked = False
+
+# Инициализируем состояния
+if "step" not in st.session_state:
+    st.session_state.step = 0  # 0 — начальное, 1 — после генерации, 2 — после расчета
 
 
 def classify_breed_size(row):
@@ -263,9 +262,10 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
-        if st.button("Generate Recommendation"):
-            st.session_state.generate_clicked = True
-            st.session_state.calculate_clicked = False  
+        # Кнопка запуска рекомендаций
+        if st.session_state.step == 0:
+          if st.button("Generate Recommendation"):
+            st.session_state.step = 1
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -436,10 +436,10 @@ if user_breed:
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
                           # --- Запуск оптимизации ---
-                          if st.button("🔍 Рассчитать оптимальный состав"):
-                              st.session_state.calculate_clicked = True
-                              st.session_state.generate_clicked = True
-
+                          if st.session_state.step == 1:
+                           if st.button("🔍 Рассчитать оптимальный состав"):
+                            st.session_state.step = 2
+                            if st.session_state.step == 2:
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
