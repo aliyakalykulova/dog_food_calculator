@@ -330,10 +330,10 @@ if user_breed:
             
 
 if st.session_state.step == 1:
-                     ingredients_finish = st.session_state.get("ingredients_finish", [])
-                     st.subheader("🌿 Recommended Ingredients")
-                     st.write(f"Based on disorder: **{disorder_type}**")
-                     for ing in ingredients_finish:
+                      ingredients_finish = st.session_state.get("ingredients_finish", [])
+                      st.subheader("🌿 Recommended Ingredients")
+                      st.write(f"Based on disorder: **{disorder_type}**")
+                      for ing in ingredients_finish:
                           st.write("• " + ing)
                       # --- Загрузка данных ---
                       df_ingr_all = pd.read_csv('food_ingrediets.csv')
