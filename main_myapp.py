@@ -44,6 +44,12 @@ stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dic
 "Manganese Sulfate","Caramel Color","Citric Acid For Freshness","Brewers Dried Yeast","Soybean Mill Run","Glucosamine Hydrochloride","Vitamin A Supplement","Pork Plasma","Pork Gelatin"]
 
 
+
+# Инициализируем состояния
+if "step" not in st.session_state:
+    st.session_state.step = 0  # 0 — начальное, 1 — после генерации, 2 — после расчета
+
+
 def classify_breed_size(row):
     w = (row["min_weight"] + row["max_weight"]) / 2
     if w <= 10:
@@ -238,26 +244,16 @@ disorder_keywords = {
 # -----------------------------------
 # 10) STREAMLIT UI LAYOUT
 # -----------------------------------
-ingredients_finish=[]
+
 st.sidebar.title("🐶 Smart Dog Diet Advisor")
 st.sidebar.write("Select breed + disorder → get personalized food suggestions")
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
-
-
-if "step" not in st.session_state:
-    st.session_state.step = 0
-if "selected_ingredients" not in st.session_state:
-    st.session_state.selected_ingredients = set()
 
 st.header("Dog Diet Recommendation")
 
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
-if not user_breed:
-    st.info("Please select a breed to continue.")
-    st.stop()
-    
 if user_breed:
     info = disease_df[disease_df["Breed"] == user_breed]
     if not info.empty:
@@ -265,11 +261,10 @@ if user_breed:
         disorders = info["Disease"].unique().tolist()
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
- 
-        if st.session_state.step == 0:
-         if st.button("Generate Recommendation"): 
-            st.session_state.step = 1
-            st.rerun()  # чтобы обновить UI
+
+        # Кнопка запуска рекомендаций
+        if st.button("Generate Recommendation"):
+        
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -320,21 +315,14 @@ if user_breed:
               oth=[]
             
             ingredients_finish = [i for i in list(set(prot))+list(set(carb_cer+carb_veg+fat))+list(set(oth+water)) if len(i)>0]
-            st.session_state.ingredients_finish = ingredients_finish
-            st.session_state.step = 1
-                       
-          # 10.5) Display
-            
-            st.rerun()
-            
-            
-
-if st.session_state.step == 1:
-                      ingredients_finish = st.session_state.get("ingredients_finish", ingredients_finish)
-                      st.subheader("🌿 Recommended Ingredients")
-                      st.write(f"Based on disorder: **{disorder_type}**")
-                      for ing in ingredients_finish:
-                          st.write("• " + ing)
+                     
+            # 10.5) Display
+            st.subheader("🌿 Recommended Ingredients")
+            st.write(f"Based on disorder: **{disorder_type}**")
+            for ing in ingredients_finish:
+                st.write("• " + ing)
+            if len(ingredients_finish)>0:
+               
                       # --- Загрузка данных ---
                       df_ingr_all = pd.read_csv('food_ingrediets.csv')
                       cols_to_divide = ['Влага', 'Белки', 'Углеводы', 'Жиры']
@@ -446,11 +434,8 @@ if st.session_state.step == 1:
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
-                          if st.session_state.selected_ingredients:
-                           if st.button("🔍 Рассчитать оптимальный состав"):
-                              st.session_state.step = 2
-                              st.rerun()
-                          if st.session_state.step == 2:
+                          # --- Запуск оптимизации ---
+                          if st.button("🔍 Рассчитать оптимальный состав"):
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
@@ -474,8 +459,8 @@ if st.session_state.step == 1:
                           st.info("👈 Пожалуйста, выберите хотя бы один ингредиент.")
 
 
-   # else:
-        #st.info("No disease info found for this breed.")
-#else:
-  #  st.info("Please select a breed to continue.")
 
+    else:
+        st.info("No disease info found for this breed.")
+else:
+    st.info("Please select a breed to continue.")
