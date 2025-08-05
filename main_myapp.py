@@ -438,6 +438,8 @@ if user_breed:
                           # --- Запуск оптимизации ---
                           if st.button("🔍 Рассчитать оптимальный состав"):
                               st.session_state.calculate_clicked = True
+                              st.session_state.generate_clicked = True
+
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
