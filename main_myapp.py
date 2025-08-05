@@ -397,7 +397,7 @@ if user_breed:
                           st.subheader("Ограничения по нутриентам:")
                           nutr_ranges = {}
                           nutr_ranges['Влага'] = st.slider(f"{'Влага'}", 0, 100, (70, 85))
-                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (float(nutrient_preds["protein"])-2,float(nutrient_preds["protein"])+2))
+                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (int(float(nutrient_preds["protein"])-2),int(float(nutrient_preds["protein"])+2)))
                           nutr_ranges['Углеводы'] = st.slider(f"{'Углеводы'}", 0, 100, (5,10))
                           nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (5,15))
 
