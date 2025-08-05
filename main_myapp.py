@@ -320,7 +320,14 @@ if user_breed:
             st.write(f"Based on disorder: **{disorder_type}**")
             for ing in ingredients_finish:
                 st.write("• " + ing)
-                
+
+    else:
+        st.info("No disease info found for this breed.")
+else:
+    st.info("Please select a breed to continue.")
+
+
+
 if len(ingredients_finish)>0:
                
                       # --- Загрузка данных ---
@@ -460,10 +467,5 @@ if len(ingredients_finish)>0:
                           st.info("👈 Пожалуйста, выберите хотя бы один ингредиент.")
 
 
-
-    else:
-        st.info("No disease info found for this breed.")
-else:
-    st.info("Please select a breed to continue.")
 
 
