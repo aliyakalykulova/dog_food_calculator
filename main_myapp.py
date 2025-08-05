@@ -22,22 +22,6 @@ if "show_result_1" not in st.session_state:
 if "show_result_2" not in st.session_state:
     st.session_state.show_result_2 = False
 
-# Первая кнопка
-if st.button("Показать результат 1"):
-    st.session_state.show_result_1 = True
-
-# Показываем результат 1, если была нажата первая кнопка
-if st.session_state.show_result_1:
-    st.write("✅ Результат кнопки 1")
-
-    # Вторая кнопка появляется только после первой
-    if st.button("Показать результат 2"):
-        st.session_state.show_result_2 = True
-
-# Показываем результат 2, если была нажата вторая кнопка
-if st.session_state.show_result_2:
-    st.write("✅ Дополнительный результат кнопки 2")
-
 st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
 
 @st.cache_data(show_spinner=False)
@@ -284,9 +268,10 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
-        # Кнопка запуска рекомендаций
+        # Первая кнопка
         if st.button("Generate Recommendation"):
-        
+            st.session_state.show_result_1 = True
+        if st.session_state.show_result_1:
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -456,8 +441,11 @@ if user_breed:
 
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
-                          # --- Запуск оптимизации ---
+
                           if st.button("🔍 Рассчитать оптимальный состав"):
+                            st.session_state.show_result_2 = True
+                         
+                          if st.session_state.show_result_2:
                               res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
 
                               if res.success:
