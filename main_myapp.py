@@ -26,7 +26,7 @@ def load_data():
 
 food_df, disease_df = load_data()
 
-df_standart = pd.read_excel('merge_tab.xlsx')
+df_standart = pd.read_csv("merge_tab.csv")
 proteins=df_standart[df_standart["Type"].isin(["Яйца и Молочные продукты", "Мясо"])]["Ingredient"].tolist()
 oils=df_standart[df_standart["Type"].isin([ "Масло и жир"])]["Ingredient"].tolist()
 carbonates_cer=df_standart[df_standart["Type"].isin(["Крупы"])]["Ingredient"].tolist()
