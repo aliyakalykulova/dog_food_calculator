@@ -401,7 +401,7 @@ if user_breed:
                         if col2.button("❌", key=f"remove_{i}"):
                             st.session_state.selected_ingredients.discard(i)
                             st.session_state.show_result_2 = False
-                            st.experimental_rerun()
+                            st.stop() 
                           
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
