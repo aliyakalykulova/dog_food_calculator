@@ -261,6 +261,11 @@ if "select1" not in st.session_state:
 if "select2" not in st.session_state:
     st.session_state.select2 = None
 
+if "prev_ingr_ranges" not in st.session_state:
+    st.session_state.prev_ingr_ranges = []
+if "prev_nutr_ranges" not in st.session_state:
+    st.session_state.prev_nutr_ranges = {}
+
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
@@ -365,7 +370,8 @@ if user_breed:
                       meat_len=len(set(proteins).intersection(set(ingredients_finish)))
 
 
-
+###################################################################################################################################################################
+                
                       if "selected_ingredients" not in st.session_state:
                           # Преобразуем ingredients_finish в set и сохраняем
                           st.session_state.selected_ingredients = set(ingredients_finish)
@@ -382,6 +388,7 @@ if user_breed:
                                           key = f"{category}_{ingredient}_{desc}"
                                           if st.button(f"{desc}", key=key):
                                               st.session_state.selected_ingredients.add(label)   
+                                              st.session_state.show_result_2 = False
 
                       st.markdown("### ✅ Выбранные ингредиенты:")
                       for i in sorted(st.session_state.selected_ingredients):
@@ -389,6 +396,7 @@ if user_breed:
                           col1.write(i)
                           if col2.button("❌", key=f"remove_{i}"):
                               st.session_state.selected_ingredients.remove(i)
+                              st.session_state.show_result_2 = False
       
 
                       # Пример: доступ к выбранным
@@ -426,6 +434,15 @@ if user_breed:
                           nutr_ranges['Углеводы'] = st.slider(f"{'Углеводы'}", 0, 100, (5,10))
                           nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (5,15))
 
+                          if ingr_ranges != st.session_state.prev_ingr_ranges:
+                                st.session_state.show_result_2 = False
+                                st.session_state.prev_ingr_ranges = ingr_ranges.copy()
+                            
+                            # Проверяем, изменились ли ограничения по нутриентам
+                          if nutr_ranges != st.session_state.prev_nutr_ranges:
+                                st.session_state.show_result_2 = False
+                                st.session_state.prev_nutr_ranges = nutr_ranges.copy()
+                          
                           # --- Построение задачи LP ---
                           A = [
                               [food[ing][nutr] if val > 0 else -food[ing][nutr]
@@ -450,6 +467,14 @@ if user_breed:
                               default=['Влага',"Белки"]
                           )
 
+                        # Инициализация предыдущего значения
+                          if "prev_selected_maximize" not in st.session_state:
+                            st.session_state.prev_selected_maximize = ['Влага', 'Белки']
+                        
+                        # Проверка изменений
+                          if selected_maximize != st.session_state.prev_selected_maximize:
+                            st.session_state.show_result_2 = False
+                            st.session_state.prev_selected_maximize = selected_maximize.copy()
                           f = [-sum(food[i][nutr] for nutr in selected_maximize) for i in ingredient_names]
 
 
