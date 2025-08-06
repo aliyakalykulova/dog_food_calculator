@@ -391,13 +391,20 @@ if user_breed:
                                               st.session_state.show_result_2 = False
 
                       st.markdown("### ✅ Выбранные ингредиенты:")
+                                          
+                      to_remove = []
+
                       for i in sorted(st.session_state.selected_ingredients):
-                          col1, col2 = st.columns([5, 1])
-                          col1.write(i)
-                          if col2.button("❌", key=f"remove_{i}"):
-                              st.session_state.selected_ingredients.remove(i)
-                              st.session_state.show_result_2 = False
-      
+                        col1, col2 = st.columns([5, 1])
+                        col1.write(i)
+                        if col2.button("❌", key=f"remove_{i}"):
+                            to_remove.append(i)
+                    
+                    # Удаляем после отрисовки всех кнопок
+                      if to_remove:
+                        for i in to_remove:
+                            st.session_state.selected_ingredients.remove(i)
+                        st.session_state.show_result_2 = False
 
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
