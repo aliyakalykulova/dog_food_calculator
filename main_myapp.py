@@ -267,6 +267,8 @@ if user_breed:
         disorders = info["Disease"].unique().tolist()
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
+        st.session_state.show_result_2 = False
+        st.session_state.show_result_1 = False
 
         # Первая кнопка
         if st.button("Generate Recommendation"):
