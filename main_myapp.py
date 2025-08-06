@@ -16,8 +16,11 @@ import matplotlib.pyplot as plt
 import textwrap
 
 
-
-
+if "show_result_1" not in st.session_state:
+    st.session_state.show_result_1 = False
+if "show_result_2" not in st.session_state:
+    st.session_state.show_result_2 = False
+    
 st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
 
 @st.cache_data(show_spinner=False)
