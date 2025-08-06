@@ -258,9 +258,17 @@ st.sidebar.write("Select breed + disorder → get personalized food suggestions"
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
 
 st.header("Dog Diet Recommendation")
-state=""
+
+if "prev_select1" not in st.session_state:
+    st.session_state.prev_select1 = None
+if "prev_select2" not in st.session_state:
+    st.session_state.prev_select2 = None
+
+
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
+
+
 
 if user_breed:
     info = disease_df[disease_df["Breed"] == user_breed]
@@ -270,12 +278,12 @@ if user_breed:
         selected_disorder = st.selectbox("Select disorder:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
-        if user_breed!=state and st.session_state.show_result_1 == False:
-            st.session_state.show_result_2 = False
+        if user_breed != st.session_state.prev_select1 or  selected_disorder != st.session_state.prev_select2 :
+            st.session_state.select1 = user_breed
+            st.session_state.select2 = selected_disorder
             st.session_state.show_result_1 = False
-
-        state=user_breed
-        
+         
+                
         # Первая кнопка
         if st.button("Generate Recommendation"):
             st.session_state.show_result_1 = True
@@ -474,10 +482,3 @@ if user_breed:
 
                       else:
                           st.info("👈 Пожалуйста, выберите хотя бы один ингредиент.")
-
-
-
-    else:
-        st.info("No disease info found for this breed.")
-else:
-    st.info("Please select a breed to continue.")
