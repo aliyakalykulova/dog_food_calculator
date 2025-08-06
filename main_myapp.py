@@ -395,17 +395,16 @@ if user_breed:
                       to_remove = []
 
                       for i in sorted(st.session_state.selected_ingredients):
-                        col1, col2 = st.columns([5, 1])
-                        col1.write(i)
-                        if col2.button("❌", key=f"remove_{i}"):
-                            to_remove.append(i)
-                    
-                    # Удаляем после отрисовки всех кнопок
-                      if to_remove:
-                        for i in to_remove:
+                            col1, col2 = st.columns([5, 1])
+                            col1.write(i)
+                            if col2.button("❌", key=f"remove_{i}"):
+                                to_remove.append(i)
+                        
+                        # Удаляем только после рендера всех кнопок
+                      for i in to_remove:
                             st.session_state.selected_ingredients.remove(i)
-                        st.session_state.show_result_2 = False
-
+                            st.session_state.show_result_2 = False
+                              
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
                       food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide].to_dict(orient='index')
