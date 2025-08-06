@@ -392,17 +392,26 @@ if user_breed:
 
                       st.markdown("### ✅ Выбранные ингредиенты:")
                                           
-                      to_remove = []
+                      #to_remove = []
 
-                      for i in sorted(st.session_state.selected_ingredients):
-                          col1, col2 = st.columns([5, 1])
-                          col1.write(i)
-                      if col2.button("❌", key=f"remove_{i}"):
-                              st.session_state.selected_ingredients.remove(i)
-                              st.session_state.show_result_2 = False
-                              st.experimental_rerun()
-
-
+      
+                        # Для хранения ID элемента, который пользователь хочет удалить
+                      if "to_remove" not in st.session_state:
+                            st.session_state.to_remove = None
+                        
+                        # Отображаем список с кнопками
+                      for i, item in enumerate(st.session_state.ingredients_finish):
+                            col1, col2 = st.columns([0.9, 0.1])
+                            col1.write(item)
+                            if col2.button("❌", key=f"remove_{i}"):
+                                st.session_state.to_remove = i
+                        
+                        # Удаляем, если было нажатие
+                      if st.session_state.to_remove is not None:
+                            del st.session_state.ingredients_finish[st.session_state.to_remove]
+                            st.session_state.to_remove = None
+                            st.experimental_rerun()  # Принудительно перезапустить рендер
+                        
 
                 
                       # Пример: доступ к выбранным
