@@ -392,17 +392,21 @@ if user_breed:
 
                       st.markdown("### ✅ Выбранные ингредиенты:")
                                           
+                                         
                       to_remove = []
-                
+                        
                       for i in sorted(st.session_state.selected_ingredients):
-                          col1, col2 = st.columns([5, 1])
-                          col1.write(i)
-                          if col2.button("❌", key=f"remove_{i}"):
-                              st.session_state.selected_ingredients.remove(i)
-                              st.session_state.show_result_2 = False
-                      st.experimental_rerun()  # можно убрать, если не требуется принудительно перерисовать интерфейс
-
-                
+                            col1, col2 = st.columns([5, 1])
+                            col1.write(i)
+                            if col2.button("❌", key=f"remove_{i}"):
+                                to_remove.append(i)
+                                st.session_state.show_result_2 = False
+                        
+                        # Удаляем после отображения
+                      if to_remove:
+                            for item in to_remove:
+                                st.session_state.selected_ingredients.discard(item)  # безопаснее, чем remove()
+                                        
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
                       food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide].to_dict(orient='index')
