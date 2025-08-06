@@ -503,7 +503,7 @@ if user_breed:
                                                 min_penalty = penalty
                                                 best_recipe = (values, totals)
                     
-                                if best_recipe:
+                                  if best_recipe:
                                     values, totals = best_recipe
                                     st.success("⚙️ Найден состав перебором:")
                     
@@ -561,6 +561,8 @@ if user_breed:
                                     
                                     st.pyplot(fig2)
                                  
+                                  else:
+                                     st.error("🚫 Не удалось найти подходящий состав даже вручную.")
 
             
            
