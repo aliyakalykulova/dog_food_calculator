@@ -406,7 +406,7 @@ if user_breed:
                       if to_remove:
                             for item in to_remove:
                                 st.session_state.selected_ingredients.discard(item)  # безопаснее, чем remove()
-                                        
+                            st.experimental_rerun()            
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
                       food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide].to_dict(orient='index')
