@@ -16,6 +16,59 @@ import matplotlib.pyplot as plt
 import textwrap
 
 
+# Инициализация session_state
+if "select1" not in st.session_state:
+    st.session_state.select1 = None
+if "select2" not in st.session_state:
+    st.session_state.select2 = None
+if "show_second_block" not in st.session_state:
+    st.session_state.show_second_block = False
+if "show_result" not in st.session_state:
+    st.session_state.show_result = False
+if "prev_select1" not in st.session_state:
+    st.session_state.prev_select1 = None
+if "prev_select2" not in st.session_state:
+    st.session_state.prev_select2 = None
+
+# --- Первый selectbox ---
+select1 = st.selectbox("Выберите опцию 1", ["", "A", "B", "C"], index=0)
+
+# Проверка на изменение select1
+if select1 != st.session_state.prev_select1:
+    # Сброс всего, если изменился select1
+    st.session_state.select1 = select1
+    st.session_state.select2 = None
+    st.session_state.show_second_block = False
+    st.session_state.show_result = False
+    st.session_state.prev_select1 = select1
+    st.session_state.prev_select2 = None
+
+# Первая кнопка — показывает второй блок
+if st.button("Подтвердить выбор 1"):
+    if select1:
+        st.session_state.show_second_block = True
+
+# --- Второй блок ---
+if st.session_state.show_second_block:
+    select2 = st.selectbox("Выберите опцию 2", ["", "X", "Y", "Z"], index=0, key="select2box")
+
+    # Проверка на изменение select2
+    if select2 != st.session_state.prev_select2:
+        st.session_state.show_result = False
+        st.session_state.select2 = select2
+        st.session_state.prev_select2 = select2
+
+    # Вторая кнопка — показывает результат
+    if st.button("Подтвердить выбор 2"):
+        if select2:
+            st.session_state.show_result = True
+
+# --- Результат ---
+if st.session_state.show_result:
+    st.success(f"Вы выбрали: {st.session_state.select1} и {st.session_state.select2}")
+
+
+
 # Инициализация состояний
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
