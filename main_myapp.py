@@ -400,7 +400,7 @@ if user_breed:
                             st.session_state.to_remove = None
                         
                         # Отображаем список с кнопками
-                      for i, item in enumerate(st.session_state.ingredients_finish):
+                      for i, item in enumerate(st.session_state.selected_ingredients):
                             col1, col2 = st.columns([0.9, 0.1])
                             col1.write(item)
                             if col2.button("❌", key=f"remove_{i}"):
@@ -408,7 +408,7 @@ if user_breed:
                         
                         # Удаляем, если было нажатие
                       if st.session_state.to_remove is not None:
-                            del st.session_state.ingredients_finish[st.session_state.to_remove]
+                            del st.session_state.selected_ingredients[st.session_state.to_remove]
                             st.session_state.to_remove = None
                             st.experimental_rerun()  # Принудительно перезапустить рендер
                         
