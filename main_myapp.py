@@ -392,27 +392,15 @@ if user_breed:
 
                       st.markdown("### ✅ Выбранные ингредиенты:")
                                           
-                      #to_remove = []
+                      to_remove = []
                 
-                      if "to_remove" not in st.session_state:
-                            st.session_state.to_remove = None
-                        
-                        # Отображаем список с кнопками
-                      selected_list = list(sorted(st.session_state.selected_ingredients))  # обязательно сортируем или фиксируем порядок
-                      for i, item in enumerate(selected_list):
-                            col1, col2 = st.columns([0.9, 0.1])
-                            col1.write(item)
-                            if col2.button("❌", key=f"remove_{i}"):
-                                st.session_state.to_remove = i
-                        
-                        # Удаляем выбранный ингредиент
-                      if st.session_state.to_remove is not None:
-                            to_delete = selected_list[st.session_state.to_remove]
-                            st.session_state.selected_ingredients.remove(to_delete)
-                            st.session_state.to_remove = None
-                            st.session_state.show_result_2 = False
-                            st.experimental_rerun()
-                        
+                      for i in sorted(st.session_state.selected_ingredients):
+                          col1, col2 = st.columns([5, 1])
+                          col1.write(i)
+                          if col2.button("❌", key=f"remove_{i}"):
+                              st.session_state.selected_ingredients.remove(i)
+                              st.session_state.show_result_2 = False
+                      st.experimental_rerun()  # можно убрать, если не требуется принудительно перерисовать интерфейс
 
                 
                       # Пример: доступ к выбранным
