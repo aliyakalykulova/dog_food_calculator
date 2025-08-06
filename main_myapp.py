@@ -258,7 +258,7 @@ st.sidebar.write("Select breed + disorder → get personalized food suggestions"
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
 
 st.header("Dog Diet Recommendation")
-
+state=""
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
