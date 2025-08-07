@@ -17,7 +17,7 @@ import textwrap
 
 # Ввод чисел
 weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
-age = st.number_input("Возраст собаки (в годах)", min_value=0.0, step=1)
+age = st.number_input("Возраст собаки (в годах)", min_value=0, step=1)
 
 # Селект-бокс для пола
 gender = st.selectbox("Пол собаки", ["Самец", "Самка"])
