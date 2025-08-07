@@ -34,6 +34,9 @@ activity_level = st.selectbox(
     ["Пассивный", "Средний", "Активный"]
 )
 
+kkal = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=300.0 )
+
+
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
 if "show_result_2" not in st.session_state:
