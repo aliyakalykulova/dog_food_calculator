@@ -34,15 +34,6 @@ activity_level = st.selectbox(
     ["Пассивный", "Средний", "Активный"]
 )
 
-# Отображаем введённые значения
-st.write("### Введённые данные:")
-st.write(f"**Вес:** {weight} кг")
-st.write(f"**Возраст:** {age} лет")
-st.write(f"**Пол:** {gender}")
-st.write(f"**Репродуктивный статус:** {reproductive_status}")
-st.write(f"**Активность:** {activity_level}")
-
-
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
 if "show_result_2" not in st.session_state:
