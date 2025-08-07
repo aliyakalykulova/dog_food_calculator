@@ -15,6 +15,33 @@ import itertools
 import matplotlib.pyplot as plt
 import textwrap
 
+# Ввод чисел
+weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
+age = st.number_input("Возраст собаки (в годах)", min_value=0.0, step=0.1)
+
+# Селект-бокс для пола
+gender = st.selectbox("Пол собаки", ["Кобель", "Сука"])
+
+# Селект-бокс для кастрации/стерилизации/беременности
+reproductive_status = st.selectbox(
+    "Репродуктивный статус",
+    ["Не кастрирован/не стерилизована", "Кастрирован", "Стерилизована", "Беременная"]
+)
+
+# Селект-бокс для уровня активности
+activity_level = st.selectbox(
+    "Уровень активности",
+    ["Пассивный", "Средний", "Активный"]
+)
+
+# Отображаем введённые значения
+st.write("### Введённые данные:")
+st.write(f"**Вес:** {weight} кг")
+st.write(f"**Возраст:** {age} лет")
+st.write(f"**Пол:** {gender}")
+st.write(f"**Репродуктивный статус:** {reproductive_status}")
+st.write(f"**Активность:** {activity_level}")
+
 
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
