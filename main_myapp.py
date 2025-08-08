@@ -392,7 +392,7 @@ min_weight = disease_df.loc[disease_df["Breed"] == user_breed, "min_weight"].val
 max_weight = disease_df.loc[disease_df["Breed"] == user_breed, "max_weight"].values
 avg_wight=(max_weight[0]+min_weight[0])/2
 
-size_categ = sizecategory(avg_wight)
+size_categ = size_category(avg_wight)
 age_type_categ = age_type_category(size_categ, age ,age_metric)
 
 
