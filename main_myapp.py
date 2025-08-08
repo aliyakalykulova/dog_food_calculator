@@ -22,8 +22,11 @@ if "show_result_1" not in st.session_state:
 if "show_result_2" not in st.session_state:
     st.session_state.show_result_2 = False
 
-if "show_res_reproductive_status" not in st.session_state:
-    st.session_state.show_res_reproductive_status = None
+
+if "select_reproductive_status" not in st.session_state:
+    st.session_state.select_reproductive_status = None
+if "show_reproductive_status" not in st.session_state:
+    st.session_state.select_reproductive_status = None
 if "select_gender" not in st.session_state:
     st.session_state.select_gender = None
     
@@ -51,13 +54,16 @@ if st.session_state.select_gender=="Самка":
             st.session_state.select_reproductive_status = reproductive_status
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
-            if st.session_state.select_reproductive_status=="Беременная":
+        if st.session_state.select_reproductive_status=="Беременная":
+
+            
+if st.session_state.select_reproductive_status=="Беременная":
                 berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
                 if berem_time != st.session_state.show_res_berem_time:
                    st.session_state.show_res_berem_time = berem_time
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
-            elif  st.session_state.select_reproductive_status=="Период лактации":
+elif  st.session_state.select_reproductive_status=="Период лактации":
                 lact_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
                 num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
                 if lact_time != st.session_state.show_res_lact_time or num_pup!=st.session_state.show_res_num_pup:
