@@ -23,17 +23,18 @@ if "show_result_2" not in st.session_state:
     st.session_state.show_result_2 = False
 
 if "show_res_reproductive_status" not in st.session_state:
-    st.session_state.show_res_reproductive_status = False
+    st.session_state.show_res_reproductive_status = None
 if "select_gender" not in st.session_state:
     st.session_state.select_gender = None
+    
 if "select_reproductive_status" not in st.session_state:
              st.session_state.select_reproductive_status = None
 if "show_res_berem_time" not in st.session_state:
-                   st.session_state.show_res_berem_time = False
+                   st.session_state.show_res_berem_time = None
 if "show_res_lact_time" not in st.session_state:
-                   st.session_state.show_res_lact_time = False
+                   st.session_state.show_res_lact_time = None
 if "show_res_num_pup" not in st.session_state:
-                   st.session_state.show_res_num_pup = False 
+                   st.session_state.show_res_num_pup = None 
                     
 weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
 berem_time=st.selectbox("Измерение возроста", ["в годах","в месецах"])
@@ -45,7 +46,6 @@ if gender != st.session_state.select_gender:
             st.session_state.show_res_reproductive_status = False
 
 if st.session_state.select_gender=="Самка":
-            
         reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
         if reproductive_status != st.session_state.select_reproductive_status:
             st.session_state.select_reproductive_status = reproductive_status
@@ -58,10 +58,10 @@ if st.session_state.select_gender=="Самка":
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
             elif  st.session_state.select_reproductive_status=="Период лактации":
-                L_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
+                lact_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
                 num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
-                if L_time != st.session_state.show_res_lact_time or num_pup!=st.session_state.show_res_num_pup:
-                   st.session_state.show_res_lact_time = L_time
+                if lact_time != st.session_state.show_res_lact_time or num_pup!=st.session_state.show_res_num_pup:
+                   st.session_state.show_res_lact_time = lact_time
                    st.session_state.show_res_num_pup = num_pup
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
