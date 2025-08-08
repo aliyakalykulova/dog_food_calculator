@@ -47,7 +47,7 @@ if st.session_state.select_gender=="Самка":
         reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
         if reproductive_status != st.session_state.select_reproductive_status:
             st.session_state.select_reproductive_status = reproductive_status
-            if st.session_state.select_reproductive_status=="Беременная:
+            if st.session_state.select_reproductive_status=="Беременная":
                 berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
             elif  st.session_state.select_reproductive_status=="Период лактации":
                 L_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
