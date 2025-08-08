@@ -37,21 +37,39 @@ if gender != st.session_state.select_gender:
             st.session_state.show_res_reproductive_status = False
 
 if st.session_state.select_gender=="Самка":
-        if "show_res_berem" not in st.session_state:
-            st.session_state.show_res_berem = False
-        if "show_res_lact" not in st.session_state:
-            st.session_state.show_res_lact = False
+      
         if "select_reproductive_status" not in st.session_state:
              st.session_state.select_reproductive_status = None
        
         reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
         if reproductive_status != st.session_state.select_reproductive_status:
             st.session_state.select_reproductive_status = reproductive_status
+            st.session_state.show_result_1 = False
+            st.session_state.show_result_2 = False
             if st.session_state.select_reproductive_status=="Беременная":
+                if "show_res_berem_time" not in st.session_state:
+                   st.session_state.show_res_berem_time = False
                 berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
+                if berem_time != st.session_state.show_res_berem_time:
+                   st.session_state.show_res_berem_time = berem_time
+                   st.session_state.show_result_1 = False
+                   st.session_state.show_result_2 = False 
+
+            
             elif  st.session_state.select_reproductive_status=="Период лактации":
+                if "show_res_lact_time" not in st.session_state:
+                   st.session_state.show_res_lact_time = False
+                if "show_res_num_pup" not in st.session_state:
+                   st.session_state.show_res_num_pup = False 
+                
                 L_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
                 num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
+                
+                if L_time != st.session_state.show_res_lact_time or num_pup!=st.session_state.show_res_num_pup:
+                   st.session_state.show_res_lact_time = L_time
+                   st.session_state.show_res_num_pup = num_pup
+                   st.session_state.show_result_1 = False
+                   st.session_state.show_result_2 = False 
                 
                 
 age_type_categ=["Щенки","Взрослые","Пожелые"]
