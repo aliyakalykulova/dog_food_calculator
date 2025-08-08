@@ -37,10 +37,14 @@ if "show_res_lact_time" not in st.session_state:
                    st.session_state.show_res_lact_time = None
 if "show_res_num_pup" not in st.session_state:
                    st.session_state.show_res_num_pup = None 
-                    
-weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
-berem_time=st.selectbox("Измерение возроста", ["в годах","в месецах"])
-age = st.number_input("Возраст собаки", min_value=0, step=1)
+
+col1, col2, col3 = st.columns([3,1, 3, 2])  # col2 будет посередине
+with col1:
+       weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
+with col2:
+    age = st.number_input("Возраст собаки", min_value=0, step=1)
+with col3:
+    age_metric=st.selectbox("Измерение возроста", ["в годах","в месецах"])
 gender = st.selectbox("Пол собаки", ["Самец", "Самка"])
 
 if gender != st.session_state.select_gender:
