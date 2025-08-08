@@ -56,7 +56,7 @@ if st.session_state.select_gender=="Самка":
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
 if st.session_state.select_reproductive_status=="Беременная":
-  col1, col2 = st.columns([2, 20])  # col2 будет посередине
+  col1, col2 = st.columns([3, 20])  # col2 будет посередине
   with col2:            
        berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
        if berem_time != st.session_state.show_res_berem_time:
@@ -64,7 +64,7 @@ if st.session_state.select_reproductive_status=="Беременная":
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
 elif  st.session_state.select_reproductive_status=="Период лактации":
-    col1, col2 = st.columns([2, 20])  # col2 будет посередине
+    col1, col2 = st.columns([3, 20])  # col2 будет посередине
     with col2:  
                 lact_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
                 num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
