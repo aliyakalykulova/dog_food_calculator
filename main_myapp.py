@@ -62,7 +62,7 @@ with col1:
 with col2:
     age = st.number_input("Возраст собаки", min_value=0, step=1)
 with col3:
-    age_metric=st.selectbox("Измерение возроста", metrics_age_cat)
+    age_metric=st.selectbox("Измерение возроста", metrics_age_types)
 gender = st.selectbox("Пол собаки", gender_types)
 
 if gender != st.session_state.select_gender:
