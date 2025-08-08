@@ -15,6 +15,24 @@ import itertools
 import matplotlib.pyplot as plt
 import textwrap
 
+
+# все спсики-------------------------------------------------------------------------
+
+metrics_age_types=["в годах","в месецах"]
+gender_types=["Самец", "Самка"]
+rep_status_types=["Не беременная", "Беременная", "Период лактации"]
+berem_time_types=["первые 4 недедели беременности","последние 5 недель беременности"]
+lact_time_types=["1 неделя","2 неделя","3 неделя","4 неделя"]
+age_category_types=["Щенки","Взрослые","Пожилые"]
+size_types=["Мелкие",  "Средние",  "Крупные", "Очень крупные"]
+activity_level_cat_1 = ["Пассивный (гуляеет на поводке менее 1ч/день)", "Средний1 (1-3ч/день, низкая активность)",
+                          "Средний2 (1-3ч/день, высокая активность)", "Активный (3-6ч/день, рабочие собаки, например, овчарки)",
+                          "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
+                          "Взрослые, склонные к ожирению"]
+activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
+
+# -------------------------------------------------------------------------------------
+
 st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
 st.header("Dog Diet Recommendation")
 if "show_result_1" not in st.session_state:
@@ -44,33 +62,33 @@ with col1:
 with col2:
     age = st.number_input("Возраст собаки", min_value=0, step=1)
 with col3:
-    age_metric=st.selectbox("Измерение возроста", ["в годах","в месецах"])
-gender = st.selectbox("Пол собаки", ["Самец", "Самка"])
+    age_metric=st.selectbox("Измерение возроста", metrics_age_cat)
+gender = st.selectbox("Пол собаки", gender_types)
 
 if gender != st.session_state.select_gender:
             st.session_state.select_gender = gender
             st.session_state.show_res_reproductive_status = False
 
-if st.session_state.select_gender=="Самка":
+if st.session_state.select_gender==gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
     with col2:
-        reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
+        reproductive_status = st.selectbox( "Репродуктивный статус", rep_status_types)
         if reproductive_status != st.session_state.select_reproductive_status:
             st.session_state.select_reproductive_status = reproductive_status
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
-if st.session_state.select_reproductive_status=="Беременная":
+if st.session_state.select_reproductive_status==rep_status_types[1]:
   col1, col2 = st.columns([3, 20])  # col2 будет посередине
   with col2:            
-       berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
+       berem_time=st.selectbox("Срок беременности", berem_time_types)   
        if berem_time != st.session_state.show_res_berem_time:
                    st.session_state.show_res_berem_time = berem_time
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
-elif  st.session_state.select_reproductive_status=="Период лактации":
+elif  st.session_state.select_reproductive_status==rep_status_types[2]:
     col1, col2 = st.columns([3, 20])  # col2 будет посередине
     with col2:  
-                lact_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
+                lact_time=st.selectbox("Лактационный период", lact_time_types)  
                 num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
                 if lact_time != st.session_state.show_res_lact_time or num_pup!=st.session_state.show_res_num_pup:
                    st.session_state.show_res_lact_time = lact_time
@@ -307,6 +325,60 @@ disorder_keywords = {
 # 10) STREAMLIT UI LAYOUT
 # -----------------------------------
 
+#--------------------------------------------------------------------------------------------
+
+def kcal_calculate(reproductive_status, berem_time, num_pup, L, age_type, weight, expected, activity_level):
+    if L_time==lact_time_types[0]:
+      L=0.75
+    elif L_time==lact_time_types[1]:
+      L=0.95
+    elif L_time==lact_time_types[2]:
+      L=1.1
+    else :
+      L=1.2
+    
+    if reproductive_status==rep_status_types[1]:
+      if berem_time==berem_time_types[0]:
+        kcal=132*(weight**0.75)
+      else:
+        kcal=132*(weight**0.75) + (26*weight)
+    elif reproductive_status==rep_status_types[2]:
+       if num_pup<5:
+         kcal=145*(weight**0.75) + 24*num_pup*weight*L
+       else:
+         kcal=145*(weight**0.75) + (96+12*num_pup-4)*weight*L
+    else:
+      if age_type==age_category_types[0]:
+          if age<8:
+            kcal=25 * weight 
+          elif age>=8 and age <12:
+            kcal=(254.1-135*(weight/expected) )*(weight**0.75)
+          else :
+            kcal=130*(weight**0.75)
+      elif age_type==age_category_types[2]:
+          if activity_level==activity_level_cat_2[0]:
+              kcal=80*(weight**0.75)
+          elif activity_level==activity_level_cat_2[1]:
+              kcal=95*(weight**0.75)
+          else:
+             kcal=110*(weight**0.75)
+      else:   
+            if activity_level==activity_level_cat_1[0]:
+              kcal=95*(weight**0.75)
+            elif activity_level==activity_level_cat_1[1]:
+              kcal=110*(weight**0.75)
+            elif activity_level==activity_level_cat_1[2]:
+              kcal=125*(weight**0.75)
+            elif activity_level==activity_level_cat_1[3]:
+              kcal=160*(weight**0.75)
+            elif activity_level==activity_level_cat_1[4]:
+              kcal=860*(weight**0.75)
+            else:
+              kcal=90*(weight**0.75)
+    return kcal
+#--------------------------------------------------------------------------------------------------
+
+
 st.sidebar.title("🐶 Smart Dog Diet Advisor")
 st.sidebar.write("Select breed + disorder → get personalized food suggestions")
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
@@ -322,52 +394,51 @@ if "prev_ingr_ranges" not in st.session_state:
 if "prev_nutr_ranges" not in st.session_state:
     st.session_state.prev_nutr_ranges = {}
 
-
 def size_category(w):
     if w <= 10:
-        return "Мелкие"
+        return size_types[0]
     elif w <= 25:
-        return "Средние"
+        return size_types[1]
     elif w <= 40:
-        return "Крупные"
+        return size_types[2]
     else:
-        return "Очень крупные"
+        return size_types[3]
 
 def age_type_category(size_categ, age ,age_metric):
-        if age_metric=="в годах":
+        if age_metric==metrics_age_types[0]:
             age=age*12
             
-        if size_categ=="Мелкие":
+        if size_categ==size_types[0]:
           if age>=1*12 and age<=8*12:    
-             return "Взрослые"
+             return age_category_types[1]
           elif age<1*12:    
-             return "Щенки"
+             return age_category_types[0]
           elif age>8*12:  
-             return "Пожилые"
+             return age_category_types[2]
        
-        elif size_categ=="Крупные":
+        elif size_categ==size_types[2]:
           if age>=15 and age<=7*12  :   
-              return "Взрослые"
+              return age_category_types[1]
           elif age<15:     
-             return "Щенки"
+             return age_category_types[0]
           elif age>7*12:    
-             return "Пожилые"
+             return age_category_types[2]
               
-        elif size_categ=="Очень крупные":
+        elif size_categ==size_types[3]:
           if age<=6*12 and age>=24:    
-              return "Взрослые"
+              return age_category_types[1]
           elif age<24:    
-              return "Щенки"
+              return age_category_types[0]
           elif age>6*12:   
-              return "Пожилые"
+              return age_category_types[2]
               
         else:  
           if age<=7*12:
-                return "Взрослые"
+                return age_category_types[1]
           elif age<12:     
-             return "Щенки"
+             return age_category_types[0]
           elif age>7*12:    
-            return "Пожилые"
+            return age_category_types[2]
 
 
 if "age_sel" not in st.session_state:
@@ -376,10 +447,8 @@ if "age_metr_sel" not in st.session_state:
     st.session_state.age_metr_sel = None
 if "weight_sel" not in st.session_state:
     st.session_state.weight_sel = None
-if "activity_level_1_sel" not in st.session_state:
-    st.session_state.activity_level_1_sel = None
-if "activity_level_2_sel" not in st.session_state:
-    st.session_state.activity_level_2_sel = None
+if "activity_level_sel" not in st.session_state:
+    st.session_state.activity_level_sel = None
 
 
 breed_list = sorted(disease_df["Breed"].unique())
@@ -400,29 +469,23 @@ if age!=st.session_state.age_sel or age_metric!=st.session_state.age_metric or w
     st.session_state.show_result_1 = False
     st.session_state.show_result_2 = False
 
-
-if age_type_categ=="Взрослые":
+if age_type_categ==age_category_types[1]:
     activity_level_1 = st.selectbox(
-        "Уровень активности",
-         ["Пассивный (гуляеет на поводке менее 1ч/день)", "Средний1 (1-3ч/день, низкая активность)",
-                          "Средний2 (1-3ч/день, высокая активность)", "Активный (3-6ч/день, рабочие собаки, например, овчарки)",
-                          "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
-                          "Взрослые, склонные к ожирению"])
+        "Уровень активности", activity_level_cat_1)
 
-elif age_type_categ=="Пожилые":
+elif age_type_categ==age_category_types[2]:
     activity_level_2 = st.selectbox(
-        "Уровень активности",
-         ["Пассивный", "Средний", "Активный"])
+        "Уровень активности",activity_level_cat_2)
 
-if age_type_categ=="Взрослые":
-    if activity_level_1!=st.session_state.activity_level_1_sel:
-        st.session_state.activity_level_1_sel=activity_level_1
+if age_type_categ==age_category_types[1]:
+    if activity_level_1!=st.session_state.activity_level_sel:
+        st.session_state.activity_level_sel=activity_level_1
         st.session_state.show_result_1 = False
         st.session_state.show_result_2 = False
         
-if age_type_categ=="Пожилые":
-    if  activity_level_2!=st.session_state.activity_level_2_sel:
-        st.session_state.activity_level_2_sel=activity_level_2
+if age_type_categ==age_category_types[2]:
+    if  activity_level_2!=st.session_state.activity_level_sel:
+        st.session_state.activity_level_sel=activity_level_2
         st.session_state.show_result_1 = False
         st.session_state.show_result_2 = False
 
@@ -444,7 +507,10 @@ if user_breed:
         if st.button("Generate Recommendation"):
             st.session_state.show_result_1 = True
         if st.session_state.show_result_1:
-            kkal = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=300.0 )
+            kcal=kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
+                                age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel)
+            
+            metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
