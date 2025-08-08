@@ -732,6 +732,25 @@ if user_breed:
                                   }
                                   for k, v in nutrients.items():
                                       st.write(f"**{k}:** {v} г")
+                                  en_nutr_100=3.5*nutrients["Белки"]+8.5*nutrients["Жиры"]+3.5*nutrients["Углеводы"]
+                                  st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
+
+
+                                  st.markdown("### Сколько нужно в граммах корма и ингредиентов на {metobolic_energy} ккал")           
+                                  needed_feed_g = (metobolic_energy * 100) / en_nutr_100
+                                  ingredients_required = {
+                                      name: round((weight * needed_feed_g / 100), 2)
+                                      for name, weight in result.items()
+                                  }                                  
+                                  st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
+                                  st.write("🧾 Количество ингредиентов для этой порции:")
+                                  for ingredient, amount in ingredients_required.items():
+                                      st.write(f" - {ingredient}: {amount} г")
+
+
+  
+                                  
+                            
                               else:
                                   st.error("❌ Не удалось найти оптимальное решение. Попробуйте другие параметры.")
                                   with st.spinner("🔄 Ищем по другому методу..."):
@@ -783,8 +802,25 @@ if user_breed:
                                     st.markdown("### 💪 Питательная ценность на 100 г:")
                                     for nutr in cols_to_divide:
                                         st.write(f"**{nutr}:** {round(totals[nutr], 2)} г")
-                    
-                                                   
+                                   
+                                    en_nutr_100=3.5*totals["Белки"]+8.5*totals["Жиры"]+3.5*totals["Углеводы"]
+                                    st.write(f"**Энергетическая ценность:** {round(en_nutr_100,2)} ккал")
+                                    
+                                    st.markdown("### Сколько нужно в граммах корма и ингредиентов на {metobolic_energy} ккал")           
+                                    needed_feed_g = (metobolic_energy * 100) / en_nutr_100
+                                    ingredients_required = {
+                                        name: round((weight * needed_feed_g / 100), 2)
+                                        for name, weight in values.items()
+                                    }                                  
+                                    st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
+                                    st.write("🧾 Количество ингредиентов для этой порции:")
+                                    for ingredient, amount in ingredients_required.items():
+                                        st.write(f" - {ingredient}: {amount} г")
+
+
+
+
+                                    
                                     # --- График 1: Состав ингредиентов ---
                                     fig1, ax1 = plt.subplots(figsize=(10, 6))
                                     
