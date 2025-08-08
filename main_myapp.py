@@ -58,8 +58,8 @@ if st.session_state.select_gender=="Самка":
 if st.session_state.select_reproductive_status=="Беременная":
   col1, col2 = st.columns([2, 20])  # col2 будет посередине
   with col2:            
-    berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
-                if berem_time != st.session_state.show_res_berem_time:
+       berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
+       if berem_time != st.session_state.show_res_berem_time:
                    st.session_state.show_res_berem_time = berem_time
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
