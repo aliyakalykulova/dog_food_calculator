@@ -322,22 +322,89 @@ if "prev_ingr_ranges" not in st.session_state:
 if "prev_nutr_ranges" not in st.session_state:
     st.session_state.prev_nutr_ranges = {}
 
+
+def size_category(w):
+    if w <= 10:
+        return "Мелкие"
+    elif w <= 25:
+        return "Средние"
+    elif w <= 40:
+        return "Крупные"
+    else:
+        return "Очень крупные"
+
+age_type_categ=["Щенки","Взрослые","Пожилые"]
+
+
+def age_type_category(size_categ, age ,age_metric):
+        if age_metric=="в годах":
+            age=age*12
+            
+        if size=="Мелкие":
+          if age>=1*12 and age<=8*12:    
+             return "Взрослые"
+          elif age<1*12:    
+             return "Щенки"
+          elif age>8*12:  
+             return "Пожилые"
+       
+        elif size=="Крупные":
+          if age>=15 and age<=7*12  :   
+              return "Взрослые"
+          elif age<15:     
+             return "Щенки"
+          elif age>7*12:    
+             return "Пожилые"
+              
+        elif size=="Очень крупные":
+          if age<=6*12 and age>=24:    
+              return "Взрослые"
+          elif age<24:    
+              return "Щенки"
+          elif age>6*12:   
+              return "Пожилые"
+              
+        else:  
+          if age<=7*12:
+                return "Взрослые"
+          elif age<12:     
+             return "Щенки"
+          elif age>7*12:    
+            return "Пожилые"
+
+
+if "age_sel" not in st.session_state:
+    st.session_state.age_sel = None
+if "age_metr_sel" not in st.session_state:
+    st.session_state.age_metr_sel = None
+if "weight_sel" not in st.session_state:
+    st.session_state.weight_sel = None
+if "activity_level_1_sel" not in st.session_state:
+    st.session_state.activity_level_1_sel = None
+if "activity_level_2_sel" not in st.session_state:
+    st.session_state.activity_level_2_sel = None
+
+
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
 min_weight = disease_df.loc[disease_df["Breed"] == user_breed, "min_weight"].values
 max_weight = disease_df.loc[disease_df["Breed"] == user_breed, "max_weight"].values
+avg_wight=(max_weight[0]+min_weight[0])/2
 
-st.write(min_weight[0])
-st.write(max_weight[0])
-st.write((max_weight[0]+min_weight[0])/2)
+size_categ = sizecategory(avg_wight)
+age_type_categ = age_type_category(size_categ, age ,age_metric)
 
 
-  
-                
-age_type_categ=["Щенки","Взрослые","Пожелые"]
-age_cat="Взрослые"
-if age_cat=="Взрослые":
+if age!=st.session_state.age_sel or age_metric!=st.session_state.age_metric or weight != st.session_state.weight_sel:
+    st.session_state.age_sel=age
+    st.session_state.age_metric=age_metric
+    st.session_state.weight_sel=weight
+    st.session_state.show_result_1 = False
+    st.session_state.show_result_2 = False
+
+
+if age_type_categ=="Взрослые":
     activity_level_1 = st.selectbox(
         "Уровень активности",
          ["Пассивный (гуляеет на поводке менее 1ч/день)", "Средний1 (1-3ч/день, низкая активность)",
@@ -345,17 +412,22 @@ if age_cat=="Взрослые":
                           "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
                           "Взрослые, склонные к ожирению"])
 
-elif age_cat=="Пожелые":
-    activity_level_1 = st.selectbox(
+elif age_type_categ=="Пожилые":
+    activity_level_2 = st.selectbox(
         "Уровень активности",
          ["Пассивный", "Средний", "Активный"])
 
-
-
-size_categ=["Мелкие","Средние","Крупные","Очень крупные"]
-
-
-
+if age_type_categ=="Взрослые":
+    if activity_level_1!=st.session_state.activity_level_1_sel:
+        st.session_state.activity_level_1_sel=activity_level_1
+        st.session_state.show_result_1 = False
+        st.session_state.show_result_2 = False
+        
+if age_type_categ=="Пожилые":
+    if  activity_level_2!=st.session_state.activity_level_2_sel:
+        st.session_state.activity_level_2_sel=activity_level_2
+        st.session_state.show_result_1 = False
+        st.session_state.show_result_2 = False
 
 if user_breed:
     info = disease_df[disease_df["Breed"] == user_breed]
