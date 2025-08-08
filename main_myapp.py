@@ -514,7 +514,7 @@ if user_breed:
                st.session_state.kkal_sel=kcal
                st.session_state.show_result_2 = False
           
-            metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=st.session_state.kkal_sel!=kcal )
+            metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=st.session_state.kkal_sel )
             
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
