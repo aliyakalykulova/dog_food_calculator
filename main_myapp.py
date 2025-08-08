@@ -327,7 +327,7 @@ disorder_keywords = {
 
 #--------------------------------------------------------------------------------------------
 
-def kcal_calculate(reproductive_status, berem_time, num_pup, L, age_type, weight, expected, activity_level):
+def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level):
     if L_time==lact_time_types[0]:
       L=0.75
     elif L_time==lact_time_types[1]:
