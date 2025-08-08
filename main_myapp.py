@@ -15,34 +15,67 @@ import itertools
 import matplotlib.pyplot as plt
 import textwrap
 
-# Ввод чисел
-weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
-age = st.number_input("Возраст собаки (в годах)", min_value=0, step=1)
-
-# Селект-бокс для пола
-gender = st.selectbox("Пол собаки", ["Самец", "Самка"])
-
-# Селект-бокс для кастрации/стерилизации/беременности
-reproductive_status = st.selectbox(
-    "Репродуктивный статус",
-    ["Не кастрирован/не стерилизована", "Кастрирован/Стерилизована", "Беременная"]
-)
-
-# Селект-бокс для уровня активности
-activity_level = st.selectbox(
-    "Уровень активности",
-    ["Пассивный", "Средний", "Активный"]
-)
-
-kkal = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=300.0 )
-
-
+st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
+st.header("Dog Diet Recommendation")
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
 if "show_result_2" not in st.session_state:
     st.session_state.show_result_2 = False
-    
-st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
+
+if "show_res_reproductive_status" not in st.session_state:
+    st.session_state.show_res_reproductive_status = False
+if "select_gender" not in st.session_state:
+    st.session_state.select_gender = None
+
+weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
+berem_time=st.selectbox("Измерение возроста", ["в годах","в месецах"])
+age = st.number_input("Возраст собаки", min_value=0, step=1)
+gender = st.selectbox("Пол собаки", ["Самец", "Самка"])
+
+if gender != st.session_state.select_gender:
+            st.session_state.select_gender = gender
+            st.session_state.show_res_reproductive_status = False
+
+if st.session_state.select_gender=="Самка":
+        if "show_res_berem" not in st.session_state:
+            st.session_state.show_res_berem = False
+        if "show_res_lact" not in st.session_state:
+            st.session_state.show_res_lact = False
+        if "select_reproductive_status" not in st.session_state:
+             st.session_state.select_reproductive_status = None
+       
+        reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
+        if reproductive_status != st.session_state.select_reproductive_status:
+            st.session_state.select_reproductive_status = reproductive_status
+            if st.session_state.select_reproductive_status=="Беременная:
+                berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
+            elif  st.session_state.select_reproductive_status=="Период лактации":
+                L_time=st.selectbox("Лактационный период", ["1 неделя","2 неделя","3 неделя","4 неделя"])  
+                num_pup=st.number_input("Количесвто щенков", min_value=0, step=1) 
+                
+                
+age_type_categ=["Щенки","Взрослые","Пожелые"]
+age_cat="Взрослые"
+if age_cat=="Взрослые":
+    activity_level_1 = st.selectbox(
+        "Уровень активности",
+         ["Пассивный (гуляеет на поводке менее 1ч/день)", "Средний1 (1-3ч/день, низкая активность)",
+                          "Средний2 (1-3ч/день, высокая активность)", "Активный (3-6ч/день, рабочие собаки, например, овчарки)",
+                          "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
+                          "Взрослые, склонные к ожирению"])
+
+elif age_cat=="Пожелые":
+    activity_level_1 = st.selectbox(
+        "Уровень активности",
+         ["Пассивный", "Средний", "Активный"])
+
+
+
+size_categ=["Мелкие","Средние","Крупные","Очень крупные"]
+kkal = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=300.0 )
+
+
+
 
 @st.cache_data(show_spinner=False)
 def load_data():
@@ -275,7 +308,6 @@ st.sidebar.title("🐶 Smart Dog Diet Advisor")
 st.sidebar.write("Select breed + disorder → get personalized food suggestions")
 st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)
 
-st.header("Dog Diet Recommendation")
 
 if "select1" not in st.session_state:
     st.session_state.select1 = None
