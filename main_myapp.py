@@ -325,9 +325,9 @@ if "prev_nutr_ranges" not in st.session_state:
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
 
-st.write(disease_df["min_weight"])
-st.write(disease_df["max_weight"])
-st.write((disease_df["min_weight"]+disease_df["max_weight"])/2)
+st.write(disease_df[disease_df["Breed"] == user_breed]["min_weight"])
+st.write(disease_df[disease_df["Breed"] == user_breed]["max_weight"])
+st.write((disease_df[disease_df["Breed"] == user_breed]["max_weight"]+disease_df[disease_df["Breed"] == user_breed]["min_weight"])/2)
 
 
   
