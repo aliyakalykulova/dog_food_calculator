@@ -48,7 +48,7 @@ if gender != st.session_state.select_gender:
             st.session_state.show_res_reproductive_status = False
 
 if st.session_state.select_gender=="Самка":
-    col1, col2, col3 = st.columns([1, 2, 1])  # col2 будет посередине
+    col1, col2 = st.columns([1, 10])  # col2 будет посередине
     with col2:
         reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
         if reproductive_status != st.session_state.select_reproductive_status:
