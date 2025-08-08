@@ -510,12 +510,14 @@ if user_breed:
         if st.session_state.show_result_1:
             kcal=kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel)
-            if st.session_state.kkal_sel!=kcal:
-               st.session_state.kkal_sel=kcal
-               st.session_state.show_result_2 = False
-          
-            metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=st.session_state.kkal_sel )
             
+           
+          
+            metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
+            if st.session_state.kkal_sel!=metobolic_energy:
+               st.session_state.kkal_sel=metobolic_energy
+               st.session_state.show_result_2 = False
+           
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
