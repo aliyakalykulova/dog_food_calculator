@@ -449,7 +449,8 @@ if "weight_sel" not in st.session_state:
     st.session_state.weight_sel = None
 if "activity_level_sel" not in st.session_state:
     st.session_state.activity_level_sel = None
-
+if "kkal_sel" not in st.session_state:
+    st.session_state.kkal_sel = None
 
 breed_list = sorted(disease_df["Breed"].unique())
 user_breed = st.selectbox("Select dog breed:", breed_list)
@@ -509,7 +510,9 @@ if user_breed:
         if st.session_state.show_result_1:
             kcal=kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel)
-            
+            if st.session_state.kkal_sel!=kcal:
+               st.session_state.show_result_2 = False
+          
             metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             
             # 10.1) Build query vector
