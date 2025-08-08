@@ -29,7 +29,6 @@ if "show_reproductive_status" not in st.session_state:
     st.session_state.select_reproductive_status = None
 if "select_gender" not in st.session_state:
     st.session_state.select_gender = None
-    
 if "select_reproductive_status" not in st.session_state:
              st.session_state.select_reproductive_status = None
 if "show_res_berem_time" not in st.session_state:
@@ -49,12 +48,13 @@ if gender != st.session_state.select_gender:
             st.session_state.show_res_reproductive_status = False
 
 if st.session_state.select_gender=="Самка":
+    col1, col2, col3 = st.columns([1, 2, 1])  # col2 будет посередине
+    with col2:
         reproductive_status = st.selectbox( "Репродуктивный статус", ["Не беременная", "Беременная", "Период лактации"])
         if reproductive_status != st.session_state.select_reproductive_status:
             st.session_state.select_reproductive_status = reproductive_status
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
-            
 if st.session_state.select_reproductive_status=="Беременная":
                 berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
                 if berem_time != st.session_state.show_res_berem_time:
