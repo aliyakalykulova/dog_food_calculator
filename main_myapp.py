@@ -38,7 +38,7 @@ if "show_res_lact_time" not in st.session_state:
 if "show_res_num_pup" not in st.session_state:
                    st.session_state.show_res_num_pup = None 
 
-col1, col2, col3 = st.columns([3,1, 3, 2])  # col2 будет посередине
+col1, col0 ,col2, col3 = st.columns([3,1, 3, 2])  # col2 будет посередине
 with col1:
        weight = st.number_input("Вес собаки (в кг)", min_value=0.0, step=0.1)
 with col2:
