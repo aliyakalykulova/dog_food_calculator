@@ -333,14 +333,11 @@ def size_category(w):
     else:
         return "Очень крупные"
 
-age_type_categ=["Щенки","Взрослые","Пожилые"]
-
-
 def age_type_category(size_categ, age ,age_metric):
         if age_metric=="в годах":
             age=age*12
             
-        if size=="Мелкие":
+        if size_categ=="Мелкие":
           if age>=1*12 and age<=8*12:    
              return "Взрослые"
           elif age<1*12:    
@@ -348,7 +345,7 @@ def age_type_category(size_categ, age ,age_metric):
           elif age>8*12:  
              return "Пожилые"
        
-        elif size=="Крупные":
+        elif size_categ=="Крупные":
           if age>=15 and age<=7*12  :   
               return "Взрослые"
           elif age<15:     
@@ -356,7 +353,7 @@ def age_type_category(size_categ, age ,age_metric):
           elif age>7*12:    
              return "Пожилые"
               
-        elif size=="Очень крупные":
+        elif size_categ=="Очень крупные":
           if age<=6*12 and age>=24:    
               return "Взрослые"
           elif age<24:    
