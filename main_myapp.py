@@ -54,8 +54,6 @@ if st.session_state.select_gender=="Самка":
             st.session_state.select_reproductive_status = reproductive_status
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
-        if st.session_state.select_reproductive_status=="Беременная":
-
             
 if st.session_state.select_reproductive_status=="Беременная":
                 berem_time=st.selectbox("Срок беременности", ["первые 4 недедели беременности","последние 5 недель беременности"])   
