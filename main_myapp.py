@@ -736,7 +736,7 @@ if user_breed:
                                   st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
 
 
-                                  st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {metobolic_energy} ккал")           
+                                  st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
                                   needed_feed_g = (metobolic_energy * 100) / en_nutr_100
                                   ingredients_required = {
                                       name: round((weight * needed_feed_g / 100), 2)
@@ -806,7 +806,7 @@ if user_breed:
                                     en_nutr_100=3.5*totals["Белки"]+8.5*totals["Жиры"]+3.5*totals["Углеводы"]
                                     st.write(f"**Энергетическая ценность:** {round(en_nutr_100,2)} ккал")
                                     
-                                    st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {metobolic_energy} ккал")           
+                                    st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
                                     needed_feed_g = (metobolic_energy * 100) / en_nutr_100
                                     ingredients_required = {
                                         name: round((weight * needed_feed_g / 100), 2)
