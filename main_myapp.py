@@ -505,7 +505,7 @@ if user_breed:
             st.session_state.show_result_2 = False
             
         # Первая кнопка
-        if st.button("Generate Recommendation"):
+        if st.button("Составить рекомендации"):
             st.session_state.show_result_1 = True
         if st.session_state.show_result_1:
             kcal=kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
