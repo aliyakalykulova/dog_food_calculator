@@ -33,8 +33,8 @@ activity_level_cat_2 = ["Пассивный", "Средний", "Активны�
 
 # -------------------------------------------------------------------------------------
 
-st.set_page_config(page_title="Dog Diet Recommendation", layout="centered")
-st.header("Dog Diet Recommendation")
+st.set_page_config(page_title="Рекомендации по питанию собак", layout="centered")
+st.header("Рекомендации по питанию собак")
 if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
 if "show_result_2" not in st.session_state:
@@ -570,8 +570,7 @@ if user_breed:
             ingredients_finish = [i for i in list(set(prot))+list(set(carb_cer+carb_veg+fat))+list(set(oth+water)) if len(i)>0]
                      
             # 10.5) Display
-            st.subheader("🌿 Recommended Ingredients")
-            st.write(f"Based on disorder: **{disorder_type}**")
+            st.subheader("🌿 Рекомендуемые ингредиенты")
             for ing in ingredients_finish:
                 st.write("• " + ing)
             if len(ingredients_finish)>0:
