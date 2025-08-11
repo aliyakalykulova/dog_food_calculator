@@ -453,7 +453,7 @@ if "kkal_sel" not in st.session_state:
     st.session_state.kkal_sel = None
 
 breed_list = sorted(disease_df["Breed"].unique())
-user_breed = st.selectbox("Select dog breed:", breed_list)
+user_breed = st.selectbox("Порода собаки:", breed_list)
 
 min_weight = disease_df.loc[disease_df["Breed"] == user_breed, "min_weight"].values
 max_weight = disease_df.loc[disease_df["Breed"] == user_breed, "max_weight"].values
@@ -495,7 +495,7 @@ if user_breed:
     if not info.empty:
         breed_size = info["breed_size_category"].values[0]
         disorders = info["Disease"].unique().tolist()
-        selected_disorder = st.selectbox("Select disorder:", disorders)
+        selected_disorder = st.selectbox("Заболевание:", disorders)
         disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
 
         if user_breed != st.session_state.select1 or selected_disorder!= st.session_state.select2:
