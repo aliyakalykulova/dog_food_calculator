@@ -743,6 +743,20 @@ if user_breed:
 
                                   st.write(f"****")
 
+                                  missing = set()
+
+                                  count_nutr_cont_all = {}
+                                  for nutr in other_nutrients + major_minerals + vitamins:
+                                      total = 0
+                                      for i, name in enumerate(ingredient_names):
+                                          if nutr not in food[name]:
+                                              missing.add((name, nutr))
+                                          total += res.x[i] * food[name].get(nutr, 0)
+                                      count_nutr_cont_all[nutr] = round(total * 100, 2)
+                                  
+                                  if missing:
+                                      st.warning(f"Отсутствуют значения для: {missing}")
+
 
 
                                   count_nutr_cont_all = {
