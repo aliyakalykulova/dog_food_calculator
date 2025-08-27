@@ -550,7 +550,7 @@ if user_breed:
             }
             top_ings = sorted(ing_scores.items(), key=lambda x: x[1], reverse=True)[:20]
 
-            prot=sorted([i for i in top_ings if i[0].title() in proteins and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:3]
+            prot=sorted([i for i in top_ings if i[0].title() in proteins and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             prot = [i.title() for i, _ in prot]
             prot=df_standart[df_standart["Ingredient"].isin(prot)]["Standart"].tolist()
 
