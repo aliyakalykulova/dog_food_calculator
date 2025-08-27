@@ -744,6 +744,7 @@ if user_breed:
                                   st.write(f"****")
 
                                   missing = set()
+                                  st.write(food)
 
                                   count_nutr_cont_all = {}
                                   for nutr in other_nutrients + major_minerals + vitamins:
