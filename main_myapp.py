@@ -769,8 +769,14 @@ if user_breed:
                                       for j, col in enumerate(cols):
                                           if i + j < len(other_nutrients):
                                               nutris = other_nutrients[i + j]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg=""
+                                              if len(nutr_text)>1:
+                                                emg=nutr_text[-1]
+                                              else:
+                                                emg="g"
                                               with col:
-                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
 
                                           
                                   st.write(f"**Минералы:**")
@@ -779,8 +785,15 @@ if user_breed:
                                       for j, col in enumerate(cols):
                                           if i + j < len(major_minerals):
                                               nutris = major_minerals[i + j]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg=""
+                                              if len(nutr_text)>1:
+                                                emg=nutr_text[-1]
+                                              else:
+                                                emg="g"
                                               with col:
-                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
+                                             
 
                                   st.write(f"**Витамины:**")
                                   for i in range(0, len(vitamins), 4):
@@ -788,8 +801,14 @@ if user_breed:
                                       for j, col in enumerate(cols):
                                           if i + j < len(vitamins):
                                               nutris = vitamins[i + j]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg=""
+                                              if len(nutr_text)>1:
+                                                emg=nutr_text[-1]
+                                              else:
+                                                emg="g"
                                               with col:
-                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
                                                 
                                                                                                    
 
