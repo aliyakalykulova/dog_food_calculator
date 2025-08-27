@@ -776,7 +776,7 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
 
                                           
                                   st.write(f"**Минералы:**")
@@ -792,7 +792,7 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
                                              
 
                                   st.write(f"**Витамины:**")
@@ -808,7 +808,7 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} emg")
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
                                                 
                                                                                                    
 
