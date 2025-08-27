@@ -764,8 +764,8 @@ if user_breed:
                                       for nutr in other_nutrients+major_minerals+vitamins
                                   }
 
-                                  for i in range(0, len(other_nutrients), 4):
-                                      cols = st.columns(4)
+                                  for i in range(0, len(other_nutrients), 2):
+                                      cols = st.columns(2)
                                       for j, col in enumerate(cols):
                                           if i + j < len(other_nutrients):
                                               nutris = other_nutrients[i + j]
@@ -779,9 +779,9 @@ if user_breed:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
 
                                           
-                                  st.write(f"**Минералы:**")
-                                  for i in range(0, len(major_minerals), 4):
-                                      cols = st.columns(4)
+                                  st.markdown("####Минералы")
+                                  for i in range(0, len(major_minerals), 2):
+                                      cols = st.columns(2)
                                       for j, col in enumerate(cols):
                                           if i + j < len(major_minerals):
                                               nutris = major_minerals[i + j]
@@ -796,8 +796,8 @@ if user_breed:
                                              
 
                                   st.write(f"**Витамины:**")
-                                  for i in range(0, len(vitamins), 4):
-                                      cols = st.columns(4)
+                                  for i in range(0, len(vitamins), 2):
+                                      cols = st.columns(2)
                                       for j, col in enumerate(cols):
                                           if i + j < len(vitamins):
                                               nutris = vitamins[i + j]
