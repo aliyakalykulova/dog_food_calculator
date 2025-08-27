@@ -742,34 +742,41 @@ if user_breed:
                                   st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
 
                                   st.write(f"****")
-                                
-                                  cols = st.columns(4)
+
+
 
                                   count_nutr_cont_all = {
                                       nutr: round(sum(res.x[i] * food[name][nutr] for i, name in enumerate(ingredient_names)) * 100, 2)
                                       for nutr in other_nutrients+major_minerals+vitamins
                                   }
 
+                                  for i in range(0, len(other_nutrients), 4):
+                                      cols = st.columns(4)
+                                      for j, col in enumerate(cols):
+                                          if i + j < len(other_nutrients):
+                                              nutris = other_nutrients[i + j]
+                                              with col:
+                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
 
-                                
-                                  for i, nutris in enumerate(other_nutrients):
-                                      col = cols[i % 4]   # выбираем колонку
-                                      with col:
-                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  ) 
                                           
                                   st.write(f"**Минералы:**")
-                                  cols = st.columns(4)                
-                                  for i, nutris in enumerate(major_minerals):
-                                      col = cols[i % 4]   # выбираем колонку
-                                      with col:
-                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  ) 
+                                  for i in range(0, len(major_minerals), 4):
+                                      cols = st.columns(4)
+                                      for j, col in enumerate(cols):
+                                          if i + j < len(major_minerals):
+                                              nutris = major_minerals[i + j]
+                                              with col:
+                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
 
                                   st.write(f"**Витамины:**")
-                                  cols = st.columns(4)         
-                                  for i, nutris in enumerate(vitamins):
-                                      col = cols[i % 4]   # выбираем колонку
-                                      with col:
-                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  )
+                                  for i in range(0, len(vitamins), 4):
+                                      cols = st.columns(4)
+                                      for j, col in enumerate(cols):
+                                          if i + j < len(vitamins):
+                                              nutris = vitamins[i + j]
+                                              with col:
+                                                  st.text(f"**{nutris}**: {count_nutr_cont_all.get(nutris, '')}")
+                                                
                                                                                                    
 
 
