@@ -31,6 +31,12 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
                           "Взрослые, склонные к ожирению"]
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
+
+other_nutrients=["Зола","Клетчатка","Холестерин, mg","Марганец, mg","Селен, mkg","Сахар общее","Тиамин, mg"]
+major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major Minerals.Iron, mg","Major Minerals.Magnesium, mg","Major Minerals.Phosphorus, mg","Major Minerals.Potassium, mg",
+                "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
+vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
+
 # -------------------------------------------------------------------------------------
 
 st.set_page_config(page_title="Рекомендации по питанию собак", layout="centered")
@@ -39,6 +45,7 @@ if "show_result_1" not in st.session_state:
     st.session_state.show_result_1 = False
 if "show_result_2" not in st.session_state:
     st.session_state.show_result_2 = False
+
 
 
 if "select_reproductive_status" not in st.session_state:
@@ -734,6 +741,35 @@ if user_breed:
                                   en_nutr_100=3.5*nutrients["Белки"]+8.5*nutrients["Жиры"]+3.5*nutrients["Углеводы"]
                                   st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
 
+                                  st.write(f"****")
+                                
+                                  cols = st.columns(4)
+
+                                  count_nutr_cont_all = {
+                                      nutr: round(sum(res.x[i] * food[name][nutr] for i, name in enumerate(ingredient_names)) * 100, 2)
+                                      for nutr in other_nutrients+major_minerals+vitamins
+                                  }
+                                  
+                                  for i, nutris in enumerate(other_nutrients):
+                                      col = cols[i % 4]   # выбираем колонку
+                                      with col:
+                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  ) 
+                                          
+                                  st.write(f"**Минералы:**")
+                                  cols = st.columns(4)                
+                                  for i, nutris in enumerate(major_minerals):
+                                      col = cols[i % 4]   # выбираем колонку
+                                      with col:
+                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  ) 
+
+                                  st.write(f"**Витамины:**")
+                                  cols = st.columns(4)         
+                                  for i, nutris in enumerate(vitamins):
+                                      col = cols[i % 4]   # выбираем колонку
+                                      with col:
+                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  )
+                                                                                                   
+
 
                                   st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
                                   needed_feed_g = (metobolic_energy * 100) / en_nutr_100
@@ -797,13 +833,17 @@ if user_breed:
                                     st.markdown("### 📦 Состав (в граммах на 100 г):")
                                     for name, val in values.items():
                                         st.write(f"{name}: **{round(val, 2)} г**")
-                    
+ 
+                                    
                                     st.markdown("### 💪 Питательная ценность на 100 г:")
                                     for nutr in cols_to_divide:
                                         st.write(f"**{nutr}:** {round(totals[nutr], 2)} г")
                                    
                                     en_nutr_100=3.5*totals["Белки"]+8.5*totals["Жиры"]+3.5*totals["Углеводы"]
                                     st.write(f"**Энергетическая ценность:** {round(en_nutr_100,2)} ккал")
+
+
+
                                     
                                     st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
                                     needed_feed_g = (metobolic_energy * 100) / en_nutr_100
