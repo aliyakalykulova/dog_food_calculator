@@ -779,7 +779,7 @@ if user_breed:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
 
                                           
-                                  st.markdown("####Минералы")
+                                  st.markdown("#### Минералы")
                                   for i in range(0, len(major_minerals), 2):
                                       cols = st.columns(2)
                                       for j, col in enumerate(cols):
