@@ -588,11 +588,11 @@ if user_breed:
 
 
 
-                      for col in cols_to_divide:
+                      for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
 
-                      df_ingr_all[cols_to_divide] = df_ingr_all[cols_to_divide] / 100
+                      df_ingr_all[cols_to_divide] = df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] / 100
                       df_ingr_all['ингредиент и описание'] = df_ingr_all['Ингредиенты'] + ' — ' + df_ingr_all['Описание']
 
 
