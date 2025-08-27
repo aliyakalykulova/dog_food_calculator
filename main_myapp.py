@@ -641,7 +641,7 @@ if user_breed:
                 
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
-                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide].to_dict(orient='index')
+                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients+major_minerals+vitamins].to_dict(orient='index')
 
 
                       # --- Ограничения по количеству каждого ингредиента ---
