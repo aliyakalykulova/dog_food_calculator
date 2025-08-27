@@ -749,25 +749,27 @@ if user_breed:
                                       nutr: round(sum(res.x[i] * food[name][nutr] for i, name in enumerate(ingredient_names)) * 100, 2)
                                       for nutr in other_nutrients+major_minerals+vitamins
                                   }
-                                  
+
+
+                                
                                   for i, nutris in enumerate(other_nutrients):
                                       col = cols[i % 4]   # выбираем колонку
                                       with col:
-                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  ) 
+                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  ) 
                                           
                                   st.write(f"**Минералы:**")
                                   cols = st.columns(4)                
                                   for i, nutris in enumerate(major_minerals):
                                       col = cols[i % 4]   # выбираем колонку
                                       with col:
-                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  ) 
+                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  ) 
 
                                   st.write(f"**Витамины:**")
                                   cols = st.columns(4)         
                                   for i, nutris in enumerate(vitamins):
                                       col = cols[i % 4]   # выбираем колонку
                                       with col:
-                                          st.text(f"*{nutris}*: {count_nutr_cont_all[nutris]}  )
+                                          st.text(f"**{nutris}**: {count_nutr_cont_all[nutris]}  )
                                                                                                    
 
 
