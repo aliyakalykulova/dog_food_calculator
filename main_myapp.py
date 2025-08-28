@@ -335,6 +335,7 @@ disorder_keywords = {
 #--------------------------------------------------------------------------------------------
 
 def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level):
+    formula=""
     if L_time==lact_time_types[0]:
       L=0.75
     elif L_time==lact_time_types[1]:
@@ -382,7 +383,7 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
               kcal=860*(weight**0.75)
             else:
               kcal=90*(weight**0.75)
-    return kcal
+    return kcal, formula
 #--------------------------------------------------------------------------------------------------
 
 
@@ -515,11 +516,12 @@ if user_breed:
         if st.button("Составить рекомендации"):
             st.session_state.show_result_1 = True
         if st.session_state.show_result_1:
-            kcal=kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
+            kcal, formula =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel)
             
            
-          
+            st.markdown(f"Было рассчитано по формуле: {formula}")
+            st.markdown(f"[Подробнее]({url}))")
             metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             if st.session_state.kkal_sel!=metobolic_energy:
                st.session_state.kkal_sel=metobolic_energy
