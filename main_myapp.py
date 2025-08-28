@@ -622,7 +622,8 @@ if user_breed:
                                       desc=df_ing['Описание'].dropna().unique()[0]
                                       label = f"{ingredient} — {desc}"
                                       key = f"{category}_{ingredient}_{desc}"
-                                      if st.button(f"{ingredient}", key=key):
+                                      text=f"{ingredient} — {desc}" if desc!="Обыкновенный" else f"{ingredient}"
+                                      if st.button(text, key=key):
                                               st.session_state.selected_ingredients.add(label)   
                                               st.session_state.show_result_2 = False
 
@@ -641,7 +642,7 @@ if user_breed:
                             st.session_state.to_remove = None
                       for i in sorted(st.session_state.selected_ingredients):
                             col1, col2 = st.columns([5, 1])
-                            col1.write(i)
+                            col1.write(i.replace(" — Обыкновенный",""))
                             if col2.button("❌", key=f"remove_{i}"):
                                 st.session_state.to_remove = i  # Сохраняем, кого удалить
                         # ВНЕ цикла — обрабатываем
