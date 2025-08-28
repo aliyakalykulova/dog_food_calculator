@@ -616,7 +616,18 @@ if user_breed:
                           with st.expander(f"{category}"):
                               df_cat = df_ingr_all[df_ingr_all['Категория'] == category]
                               for ingredient in df_cat['Ингредиенты'].dropna().unique():
-                                  with st.expander(f"{ingredient}"):
+
+                                  df_ing = df_cat[df_cat['Ингредиенты'] == ingredient]
+                                  if len(df_ing['Описание'].dropna().unique())==1:
+                                      desc=df_ing['Описание'].dropna().unique()[0]
+                                      label = f"{ingredient} — {desc}"
+                                      key = f"{category}_{ingredient}_{desc}"
+                                      if st.button(f"{ingredient}", key=key):
+                                              st.session_state.selected_ingredients.add(label)   
+                                              st.session_state.show_result_2 = False
+
+                                  else: 
+                                    with st.expander(f"{ingredient}"):
                                       df_ing = df_cat[df_cat['Ингредиенты'] == ingredient]
                                       for desc in df_ing['Описание'].dropna().unique():
                                           label = f"{ingredient} — {desc}"
