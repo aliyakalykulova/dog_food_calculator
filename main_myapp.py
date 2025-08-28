@@ -616,41 +616,55 @@ if user_breed:
                           with st.expander(f"{category}"):
                               df_cat = df_ingr_all[df_ingr_all['Категория'] == category]
                               for ingredient in df_cat['Ингредиенты'].dropna().unique():
-
                                   df_ing = df_cat[df_cat['Ингредиенты'] == ingredient]
-                                  if len(df_ing['Описание'].dropna().unique())==1:
-                                      desc=df_ing['Описание'].dropna().unique()[0]
+                                  unique_descs = df_ing['Описание'].dropna().unique()
+                                  
+                                  # Описание, отличное от "Обыкновенный"
+                                  non_regular_descs = [desc for desc in unique_descs if desc.lower() != "обыкновенный"]
+                                  
+                                  if len(unique_descs) == 1:
+                                      desc = unique_descs[0]
                                       label = f"{ingredient} — {desc}"
                                       key = f"{category}_{ingredient}_{desc}"
-                                      text=f"{ingredient} — {desc}" if desc!="Обыкновенный" else f"{ingredient}"
+                                      text = f"{ingredient} — {desc}" if desc != "Обыкновенный" else f"{ingredient}"
                                       if st.button(text, key=key):
-                                              st.session_state.selected_ingredients.add(label)   
-                                              st.session_state.show_result_2 = False
+                                          st.session_state.selected_ingredients.add(label)
+                                          st.session_state.show_result_2 = False
+                                  
+                                  elif non_regular_descs:
+                                      # Показываем вложенный expander только если есть НЕ "Обыкновенные"
+                                      with st.expander(f"{ingredient}"):
+                                          for desc in non_regular_descs:
+                                              label = f"{ingredient} — {desc}"
+                                              key = f"{category}_{ingredient}_{desc}"
+                                              if st.button(f"{desc}", key=key):
+                                                  st.session_state.selected_ingredients.add(label)
+                                                  st.session_state.show_result_2 = False
+                                  
+                                  # Можно также отобразить "обыкновенные" кнопкой без вложенного expander (по желанию)
+                                  regular_descs = [desc for desc in unique_descs if desc.lower() == "обыкновенный"]
+                                  for desc in regular_descs:
+                                      label = f"{ingredient} — {desc}"
+                                      key = f"{category}_{ingredient}_{desc}_reg"
+                                      text = f"{ingredient}"  # Без "Обыкновенный" в кнопке
+                                      if st.button(text, key=key):
+                                          st.session_state.selected_ingredients.add(label)
+                                          st.session_state.show_result_2 = False
 
-                                  else: 
-                                    with st.expander(f"{ingredient}"):
-                                      df_ing = df_cat[df_cat['Ингредиенты'] == ingredient]
-                                      for desc in df_ing['Описание'].dropna().unique():
-                                          label = f"{ingredient} — {desc}"
-                                          key = f"{category}_{ingredient}_{desc}"
-                                          if st.button(f"{desc}", key=key):
-                                              st.session_state.selected_ingredients.add(label)   
-                                              st.session_state.show_result_2 = False
-
-                      st.markdown("### ✅ Выбранные ингредиенты:")                                  
+                      st.markdown("### ✅ Выбранные ингредиенты:")
                       if "to_remove" not in st.session_state:
-                            st.session_state.to_remove = None
+                          st.session_state.to_remove = None
+                      
                       for i in sorted(st.session_state.selected_ingredients):
-                            col1, col2 = st.columns([5, 1])
-                            col1.write(i.replace(" — Обыкновенный",""))
-                            if col2.button("❌", key=f"remove_{i}"):
-                                st.session_state.to_remove = i  # Сохраняем, кого удалить
-                        # ВНЕ цикла — обрабатываем
+                          col1, col2 = st.columns([5, 1])
+                          col1.write(i.replace(" — Обыкновенный", ""))
+                          if col2.button("❌", key=f"remove_{i}"):
+                              st.session_state.to_remove = i
+                      
                       if st.session_state.to_remove:
-                            st.session_state.selected_ingredients.discard(st.session_state.to_remove)
-                            st.session_state.to_remove = None
-                            st.rerun()  # или st.experimental_rerun() если старая версия
-                
+                          st.session_state.selected_ingredients.discard(st.session_state.to_remove)
+                          st.session_state.to_remove = None
+                          st.rerun()
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
                       food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients+major_minerals+vitamins].to_dict(orient='index')
