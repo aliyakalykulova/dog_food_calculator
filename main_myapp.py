@@ -622,7 +622,7 @@ if user_breed:
                                   # Описание, отличное от "Обыкновенный"
                                   non_regular_descs = [desc for desc in unique_descs if desc.lower() != "обыкновенный"]
                                   
-                                  if len(unique_descs) == 1:
+                                  if len(unique_descs) == 1 and unique_descs[0].lower() != "обыкновенный":
                                       desc = unique_descs[0]
                                       label = f"{ingredient} — {desc}"
                                       key = f"{category}_{ingredient}_{desc}"
