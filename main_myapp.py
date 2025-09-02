@@ -336,6 +336,7 @@ disorder_keywords = {
 
 def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level):
     formula=""
+    page=""
     if L_time==lact_time_types[0]:
       L=0.75
     elif L_time==lact_time_types[1]:
@@ -348,7 +349,9 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
     if reproductive_status==rep_status_types[1]:
       if berem_time==berem_time_types[0]:
         kcal=132*(weight**0.75)
-        formula="kcal=132*(weight^0.75)"
+        formula= "kcal = 132*(вес^0.75)    \n(первые 4 недели беременности)"
+        page = "56"
+        
       else:
         kcal=132*(weight**0.75) + (26*weight)
         formula="kcal=132*(weight^0.75) + (26*weight)"
@@ -536,12 +539,16 @@ if user_breed:
         if st.button("Составить рекомендации"):
             st.session_state.show_result_1 = True
         if st.session_state.show_result_1:
-            kcal, formula =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
+            kcal, formula, page =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel)
             
            
-            st.markdown(f"Было рассчитано по формуле: {formula}")
-            st.markdown("[Подробнее](https://europeanpetfood.org/wp-content/uploads/2024/09/FEDIAF-Nutritional-Guidelines_2024.pdf#page=51)")
+            st.markdown(f"Было рассчитано по формуле")
+            st.markdown(f"{formula}")
+            st.latex(r"kcal = 132 \cdot (вес^{0.75})")
+
+            url="https://europeanpetfood.org/wp-content/uploads/2024/09/FEDIAF-Nutritional-Guidelines_2024.pdf#page="+page
+            st.markdown("[Подробнее]({url})")
             metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             if st.session_state.kkal_sel!=metobolic_energy:
                st.session_state.kkal_sel=metobolic_energy
