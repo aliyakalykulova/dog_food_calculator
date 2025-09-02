@@ -349,23 +349,23 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
     if reproductive_status==rep_status_types[1]:
       if berem_time==berem_time_types[0]:
         kcal=132*(weight**0.75)
-        formula= r"kcal = 132 \cdot вес^{0.75} \quad \text{(первые 4 недели беременности)}"
+        formula= r"kcal = 132 \cdot вес^{0.75}  \\  \text{(первые 4 недели беременности)}"
         page = "56"
         
       else:
         kcal=132*(weight**0.75) + (26*weight)
-        formula= r"kcal = 132 \cdot вес^{0.75} + 26 \cdot вес \quad \text{(последние 5 недель беременности)}"
+        formula= r"kcal = 132 \cdot вес^{0.75} + 26 \cdot вес  \\  \text{(последние 5 недель беременности)}"
         page = "56"
   
     elif reproductive_status==rep_status_types[2]:
        if num_pup<5:
          kcal=145*(weight**0.75) + 24*num_pup*weight*L
-         formula = fr"kcal = 145 \cdot вес^{{0.75}} + 24 \cdot n \cdot вес \cdot L \quad \text{{n - количество щенков}} \quad \text{{L = {L} для {L_time}}}"
+         formula = fr"kcal = 145 \cdot вес^{{0.75}} + 24 \cdot n \cdot вес \cdot L  \\  \text{{n - количество щенков}}  \\  \text{{L = {L} для {L_time}}}"
          page = "56"
          
        else:
          kcal=145*(weight**0.75) + (96+12*num_pup-4)*weight*L
-         formula = fr"kcal = 145 \cdot вес^{0.75} + (96 + 12 \cdot n - 4) \cdot вес \cdot L   \quad \text{{n - количество щенков}} \quad \text{{L = {L} для {L_time}}}"       
+         formula = fr"kcal = 145 \cdot вес^{0.75} + (96 + 12 \cdot n - 4) \cdot вес \cdot L    \\  \text{{n - количество щенков}}  \\  \text{{L = {L} для {L_time}}}"       
          page = "56"
          
     else:
@@ -377,7 +377,7 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
             
           elif age>=8 and age <12:
             kcal=(254.1-135*(weight/expected) )*(weight**0.75)
-            formula=fr"kcal = \left(254.1 - 135 \cdot \frac{{вес}}{{w}}\right) \cdot вес^{{0.75}} \quad w = {expected} \; \text{{– предположительный вес для породы {user_breed}}}"
+            formula=fr"kcal = \left(254.1 - 135 \cdot \frac{{вес}}{{w}}\right) \cdot вес^{{0.75}}  \\  w = {expected} \; \text{{– предположительный вес для породы {user_breed}}}"
             page = "56"
 
         
