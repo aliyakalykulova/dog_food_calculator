@@ -736,20 +736,20 @@ if user_breed:
                           ingr_ranges = []
                           for ingr in ingredient_names:
                               if ingr in proteins:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, value=(int(40 / meat_len), int(60 / meat_len))))
+                                ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, value=(int(40 / meat_len), int(60 / meat_len))))
 
                               elif ingr in oils:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (1,10)))
+                                ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, (1,10)))
 
                               elif ingr in carbonates_cer:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (10,35)))
+                                ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, (10,35)))
 
                               elif ingr in carbonates_veg:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (10,25)))
+                                ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, (10,25)))
                               elif "Вода" in ingr:
-                                ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (0,30)))
+                                ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, (0,30)))
                               elif ingr in other:
-                                  ingr_ranges.append(st.slider(f"{ingr}", 0, 100, (1,3)))
+                                  ingr_ranges.append(st.slider(f"{ingr.replace(" — Обыкновенный", "")}", 0, 100, (1,3)))
 
 
                           # --- Ограничения по нутриентам ---
@@ -815,7 +815,7 @@ if user_breed:
                                   result = {name: round(val * 100, 2) for name, val in zip(ingredient_names, res.x)}
                                   st.markdown("### 📦 Состав (в граммах на 100 г):")
                                   for name, value in result.items():
-                                      st.write(f"{name}: **{value} г**")
+                                      st.write(f"{name.replace(" — Обыкновенный", "")}: **{value} г**")
 
                                   st.markdown("### 💪 Питательная ценность на 100 г:")
                                   nutrients = {
@@ -823,7 +823,7 @@ if user_breed:
                                       for nutr in cols_to_divide
                                   }
                                   for k, v in nutrients.items():
-                                      st.write(f"**{k.replace(" — Обыкновенный", "")}:** {v} г")
+                                      st.write(f"**{k}:** {v} г")
                                   en_nutr_100=3.5*nutrients["Белки"]+8.5*nutrients["Жиры"]+3.5*nutrients["Углеводы"]
                                   st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
 
