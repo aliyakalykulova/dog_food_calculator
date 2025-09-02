@@ -406,7 +406,7 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
             else:
               kcal=90*(weight**0.75)
               formula="kcal=90*(weight^0.75)" 
-    return kcal, formula
+    return kcal, formula, page
 #--------------------------------------------------------------------------------------------------
 
 
