@@ -1018,7 +1018,7 @@ if user_breed:
                                     nutr_lims = [nutr_ranges[n] for n in nutrients]
                                     
                                     for i, (nutrient, val, (low, high)) in enumerate(zip(nutrients, nutr_vals, nutr_lims)):
-                                        ax2.plot([i, i], [low, high], color='#CCCED1', linewidth=4, alpha=0.5)
+                                        ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5)
                                         ax2.plot(i, val, 'o', color='#FF4B4B')
                                     
                                     ax2.set_xticks(range(len(nutrients)))
