@@ -541,7 +541,7 @@ if user_breed:
             
            
             st.markdown(f"Было рассчитано по формуле: {formula}")
-            st.markdown(f"[Подробнее]({https://europeanpetfood.org/wp-content/uploads/2024/09/FEDIAF-Nutritional-Guidelines_2024.pdf#page=51}))")
+            st.markdown("[Подробнее](https://europeanpetfood.org/wp-content/uploads/2024/09/FEDIAF-Nutritional-Guidelines_2024.pdf#page=51)")
             metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             if st.session_state.kkal_sel!=metobolic_energy:
                st.session_state.kkal_sel=metobolic_energy
