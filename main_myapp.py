@@ -990,13 +990,13 @@ if user_breed:
                                     # --- График 1: Состав ингредиентов ---
                                     fig1, ax1 = plt.subplots(figsize=(10, 6))
                                     
-                                    ingr_vals = [values[i].replace(" — Обыкновенный", "") for i in ingredient_names]
+                                    ingr_vals = [values[i] for i in ingredient_names]
                                     ingr_lims = ingr_ranges
                                     
                                     lower_errors = [val - low for val, (low, high) in zip(ingr_vals, ingr_lims)]
                                     upper_errors = [high - val for val, (low, high) in zip(ingr_vals, ingr_lims)]
                                     
-                                    wrapped_ingredients = ['\n'.join(textwrap.wrap(label, 10)) for label in ingredient_names]
+                                    wrapped_ingredients = ['\n'.join(textwrap.wrap(label.replace(" — Обыкновенный", ""), 10)) for label in ingredient_names]
                                     
                                     ax1.errorbar(wrapped_ingredients, ingr_vals, yerr=[lower_errors, upper_errors],
                                                  fmt='o', capsize=5, color='#FF4B4B', ecolor='#1E90FF', elinewidth=2)
