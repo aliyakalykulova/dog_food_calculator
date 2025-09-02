@@ -999,7 +999,7 @@ if user_breed:
                                     wrapped_ingredients = ['\n'.join(textwrap.wrap(label, 10)) for label in ingredient_names]
                                     
                                     ax1.errorbar(wrapped_ingredients, ingr_vals, yerr=[lower_errors, upper_errors],
-                                                 fmt='o', capsize=5, color='#FF4B4B', ecolor='#CCCED1', elinewidth=2)
+                                                 fmt='o', capsize=5, color='#FF4B4B', ecolor='#1E90FF', elinewidth=2)
                                     ax1.set_ylabel("Значение")
                                     ax1.set_title("Ингредиенты: значения и ограничения")
                                     ax1.set_ylim(0, 100)
