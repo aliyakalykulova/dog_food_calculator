@@ -377,7 +377,7 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
             
           elif age>=8 and age <12:
             kcal=(254.1-135*(weight/expected) )*(weight**0.75)
-            formula=fr"kcal = \frac{{(254.1 - 135 \cdot \frac{{вес}}{{w}}) \cdot dtc^{{0.75}}}}{{n}}     \quad w = {expected} \; \text{{– предположительный вес для породы {user_breed}}}"
+            formula=fr"kcal = 254.1 -  135 \cdot \frac{{вес}{w}} \cdot вес^{0.75}  \quad w = {expected} \; \text{{– предположительный вес для породы {user_breed}}}"
             page = "56"
 
         
