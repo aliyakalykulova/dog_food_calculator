@@ -571,7 +571,7 @@ if user_breed:
             kcal, formula, page =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel, user_breed)
             
-           
+            
             st.markdown(f"Было рассчитано по формуле")
             st.latex(formula)
 
@@ -823,7 +823,7 @@ if user_breed:
                                       for nutr in cols_to_divide
                                   }
                                   for k, v in nutrients.items():
-                                      st.write(f"**{k}:** {v} г")
+                                      st.write(f"**{k.replace(" — Обыкновенный", "")}:** {v} г")
                                   en_nutr_100=3.5*nutrients["Белки"]+8.5*nutrients["Жиры"]+3.5*nutrients["Углеводы"]
                                   st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
 
@@ -907,7 +907,7 @@ if user_breed:
                                   st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
                                   st.write("🧾 Количество ингредиентов для этой порции:")
                                   for ingredient, amount in ingredients_required.items():
-                                      st.write(f" - {ingredient}: {amount} г")
+                                      st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {amount} г")
 
 
   
@@ -959,7 +959,7 @@ if user_breed:
                     
                                     st.markdown("### 📦 Состав (в граммах на 100 г):")
                                     for name, val in values.items():
-                                        st.write(f"{name}: **{round(val, 2)} г**")
+                                        st.write(f"{name.replace(" — Обыкновенный", "")}: **{round(val, 2)} г**")
  
                                     
                                     st.markdown("### 💪 Питательная ценность на 100 г:")
@@ -981,7 +981,7 @@ if user_breed:
                                     st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
                                     st.write("🧾 Количество ингредиентов для этой порции:")
                                     for ingredient, amount in ingredients_required.items():
-                                        st.write(f" - {ingredient}: {amount} г")
+                                        st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {amount} г")
 
 
 
@@ -990,7 +990,7 @@ if user_breed:
                                     # --- График 1: Состав ингредиентов ---
                                     fig1, ax1 = plt.subplots(figsize=(10, 6))
                                     
-                                    ingr_vals = [values[i] for i in ingredient_names]
+                                    ingr_vals = [values[i].replace(" — Обыкновенный", "") for i in ingredient_names]
                                     ingr_lims = ingr_ranges
                                     
                                     lower_errors = [val - low for val, (low, high) in zip(ingr_vals, ingr_lims)]
