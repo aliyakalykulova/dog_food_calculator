@@ -348,41 +348,61 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
     if reproductive_status==rep_status_types[1]:
       if berem_time==berem_time_types[0]:
         kcal=132*(weight**0.75)
+        formula="kcal=132*(weight^0.75)"
       else:
         kcal=132*(weight**0.75) + (26*weight)
+        formula="kcal=132*(weight^0.75) + (26*weight)"
     elif reproductive_status==rep_status_types[2]:
        if num_pup<5:
          kcal=145*(weight**0.75) + 24*num_pup*weight*L
+         formula="kcal=145*(weight^0.75) + 24*num_pup*weight*L"
+         
        else:
          kcal=145*(weight**0.75) + (96+12*num_pup-4)*weight*L
+         formula="kcal=145*(weight^0.75) + (96+12*num_pup-4)*weight*L"
+         
     else:
       if age_type==age_category_types[0]:
           if age<8:
             kcal=25 * weight 
+            formula="kcal=25*weight"
+            
           elif age>=8 and age <12:
             kcal=(254.1-135*(weight/expected) )*(weight**0.75)
+            formula="kcal=(254.1-135*(weight/expected) )*(weight^0.75)"
           else :
             kcal=130*(weight**0.75)
+            formula="kcal=130*(weight^0.75)"
       elif age_type==age_category_types[2]:
           if activity_level==activity_level_cat_2[0]:
               kcal=80*(weight**0.75)
+              formula="kcal=80*(weight^0.75)"
+            
           elif activity_level==activity_level_cat_2[1]:
               kcal=95*(weight**0.75)
+              formula="kcal=95*(weight^0.75)"
           else:
              kcal=110*(weight**0.75)
+             formula="kcal=110*(weight^0.75)" 
       else:   
             if activity_level==activity_level_cat_1[0]:
               kcal=95*(weight**0.75)
+              formula="kcal=95*(weight^0.75)" 
             elif activity_level==activity_level_cat_1[1]:
               kcal=110*(weight**0.75)
+              formula="kcal=110*(weight^0.75)" 
             elif activity_level==activity_level_cat_1[2]:
               kcal=125*(weight**0.75)
+              formula="kcal=125*(weight^0.75)" 
             elif activity_level==activity_level_cat_1[3]:
               kcal=160*(weight**0.75)
+              formula="kcal=160*(weight^0.75)" 
             elif activity_level==activity_level_cat_1[4]:
               kcal=860*(weight**0.75)
+              formula="kcal=860*(weight^0.75)" 
             else:
               kcal=90*(weight**0.75)
+              formula="kcal=90*(weight^0.75)" 
     return kcal, formula
 #--------------------------------------------------------------------------------------------------
 
@@ -521,7 +541,7 @@ if user_breed:
             
            
             st.markdown(f"Было рассчитано по формуле: {formula}")
-            st.markdown(f"[Подробнее]({url}))")
+            st.markdown(f"[Подробнее]({https://europeanpetfood.org/wp-content/uploads/2024/09/FEDIAF-Nutritional-Guidelines_2024.pdf#page=51}))")
             metobolic_energy = st.number_input("Киллокаллории в день", min_value=0.0, step=0.1,  value=kcal )
             if st.session_state.kkal_sel!=metobolic_energy:
                st.session_state.kkal_sel=metobolic_energy
