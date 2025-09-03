@@ -17,7 +17,7 @@ major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major 
                 "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
 vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
  
-def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level, user_breed):
+def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level, user_breed, age):
     formula=""
     page=""
     if L_time==lact_time_types[0]:
