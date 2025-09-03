@@ -74,7 +74,11 @@ gender = st.selectbox("Пол собаки", gender_types)
 
 if gender != st.session_state.select_gender:
             st.session_state.select_gender = gender
-            st.session_state.show_res_reproductive_status = False
+            if st.session_state.select_gender==gender_types[1]:
+                        st.session_state.show_res_reproductive_status = True
+            else:
+               st.session_state.show_res_reproductive_status = False
+
 
 if st.session_state.select_gender==gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
