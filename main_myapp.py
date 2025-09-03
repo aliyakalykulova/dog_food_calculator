@@ -82,9 +82,7 @@ if st.session_state.select_gender == gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
     with col2:
         reproductive_status = st.selectbox( "Репродуктивный статус", rep_status_types, key="select_reproductive_status")
-
-
-       if reproductive_status != st.session_state.select_reproductive_status:
+    if reproductive_status != st.session_state.select_reproductive_status:
               st.session_state.select_reproductive_status = reproductive_status
               st.session_state.show_result_1 = False
               st.session_state.show_result_2 = False
