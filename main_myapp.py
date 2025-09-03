@@ -467,7 +467,7 @@ if user_breed:
             st.session_state.show_result_1 = True
         if st.session_state.show_result_1:
             kcal, formula, page =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
-                                age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel, user_breed)
+                                age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel, user_breed, age)
             
             
             st.markdown(f"Было рассчитано по формуле")
