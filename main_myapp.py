@@ -74,13 +74,11 @@ gender = st.selectbox("Пол собаки", gender_types)
 
 if gender != st.session_state.select_gender:
             st.session_state.select_gender = gender
-            if st.session_state.select_gender==gender_types[1]:
-                        st.session_state.show_res_reproductive_status = True
-            else:
-               st.session_state.show_res_reproductive_status = False
+            st.session_state.show_result_1 = False
+            st.session_state.show_result_2 = False
               
 
-if gender ==gender_types[1]:
+if st.session_state.select_gender == gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
     with col2:
         reproductive_status = st.selectbox( "Репродуктивный статус", rep_status_types)
@@ -97,6 +95,7 @@ if st.session_state.select_reproductive_status==rep_status_types[1]:
                    st.session_state.show_res_berem_time = berem_time
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
+
 elif st.session_state.select_reproductive_status==rep_status_types[2]:
     col1, col2 = st.columns([3, 20])  # col2 будет посередине
     with col2:  
