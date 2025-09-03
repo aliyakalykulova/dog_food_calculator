@@ -1,4 +1,22 @@
+metrics_age_types=["в годах","в месецах"]
+gender_types=["Самец", "Самка"]
+rep_status_types=["Не беременная", "Беременная", "Период лактации"]
+berem_time_types=["первые 4 недедели беременности","последние 5 недель беременности"]
+lact_time_types=["1 неделя","2 неделя","3 неделя","4 неделя"]
+age_category_types=["Щенки","Взрослые","Пожилые"]
+size_types=["Мелкие",  "Средние",  "Крупные", "Очень крупные"]
+activity_level_cat_1 = ["Пассивный (гуляеет на поводке менее 1ч/день)", "Средний1 (1-3ч/день, низкая активность)",
+                          "Средний2 (1-3ч/день, высокая активность)", "Активный (3-6ч/день, рабочие собаки, например, овчарки)",
+                          "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
+                          "Взрослые, склонные к ожирению"]
+activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
+
+other_nutrients=["Зола","Клетчатка","Холестерин, mg","Марганец, mg","Селен, mkg","Сахар общее","Тиамин, mg"]
+major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major Minerals.Iron, mg","Major Minerals.Magnesium, mg","Major Minerals.Phosphorus, mg","Major Minerals.Potassium, mg",
+                "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
+vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
+ 
 def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level, user_breed):
     formula=""
     page=""
