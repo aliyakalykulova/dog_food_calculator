@@ -48,7 +48,7 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
          
        else:
          kcal=145*(weight**0.75) + (96+12*num_pup-4)*weight*L
-         formula = fr"kcal = 145 \cdot вес^{0.75} + (96 + 12 \cdot n - 4) \cdot вес \cdot L    \\  \text{{n - количество щенков}}  \\  \text{{L = {L} для {L_time}}}"       
+         formula = fr"kcal = 145 \cdot вес^{{0.75}}  + (96 + 12 \cdot n - 4) \cdot вес \cdot L    \\  \text{{n - количество щенков}}  \\  \text{{L = {L} для {L_time}}}"       
          page = "56"
          
     else:
