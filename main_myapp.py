@@ -50,12 +50,10 @@ if "show_result_2" not in st.session_state:
 
 if "select_reproductive_status" not in st.session_state:
     st.session_state.select_reproductive_status = None
-if "show_reproductive_status" not in st.session_state:
-    st.session_state.select_reproductive_status = None
+
+
 if "select_gender" not in st.session_state:
     st.session_state.select_gender = None
-if "select_reproductive_status" not in st.session_state:
-             st.session_state.select_reproductive_status = None
 if "show_res_berem_time" not in st.session_state:
                    st.session_state.show_res_berem_time = None
 if "show_res_lact_time" not in st.session_state:
@@ -81,7 +79,7 @@ if gender != st.session_state.select_gender:
 if st.session_state.select_gender == gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
     with col2:
-        reproductive_status = st.selectbox( "Репродуктивный статус", rep_status_types, key="select_reproductive_status")
+        reproductive_status = st.selectbox( "Репродуктивный статус", rep_status_types)
     if reproductive_status != st.session_state.select_reproductive_status:
               st.session_state.select_reproductive_status = reproductive_status
               st.session_state.show_result_1 = False
