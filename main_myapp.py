@@ -78,7 +78,7 @@ if gender != st.session_state.select_gender:
                         st.session_state.show_res_reproductive_status = True
             else:
                st.session_state.show_res_reproductive_status = False
-
+              
 
 if gender ==gender_types[1]:
     col1, col2 = st.columns([1, 20])  # col2 будет посередине
@@ -88,7 +88,8 @@ if gender ==gender_types[1]:
             st.session_state.select_reproductive_status = reproductive_status
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
-if reproductive_status==rep_status_types[1]:
+          
+if st.session_state.select_reproductive_status==rep_status_types[1]:
   col1, col2 = st.columns([3, 20])  # col2 будет посередине
   with col2:            
        berem_time=st.selectbox("Срок беременности", berem_time_types)   
@@ -96,7 +97,7 @@ if reproductive_status==rep_status_types[1]:
                    st.session_state.show_res_berem_time = berem_time
                    st.session_state.show_result_1 = False
                    st.session_state.show_result_2 = False 
-elif reproductive_status==rep_status_types[2]:
+elif st.session_state.select_reproductive_status==rep_status_types[2]:
     col1, col2 = st.columns([3, 20])  # col2 будет посередине
     with col2:  
                 lact_time=st.selectbox("Лактационный период", lact_time_types)  
