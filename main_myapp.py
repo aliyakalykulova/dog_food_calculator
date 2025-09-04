@@ -859,13 +859,13 @@ if user_breed:
                                       ax.plot([0, current_value], [0, 0], color='red', linewidth=20, solid_capstyle='round')
                                       ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
                                   
-                                  ax.text(maxi_lin+50, 0,
+                                  ax.text(maxi_lin+10, 0,
                                           f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
                                           ha='left', va='center', fontsize=10, color='black')
                                   
                                   # ===== Подписи значений =====
-                                  ax.text(current_value, 0.1, f"{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
-                                  ax.text(total_norm, -0.1, f"{total_norm}", color='green', ha='center', va='top', fontsize=9)
+                                  ax.text(current, 0.2, f"Текущее\n{current_value}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(target, -0.2, f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
                                                                   
                                  
                                   
