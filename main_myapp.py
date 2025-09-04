@@ -743,90 +743,6 @@ if user_breed:
 
 
 
-                                  def bar_print(current, target):
-                                      max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)                                  
-                                      fig, ax = plt.subplots(figsize=(4, 1))                                  
-                                      ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)                                  
-                                      tick_len = 0.005  # длина палочек
-                                      ax.plot([0, 0], [-tick_len, tick_len], color='lightgray', linewidth=1)          # начало шкалы
-                                      ax.plot([max_val, max_val], [-tick_len, tick_len], color='lightgray', linewidth=1)  # конец шкалы                                  
-                                      ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)                                  
-                                      ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
-                                      ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма                                  
-                                      ax.text(current, 0.015, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
-                                      ax.text(target, -0.015, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
-                                      ax.set_xlim(0, max_val)
-                                      ax.set_ylim(-0.05, 0.05)
-                                      ax.axis('off')                                  
-                                      return fig
-                                  
-                                  
-                                  # === Основной код Streamlit ===
-                                  current_v = 1344
-                                  target_v = 2000
-                                  
-                                  col1, col2, col3 = st.columns([1, 2, 2])
-                                  
-                                  with col1:
-                                      
-                                      st.markdown("**Calcium**")
-                                  
-                                  with col2:
-                                      st.pyplot(bar_print(current_v, target_v))
-                                  
-                                  with col3:
-                                      diff = current_v - target_v
-                                      st.markdown(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
-                                                                   
-                                 
-                                
-                                  current = 1344
-                                  target = 1200
-                                  max_value = 2000
-                                  
-                                  diff = current - target
-                                  
-                                  # Фигура
-                                  fig, ax = plt.subplots(figsize=(6, 2))
-                                  
-                                  # Настройка границ
-                                  ax.set_xlim(0, max_value)
-                                  ax.set_ylim(-0.05, 0.05)
-                                  ax.axis('off')  # убираем оси
-                                  
-                                  # Линия шкалы
-                                  ax.hlines(0, 0, max_value, colors='gray', linewidth=2)
-                                  
-                                  # Вертикальные палочки по краям
-                                  tick_len = 0.015
-                                  ax.vlines(0, -tick_len, tick_len, color='black', linewidth=1)
-                                  ax.vlines(max_value, -tick_len, tick_len, color='black', linewidth=1)
-                                  
-                                  # Треугольники
-                                  ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)    # текущее
-                                  ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)   # норма
-                                  
-                                  # Подписи над и под треугольниками
-                                  ax.text(current, 0.02, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.02, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
-                                  
-                                  # ---- Новые подписи за пределами шкалы ----
-                                  # Слева
-                                  fixed_space = -50  # фиксированная "зона" для текста перед графиком
-                                  ax.text(fixed_space, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
-                                  
-                                  # Справа
-                                  ax.text(max_value + 50, 0,
-                                          f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} единиц",
-                                          ha='left', va='center', fontsize=10, color='black')
-                                  
-                                  # Вывод в Streamlit
-                                  st.pyplot(fig)
-
-
-
-
-
                                 
                                   # Пример данных
                                   total_norm = 100    # Норма
@@ -841,7 +757,7 @@ if user_breed:
                                   
                                   # ===== Контроль границ графика =====
                                   # Добавляем запас 20% справа и фиксируем начало оси X
-                                  ax.set_xlim(-50, maxi_lin+2)
+                                  ax.set_xlim(-50, maxi_lin+8)
                                   ax.set_ylim(-0.5, 0.5)
                                   
                                   # ===== Фон всей шкалы =====
@@ -863,7 +779,7 @@ if user_breed:
                                           f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
                                           ha='left', va='center', fontsize=10, color='black')
                                   
-                                  ax.text(current_value, 0.2, f"Текущее\n{current_value}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(current_value, 0.2, f"Текущее\n{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
                                   ax.text(total_norm, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
 
                                                                   
