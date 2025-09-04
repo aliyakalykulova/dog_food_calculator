@@ -23,7 +23,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
   
                                         maxi_lin = 100*1.2
                                         diff = current_value - total_norm
-                                        fig, ax = plt.subplots(figsize=(5, 1.2))
+                                        fig, ax = plt.subplots(figsize=(5, 1))
                                         ax.axis('off')
                                         # Добавляем запас 20% справа и фиксируем начало оси X
                                         ax.set_xlim(-50, maxi_lin+8)
