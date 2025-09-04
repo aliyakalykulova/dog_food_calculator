@@ -822,7 +822,12 @@ if user_breed:
                                   
                                   # Вывод в Streamlit
                                   st.pyplot(fig)
-                                  
+
+
+
+
+
+                                
                                   # Пример данных
                                   total_norm = 100    # Норма
                                   current_value = 75  # Текущее значение
@@ -833,30 +838,31 @@ if user_breed:
                                   # Вся шкала (фон)
                                   ax.plot([0, total_norm*1.2], [0, 0], 
                                           color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
-                                  
+                                
+                                  fixed_space = -50  # фиксированная "зона" для текста перед графиком
+                                  ax.text(fixed_space, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
+                                
                                   # Если есть недостаток
                                   if current_value < total_norm:
-                                      
-                                      
                                       # Недостаток (красный)
                                       ax.plot([0, total_norm], [0, 0], 
                                               color='green', linewidth=20, solid_capstyle='round')
-                                    
                                       # Текущее количество (зелёный)
                                       ax.plot([0, current_value], [0, 0], 
                                               color='purple', linewidth=20, solid_capstyle='round')
                                   else:
                                       ax.plot([0, current_value], [0, 0], 
                                               color='purple', linewidth=20, solid_capstyle='round')
-                                    
                                       ax.plot([0, total_norm], [0, 0], 
                                               color='green', linewidth=20, solid_capstyle='round')
-                                    
+                                  ax.text(max_value + 50, 0,
+                                          f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} единиц",
+                                          ha='left', va='center', fontsize=10, color='black')  
                                   
-                                  
-                                  # Добавим текст
-                                  ax.text(0, 0.15, f"Имеется: {current_value}", color='green', fontsize=12, va='bottom', ha='left')
-                                  ax.text(total_norm, 0.15, f"Норма: {total_norm}", color='gray', fontsize=12, va='bottom', ha='right')
+                                  ax.text(current_value, 0.02, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(total_norm, -0.02, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
+                                
+                                 
                                   
                                   st.pyplot(fig)
  
