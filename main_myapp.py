@@ -745,7 +745,7 @@ if user_breed:
 
                                   def bar_print(current, target):
                                       max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)                                  
-                                      fig, ax = plt.subplots(figsize=(6, 1.8))                                  
+                                      fig, ax = plt.subplots(figsize=(4, 1))                                  
                                       ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)                                  
                                       tick_len = 0.005  # длина палочек
                                       ax.plot([0, 0], [-tick_len, tick_len], color='lightgray', linewidth=1)          # начало шкалы
@@ -765,7 +765,7 @@ if user_breed:
                                   current_v = 1344
                                   target_v = 2000
                                   
-                                  col1, col2, col3 = st.columns([1, 3, 1])
+                                  col1, col2, col3 = st.columns([1, 2, 1])
                                   
                                   with col1:
                                       st.markdown("Calcium")
