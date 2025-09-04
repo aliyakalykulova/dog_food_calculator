@@ -812,7 +812,8 @@ if user_breed:
                                   
                                   # ---- Новые подписи за пределами шкалы ----
                                   # Слева
-                                  ax.text(-50, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
+                                  fixed_space = -50  # фиксированная "зона" для текста перед графиком
+                                  ax.text(fixed_space, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
                                   
                                   # Справа
                                   ax.text(max_value + 50, 0,
