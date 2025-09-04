@@ -838,19 +838,11 @@ if user_breed:
                                           
                                   st.markdown("#### 🪨 Минералы")
                                   for i in range(0, len(major_minerals), 2):
-                                      cols = st.columns(2)
-                                      for j, col in enumerate(cols):
-                                          if i + j < len(major_minerals):
-                                              nutris = major_minerals[i + j]
+                                              nutris = major_minerals[i]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg=""
-                                              if len(nutr_text)>1:
-                                                emg=nutr_text[-1]
-                                              else:
-                                                emg="g"
+                                              emg=nutr_text[-1] if len(nutr_text)>1 else emg="g"
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
-                                              with col:
-                                                  st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                                   
                                 
                                   st.markdown("#### 🍊 Витамины")
