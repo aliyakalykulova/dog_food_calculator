@@ -40,8 +40,8 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         ax.text(maxi_lin+10, 0,
                                                 f"{'Дефицит' if diff < 0 else 'Избыток'}: {round(abs(diff),1)} {mg}",
                                                 ha='left', va='center', fontsize=13, color='black')
-                                        ax.text(curr, 0.2, f"Текущее\n{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
-                                        ax.text(norma, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
+                                        ax.text(curr, 0.2, f"Текущее\n{round(current_value,1)}", color='purple', ha='center', va='bottom', fontsize=9)
+                                        ax.text(norma, -0.2,  f"Норма\n{round(total_norm,1)}", color='green', ha='center', va='top', fontsize=9)
                                         return fig
 
 def size_category(w):
