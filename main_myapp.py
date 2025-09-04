@@ -743,23 +743,26 @@ if user_breed:
                                                 
                                   current = 1344
                                   target = 2000  
-                                  max_val = int(target * 1.2)
-                                  fig, ax = plt.subplots(figsize=(5, 1.2))
+                                  max_val = int(target * 1.2)  # запас по шкале
+
+                                  fig, ax = plt.subplots(figsize=(5, 1.5))
                                   
-                                  # Шкала
-                                  ax.barh(0, target, color='lightcoral')              # Дефицит
-                                  ax.barh(0, max_val - target, left=target, color='lightgreen')  # Норма и избыток
+                                  # --- Шкала (тонкая серая линия) ---
+                                  ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
                                   
-                                  # Линия текущего значения
-                                  ax.axvline(current, color='blue', linewidth=2)
-                                  ax.text(current, 0.3, str(current), ha='center', color='blue', fontsize=9)
+                                  # --- Точки ---
+                                  ax.scatter(current, 0, color='red', s=50, zorder=3)    # Текущее значение
+                                  ax.scatter(target, 0, color='green', s=50, zorder=3)   # Норма
                                   
-                                  # Настройки
+                                  # --- Подписи ---
+                                  ax.text(current, 0.1, "Текущее", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(target, -0.1, "Норма", color='green', ha='center', va='top', fontsize=9)
+                                  
+                                  # --- Настройки ---
                                   ax.set_xlim(0, max_val)
-                                  ax.axis('off')
+                                  ax.axis('off')  # убрать оси для чистого вида
                                   
                                   st.pyplot(fig)
-                                  
                                   # Подпись
                                   diff = current - target
                                   st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
