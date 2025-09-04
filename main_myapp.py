@@ -740,7 +740,7 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.pyplot(bar_print(count_nutr_cont_all.get(nutris, ''), 2000, nutr_text[0]+", "+ emg))
+                                                  st.pyplot(bar_print(100, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg))
                                                   
 
                                 
