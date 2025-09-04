@@ -750,28 +750,29 @@ if user_breed:
                                   # --- Основная шкала (тонкая серая линия) ---
                                   ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
                                   
-                                  # --- Вертикальные палочки по краям ---
-                                  ax.plot([0, 0], [-0.0015, 0.0015], color='lightgray', linewidth=1)           # начало шкалы
-                                  ax.plot([max_val, max_val], [-0.0015, 0.0015], color='lightgray', linewidth=1) # конец шкалы
+                                  # --- Короткие вертикальные палочки по краям ---
+                                  ax.plot([0, 0], [-0.01, 0.01], color='lightgray', linewidth=1)          # начало шкалы
+                                  ax.plot([max_val, max_val], [-0.01, 0.01], color='lightgray', linewidth=1)  # конец шкалы
                                   
                                   # --- Подписи по краям ---
-                                  ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)
+                                  ax.text(0, -0.025, "0", ha='center', va='top', fontsize=9)
+                                  ax.text(max_val, -0.025, str(max_val), ha='center', va='top', fontsize=9)
                                   
                                   # --- Треугольники ---
                                   ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
                                   ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма
                                   
                                   # --- Подписи к точкам ---
-                                  ax.text(current, 0.015, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.015, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
+                                  ax.text(current, 0.02, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(target, -0.02, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
                                   
                                   # --- Настройки ---
-                                  ax.set_xlim(0, max_val)
-                                  ax.axis('off')  # убираем оси для чистого дизайна
+                                  ax.set_xlim(0, max_val)        # фиксируем ось X
+                                  ax.set_ylim(-0.05, 0.05)       # фиксируем ось Y, чтобы уменьшить высоту
+                                  ax.axis('off')                  # убираем оси для чистого дизайна
                                   
                                   # --- Показ в Streamlit ---
                                   st.pyplot(fig)
-
                                 
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
