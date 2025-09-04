@@ -21,7 +21,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         norma = 100 if maxi_dat== total_norm else (total_norm/current_value)*100
                                         curr =  100 if maxi_dat== current_value else (current_value/total_norm)*100
   
-                                        maxi_lin = maxi_dat*1.2
+                                        maxi_lin = 100*1.2
                                         diff = current_value - total_norm
                                         fig, ax = plt.subplots(figsize=(6, 1.2))
                                         ax.axis('off')
