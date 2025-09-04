@@ -837,7 +837,9 @@ if user_breed:
                                   
                                           
                                   st.markdown("#### 🪨 Минералы")
-                                  for i in range(0, len(major_minerals), 2):
+                                  coli, colii=st.columns([10,3])
+                                  with coli:
+                                     for i in range(0, len(major_minerals), 2):
                                               nutris = major_minerals[i]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg = nutr_text[-1] if len(nutr_text)>1 else "g"
