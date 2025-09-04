@@ -15,7 +15,10 @@ import itertools
 import matplotlib.pyplot as plt
 import textwrap
 
-from kcal_calculate import kcal_calculate, size_category, age_type_category
+from kcal_calculate import kcal_calculate
+from kcal_calculate import size_category
+from kcal_calculate import age_type_category
+
 
 
 # все спсики-------------------------------------------------------------------------
