@@ -743,29 +743,35 @@ if user_breed:
                                                 
                                   current = 1344
                                   target = 2000
-                                  max_val = int(target * 1.2)  # запас по шкале
+                                  max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)
                                   
-                                  fig, ax = plt.subplots(figsize=(5, 1.5))
+                                  fig, ax = plt.subplots(figsize=(6, 1.8))
                                   
-                                  # --- Шкала (тонкая серая линия) ---
+                                  # --- Основная шкала (тонкая серая линия) ---
                                   ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
                                   
-                                  # --- Треугольники вместо точек ---
+                                  # --- Вертикальные палочки по краям ---
+                                  ax.plot([0, 0], [-0.05, 0.05], color='black', linewidth=1.5)           # начало шкалы
+                                  ax.plot([max_val, max_val], [-0.05, 0.05], color='black', linewidth=1.5) # конец шкалы
+                                  
+                                  # --- Подписи по краям ---
+                                  ax.text(0, -0.15, "0", ha='center', va='top', fontsize=9)
+                                  ax.text(max_val, -0.15, str(max_val), ha='center', va='top', fontsize=9)
+                                  
+                                  # --- Треугольники ---
                                   ax.scatter(current, 0, color='red', s=80, marker='^', zorder=3)   # текущее
                                   ax.scatter(target, 0, color='green', s=80, marker='v', zorder=3)  # норма
                                   
-                                  # --- Подписи ---
-                                  ax.text(current, 0.015, f"Текущее: {current}", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.015, f"Норма: {target}", color='green', ha='center', va='top', fontsize=9)
+                                  # --- Подписи к точкам ---
+                                  ax.text(current, 0.18, f"Текущее: {current}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(target, -0.18, f"Норма: {target}", color='green', ha='center', va='top', fontsize=9)
                                   
                                   # --- Настройки ---
                                   ax.set_xlim(0, max_val)
-                                  ax.axis('off')  # убираем оси для чистого вида
+                                  ax.axis('off')  # убираем оси для чистого дизайна
                                   
+                                  # --- Показ в Streamlit ---
                                   st.pyplot(fig)
-                                  # Подпись
-                                  diff = current - target
-                                  st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
                                 
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
