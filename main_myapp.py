@@ -848,10 +848,10 @@ if user_breed:
                                                 emg=nutr_text[-1]
                                               else:
                                                 emg="g"
-                                              with col:
-                                                  st.pyplot(bar_print(other_for_adult[nutr_text[0]], count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                            norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
+                                            with col:
+                                                  st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                                   
-
                                 
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
