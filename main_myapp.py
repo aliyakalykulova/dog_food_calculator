@@ -724,6 +724,7 @@ if user_breed:
                                               with col:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
 
+                                  
                                           
                                   st.markdown("#### 🪨 Минералы")
                                   for i in range(0, len(major_minerals), 2):
@@ -739,7 +740,30 @@ if user_breed:
                                                 emg="g"
                                               with col:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
-                                             
+                                                
+                                  current = 1344
+                                  target = 2000  
+                                  max_val = int(target * 1.2)
+                                  fig, ax = plt.subplots(figsize=(5, 1.2))
+                                  
+                                  # Шкала
+                                  ax.barh(0, target, color='lightcoral')              # Дефицит
+                                  ax.barh(0, max_val - target, left=target, color='lightgreen')  # Норма и избыток
+                                  
+                                  # Линия текущего значения
+                                  ax.axvline(current, color='blue', linewidth=2)
+                                  ax.text(current, 0.3, str(current), ha='center', color='blue', fontsize=9)
+                                  
+                                  # Настройки
+                                  ax.set_xlim(0, max_val)
+                                  ax.axis('off')
+                                  
+                                  st.pyplot(fig)
+                                  
+                                  # Подпись
+                                  diff = current - target
+                                  st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
+                                
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
                                       cols = st.columns(2)
