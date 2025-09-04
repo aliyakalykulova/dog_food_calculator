@@ -765,17 +765,18 @@ if user_breed:
                                   current_v = 1344
                                   target_v = 2000
                                   
-                                  col1, col2, col3 = st.columns([1, 2, 1])
+                                  col1, col2, col3 = st.columns([1, 2, 2])
                                   
                                   with col1:
-                                      st.markdown("Calcium")
+                                      
+                                      st.markdown("**Calcium**")
                                   
                                   with col2:
                                       st.pyplot(bar_print(current_v, target_v))
                                   
                                   with col3:
                                       diff = current_v - target_v
-                                      st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
+                                      st.markdown(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
                                                                    
                                  
                                 
