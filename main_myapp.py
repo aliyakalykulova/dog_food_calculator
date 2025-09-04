@@ -786,12 +786,13 @@ if user_breed:
                                   
                                   diff = current - target
                                   
+                                  # Фигура
                                   fig, ax = plt.subplots(figsize=(6, 2))
                                   
                                   # Настройка границ
                                   ax.set_xlim(0, max_value)
                                   ax.set_ylim(-0.05, 0.05)
-                                  ax.axis('off')  # Убираем оси
+                                  ax.axis('off')  # убираем оси
                                   
                                   # Линия шкалы
                                   ax.hlines(0, 0, max_value, colors='gray', linewidth=2)
@@ -801,11 +802,11 @@ if user_breed:
                                   ax.vlines(0, -tick_len, tick_len, color='black', linewidth=1)
                                   ax.vlines(max_value, -tick_len, tick_len, color='black', linewidth=1)
                                   
-                                  # Треугольники для текущего значения (красный) и нормы (зеленый)
-                                  ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # Текущее
-                                  ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3) # Норма
+                                  # Треугольники
+                                  ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)    # текущее
+                                  ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)   # норма
                                   
-                                  # Подписи над треугольниками
+                                  # Подписи над и под треугольниками
                                   ax.text(current, 0.02, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
                                   ax.text(target, -0.02, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
                                   
@@ -814,12 +815,12 @@ if user_breed:
                                   ax.text(-50, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
                                   
                                   # Справа
-                                  ax.text(max_value + 50, 0, 
-                                          f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц", 
+                                  ax.text(max_value + 50, 0,
+                                          f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} единиц",
                                           ha='left', va='center', fontsize=10, color='black')
                                   
-                                  plt.tight_layout()
-                                  plt.show()
+                                  # Вывод в Streamlit
+                                  st.pyplot(fig)
 
                                 
                                   st.markdown("#### 🍊 Витамины")
