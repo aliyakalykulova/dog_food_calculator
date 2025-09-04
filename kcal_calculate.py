@@ -16,7 +16,56 @@ other_nutrients=["Зола","Клетчатка","Холестерин, mg","М�
 major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major Minerals.Iron, mg","Major Minerals.Magnesium, mg","Major Minerals.Phosphorus, mg","Major Minerals.Potassium, mg",
                 "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
 vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
- 
+
+
+
+
+def size_category(w):
+    if w <= 10:
+        return size_types[0]
+    elif w <= 25:
+        return size_types[1]
+    elif w <= 40:
+        return size_types[2]
+    else:
+        return size_types[3]
+
+def age_type_category(size_categ, age ,age_metric):
+        if age_metric==metrics_age_types[0]:
+            age=age*12
+            
+        if size_categ==size_types[0]:
+          if age>=1*12 and age<=8*12:    
+             return age_category_types[1]
+          elif age<1*12:    
+             return age_category_types[0]
+          elif age>8*12:  
+             return age_category_types[2]
+       
+        elif size_categ==size_types[2]:
+          if age>=15 and age<=7*12  :   
+              return age_category_types[1]
+          elif age<15:     
+             return age_category_types[0]
+          elif age>7*12:    
+             return age_category_types[2]
+              
+        elif size_categ==size_types[3]:
+          if age<=6*12 and age>=24:    
+              return age_category_types[1]
+          elif age<24:    
+              return age_category_types[0]
+          elif age>6*12:   
+              return age_category_types[2]
+              
+        else:  
+          if age<=7*12:
+                return age_category_types[1]
+          elif age<12:     
+             return age_category_types[0]
+          elif age>7*12:    
+            return age_category_types[2]
+            
 def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, weight, expected, activity_level, user_breed, age):
     formula=""
     page=""
