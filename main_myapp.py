@@ -15,6 +15,8 @@ import itertools
 import matplotlib.pyplot as plt
 import textwrap
 
+from kcal_calculate import kcal_calculate, size_category, age_type_category
+
 
 # все спсики-------------------------------------------------------------------------
 
@@ -335,7 +337,6 @@ disorder_keywords = {
 # -----------------------------------
 
 #--------------------------------------------------------------------------------------------
-from kcal_calculate import kcal_calculate
 #--------------------------------------------------------------------------------------------------
 
 
@@ -354,51 +355,7 @@ if "prev_ingr_ranges" not in st.session_state:
 if "prev_nutr_ranges" not in st.session_state:
     st.session_state.prev_nutr_ranges = {}
 
-def size_category(w):
-    if w <= 10:
-        return size_types[0]
-    elif w <= 25:
-        return size_types[1]
-    elif w <= 40:
-        return size_types[2]
-    else:
-        return size_types[3]
 
-def age_type_category(size_categ, age ,age_metric):
-        if age_metric==metrics_age_types[0]:
-            age=age*12
-            
-        if size_categ==size_types[0]:
-          if age>=1*12 and age<=8*12:    
-             return age_category_types[1]
-          elif age<1*12:    
-             return age_category_types[0]
-          elif age>8*12:  
-             return age_category_types[2]
-       
-        elif size_categ==size_types[2]:
-          if age>=15 and age<=7*12  :   
-              return age_category_types[1]
-          elif age<15:     
-             return age_category_types[0]
-          elif age>7*12:    
-             return age_category_types[2]
-              
-        elif size_categ==size_types[3]:
-          if age<=6*12 and age>=24:    
-              return age_category_types[1]
-          elif age<24:    
-              return age_category_types[0]
-          elif age>6*12:   
-              return age_category_types[2]
-              
-        else:  
-          if age<=7*12:
-                return age_category_types[1]
-          elif age<12:     
-             return age_category_types[0]
-          elif age>7*12:    
-            return age_category_types[2]
 
 
 if "age_sel" not in st.session_state:
