@@ -742,25 +742,25 @@ if user_breed:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
                                                 
                                   current = 1344
-                                  target = 2000  
+                                  target = 2000
                                   max_val = int(target * 1.2)  # запас по шкале
-
+                                  
                                   fig, ax = plt.subplots(figsize=(5, 1.5))
                                   
                                   # --- Шкала (тонкая серая линия) ---
                                   ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
                                   
-                                  # --- Точки ---
-                                  ax.scatter(current, 0, color='red', s=50, zorder=3)    # Текущее значение
-                                  ax.scatter(target, 0, color='green', s=50, zorder=3)   # Норма
+                                  # --- Треугольники вместо точек ---
+                                  ax.scatter(current, 0, color='red', s=80, marker='^', zorder=3)   # текущее
+                                  ax.scatter(target, 0, color='green', s=80, marker='v', zorder=3)  # норма
                                   
                                   # --- Подписи ---
-                                  ax.text(current, 0.1, "Текущее", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.1, "Норма", color='green', ha='center', va='top', fontsize=9)
+                                  ax.text(current, 0.015, f"Текущее: {current}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(target, -0.015, f"Норма: {target}", color='green', ha='center', va='top', fontsize=9)
                                   
                                   # --- Настройки ---
                                   ax.set_xlim(0, max_val)
-                                  ax.axis('off')  # убрать оси для чистого вида
+                                  ax.axis('off')  # убираем оси для чистого вида
                                   
                                   st.pyplot(fig)
                                   # Подпись
