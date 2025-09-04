@@ -618,6 +618,8 @@ if user_breed:
 
 
                       for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
+                          if col not in df_ingr_all.columns:
+                            print(col)
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
 
