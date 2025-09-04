@@ -831,6 +831,7 @@ if user_breed:
                                   # Пример данных
                                   total_norm = 100    # Норма
                                   current_value = 75    # Текущее значение
+                                  maxi_lin= total_norm*1.2 if total_norm>current_value else current_value*1.2
                                   
                                   # Рассчёт разницы
                                   diff = current_value - total_norm
@@ -840,11 +841,11 @@ if user_breed:
                                   
                                   # ===== Контроль границ графика =====
                                   # Добавляем запас 20% справа и фиксируем начало оси X
-                                  ax.set_xlim(-50, total_norm * 1.2)
+                                  ax.set_xlim(-50, maxi_lin)
                                   ax.set_ylim(-0.5, 0.5)
                                   
                                   # ===== Фон всей шкалы =====
-                                  ax.plot([0, total_norm], [0, 0], color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
+                                  ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
                                   
                                   # ===== Название элемента =====
                                   fixed_space = -10  # теперь расстояние регулируется этим значением
@@ -852,26 +853,19 @@ if user_breed:
                                   
                                   # ===== Основная логика =====
                                   if current_value < total_norm:
-                                      # Текущее значение (зелёная линия)
-                                      ax.plot([0, current_value], [0, 0], color='green', linewidth=20, solid_capstyle='round')
-                                      
-                                      # Недостаток (красная линия)
-                                      ax.plot([current_value, total_norm], [0, 0], color='red', linewidth=20, solid_capstyle='round')
-                                  else:
-                                      # Норма
                                       ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
-                                      
-                                      # Избыток (фиолетовая линия)
-                                      ax.plot([total_norm, current_value], [0, 0], color='purple', linewidth=20, solid_capstyle='round')
+                                      ax.plot([0, current_value], [0, 0], color='purple', linewidth=20, solid_capstyle='round')
+                                  else:
+                                      ax.plot([0, current_value], [0, 0], color='red', linewidth=20, solid_capstyle='round')
+                                      ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
                                   
-                                  # ===== Текст справа =====
-                                  ax.text(total_norm * 1.05, 0,
+                                  ax.text(maxi_lin+50, 0,
                                           f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
                                           ha='left', va='center', fontsize=10, color='black')
                                   
                                   # ===== Подписи значений =====
-                                  ax.text(current_value, 0.05, f"{current_value}", color='green', ha='center', va='bottom', fontsize=9)
-                                  ax.text(total_norm, -0.05, f"{total_norm}", color='black', ha='center', va='top', fontsize=9)
+                                  ax.text(current_value, 0.1, f"{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
+                                  ax.text(total_norm, -0.1, f"{total_norm}", color='green', ha='center', va='top', fontsize=9)
                                                                   
                                  
                                   
