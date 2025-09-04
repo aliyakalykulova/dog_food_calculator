@@ -28,15 +28,15 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         # Добавляем запас 20% справа и фиксируем начало оси X
                                         ax.set_xlim(-50, maxi_lin+8)
                                         ax.set_ylim(-0.5, 0.5)
-                                        ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
+                                        ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=10, solid_capstyle='round', alpha=0.8)
                                         fixed_space = -10 
                                         ax.text(fixed_space, 0, name_ing, ha='right', va='center', fontsize=13)
                                         if current_value < total_norm:
-                                            ax.plot([0, norma], [0, 0], color='green', linewidth=20, solid_capstyle='round')
-                                            ax.plot([0, curr], [0, 0], color='purple', linewidth=20, solid_capstyle='round')
+                                            ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
+                                            ax.plot([0, curr], [0, 0], color='purple', linewidth=10, solid_capstyle='round')
                                         else:
-                                            ax.plot([0, curr], [0, 0], color='red', linewidth=20, solid_capstyle='round')
-                                            ax.plot([0, norma], [0, 0], color='green', linewidth=20, solid_capstyle='round')
+                                            ax.plot([0, curr], [0, 0], color='red', linewidth=10, solid_capstyle='round')
+                                            ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
                                         ax.text(maxi_lin+10, 0,
                                                 f"{'Дефицит' if diff < 0 else 'Избыток'}: {round(abs(diff),2)} {mg}",
                                                 ha='left', va='center', fontsize=13, color='black')
