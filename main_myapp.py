@@ -18,6 +18,7 @@ import textwrap
 from kcal_calculate import kcal_calculate
 from kcal_calculate import size_category
 from kcal_calculate import age_type_category
+from kcal_calculate import bar_print
 
 
 
@@ -739,54 +740,9 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
+                                                  st.pyplot(bar_print(current_v, 2000, nutr_text[0]+", "+ emg))
+                                                  
 
-
-
-                                
-                                  # Пример данных
-                                  total_norm = 100    # Норма
-                                  current_value = 75    # Текущее значение
-                                  maxi_lin= total_norm*1.2 if total_norm>current_value else current_value*1.2
-                                  
-                                  # Рассчёт разницы
-                                  diff = current_value - total_norm
-                                  
-                                  fig, ax = plt.subplots(figsize=(6, 1.2))
-                                  ax.axis('off')
-                                  
-                                  # ===== Контроль границ графика =====
-                                  # Добавляем запас 20% справа и фиксируем начало оси X
-                                  ax.set_xlim(-50, maxi_lin+8)
-                                  ax.set_ylim(-0.5, 0.5)
-                                  
-                                  # ===== Фон всей шкалы =====
-                                  ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
-                                  
-                                  # ===== Название элемента =====
-                                  fixed_space = -10  # теперь расстояние регулируется этим значением
-                                  ax.text(fixed_space, 0, "Calcium", ha='right', va='center', fontsize=10, fontweight='bold')
-                                  
-                                  # ===== Основная логика =====
-                                  if current_value < total_norm:
-                                      ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
-                                      ax.plot([0, current_value], [0, 0], color='purple', linewidth=20, solid_capstyle='round')
-                                  else:
-                                      ax.plot([0, current_value], [0, 0], color='red', linewidth=20, solid_capstyle='round')
-                                      ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
-                                  
-                                  ax.text(maxi_lin+10, 0,
-                                          f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
-                                          ha='left', va='center', fontsize=10, color='black')
-                                  
-                                  ax.text(current_value, 0.2, f"Текущее\n{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
-                                  ax.text(total_norm, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
-
-                                                                  
-                                 
-                                  
-                                  st.pyplot(fig)
- 
                                 
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
