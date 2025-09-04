@@ -760,13 +760,15 @@ if user_breed:
                                         
                                         return fig
                                 
-                                  col01,col02, col03 = st.columns([1, 3, 1]) 
+                                current_v=1344
+                                target_v=2000
+                                col01,col02, col03 = st.columns([1, 3, 1]) 
                                   with col1:
                                          st.markdown("Calcium")
                                   with col2:
-                                        st.pyplot(bar_print(1344,2000))
+                                        st.pyplot(bar_print(current_v,target_v))
                                   with col3:
-                                      diff = current - target
+                                      diff = current_v - target_v
                                       st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
                                  
                                  
