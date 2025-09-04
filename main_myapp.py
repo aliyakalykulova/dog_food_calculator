@@ -751,8 +751,8 @@ if user_breed:
                                   ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
                                   
                                   # --- Вертикальные палочки по краям ---
-                                  ax.plot([0, 0], [-0.015, 0.015], color='lightgray', linewidth=1)           # начало шкалы
-                                  ax.plot([max_val, max_val], [-0.015, 0.015], color='lightgray', linewidth=1) # конец шкалы
+                                  ax.plot([0, 0], [-0.0015, 0.0015], color='lightgray', linewidth=1)           # начало шкалы
+                                  ax.plot([max_val, max_val], [-0.0015, 0.0015], color='lightgray', linewidth=1) # конец шкалы
                                   
                                   # --- Подписи по краям ---
                                   ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)
