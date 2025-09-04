@@ -837,7 +837,7 @@ if user_breed:
                                   
                                           
                                   st.markdown("#### 🪨 Минералы")
-                                  coli, colii=st.columns([10,3])
+                                  coli, colii=st.columns([10,4])
                                   with coli:
                                      for i in range(0, len(major_minerals), 2):
                                               nutris = major_minerals[i]
