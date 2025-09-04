@@ -23,14 +23,14 @@ def bar_print(total_norm,current_value,name_ing,mg):
   
                                         maxi_lin = 100*1.2
                                         diff = current_value - total_norm
-                                        fig, ax = plt.subplots(figsize=(6, 2))
+                                        fig, ax = plt.subplots(figsize=(5, 2))
                                         ax.axis('off')
                                         # Добавляем запас 20% справа и фиксируем начало оси X
                                         ax.set_xlim(-50, maxi_lin+8)
                                         ax.set_ylim(-0.5, 0.5)
                                         ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=20, solid_capstyle='round', alpha=0.8)
                                         fixed_space = -10 
-                                        ax.text(fixed_space, 0, name_ing, ha='right', va='center', fontsize=10, fontweight='bold')
+                                        ax.text(fixed_space, 0, name_ing, ha='right', va='center', fontsize=13, fontweight='bold')
                                         if current_value < total_norm:
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=20, solid_capstyle='round')
                                             ax.plot([0, curr], [0, 0], color='purple', linewidth=20, solid_capstyle='round')
@@ -39,7 +39,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=20, solid_capstyle='round')
                                         ax.text(maxi_lin+10, 0,
                                                 f"{'Дефицит' if diff < 0 else 'Избыток'}: {round(abs(diff),1)} {mg}",
-                                                ha='left', va='center', fontsize=10, color='black')
+                                                ha='left', va='center', fontsize=13, color='black')
                                         ax.text(curr, 0.2, f"Текущее\n{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
                                         ax.text(norma, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
                                         return fig
