@@ -764,7 +764,7 @@ if user_breed:
                                   with col1:
                                          st.markdown("Calcium")
                                   with col2:
-                                       st.pyplot( st.pyplot(bar_print(1344,2000)))
+                                        st.pyplot(bar_print(1344,2000))
                                   with col3:
                                       diff = current - target
                                       st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
