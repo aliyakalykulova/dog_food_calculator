@@ -863,9 +863,9 @@ if user_breed:
                                           f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
                                           ha='left', va='center', fontsize=10, color='black')
                                   
-                                  # ===== Подписи значений =====
-                                  ax.text(current, 0.2, f"Текущее\n{current_value}", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.2, f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
+                                  ax.text(current_value, 0.2, f"Текущее\n{current_value}", color='red', ha='center', va='bottom', fontsize=9)
+                                  ax.text(total_norm, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
+
                                                                   
                                  
                                   
