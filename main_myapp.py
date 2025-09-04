@@ -757,13 +757,14 @@ if user_breed:
                                         ax.set_xlim(0, max_val)        # фиксируем ось X
                                         ax.set_ylim(-0.05, 0.05)       # фиксируем ось Y, чтобы уменьшить высоту
                                         ax.axis('off')                  # убираем оси для чистого дизайна
-                                        st.pyplot(fig)
+                                        
+                                        return fig
                                 
                                   col01,col02, col03 = st.columns([1, 3, 1]) 
                                   with col1:
                                          st.markdown("Calcium")
                                   with col2:
-                                      bar_print(1344,2000)
+                                       st.pyplot( st.pyplot(bar_print(1344,2000)))
                                   with col3:
                                       diff = current - target
                                       st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
