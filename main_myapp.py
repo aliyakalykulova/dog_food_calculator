@@ -743,34 +743,40 @@ if user_breed:
 
 
 
-                                  def bar_print(current,target):
-                                        max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)
-                                        fig, ax = plt.subplots(figsize=(6, 1.8))
-                                        ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
-                                        ax.plot([0, 0], [-0.01, 0.01], color='lightgray', linewidth=1)          # начало шкалы
-                                        ax.plot([max_val, max_val], [-0.01, 0.01], color='lightgray', linewidth=1)  # конец шкалы
-                                        ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)
-                                        ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
-                                        ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма
-                                        ax.text(current, 0.015, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
-                                        ax.text(target, -0.015, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
-                                        ax.set_xlim(0, max_val)        # фиксируем ось X
-                                        ax.set_ylim(-0.05, 0.05)       # фиксируем ось Y, чтобы уменьшить высоту
-                                        ax.axis('off')                  # убираем оси для чистого дизайна
-                                        
-                                        return fig
-                                
-                                current_v=1344
-                                target_v=2000
-                                col01,col02, col03 = st.columns([1, 3, 1]) 
+                                  def bar_print(current, target):
+                                      max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)                                  
+                                      fig, ax = plt.subplots(figsize=(6, 1.8))                                  
+                                      ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)                                  
+                                      tick_len = 0.005  # длина палочек
+                                      ax.plot([0, 0], [-tick_len, tick_len], color='lightgray', linewidth=1)          # начало шкалы
+                                      ax.plot([max_val, max_val], [-tick_len, tick_len], color='lightgray', linewidth=1)  # конец шкалы                                  
+                                      ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)                                  
+                                      ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
+                                      ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма                                  
+                                      ax.text(current, 0.015, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
+                                      ax.text(target, -0.015, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
+                                      ax.set_xlim(0, max_val)
+                                      ax.set_ylim(-0.05, 0.05)
+                                      ax.axis('off')                                  
+                                      return fig
+                                  
+                                  
+                                  # === Основной код Streamlit ===
+                                  current_v = 1344
+                                  target_v = 2000
+                                  
+                                  col1, col2, col3 = st.columns([1, 3, 1])
+                                  
                                   with col1:
-                                         st.markdown("Calcium")
+                                      st.markdown("Calcium")
+                                  
                                   with col2:
-                                        st.pyplot(bar_print(current_v,target_v))
+                                      st.pyplot(bar_print(current_v, target_v))
+                                  
                                   with col3:
                                       diff = current_v - target_v
                                       st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
-                                 
+                                                                   
                                  
                                 
                                  
