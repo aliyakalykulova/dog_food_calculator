@@ -12,10 +12,6 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
 
-other_nutrients=["Зола","Клетчатка","Холестерин, mg","Марганец, mg","Селен, mkg","Сахар общее","Тиамин, mg"]
-major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major Minerals.Iron, mg","Major Minerals.Magnesium, mg","Major Minerals.Phosphorus, mg","Major Minerals.Potassium, mg",
-                "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
-vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
 
 import streamlit as st
 import matplotlib.pyplot as plt
