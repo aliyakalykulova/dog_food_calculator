@@ -740,39 +740,38 @@ if user_breed:
                                                 emg="g"
                                               with col:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
-                                                
-                                  current = 1344
-                                  target = 2000
-                                  max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)
-                                  
-                                  fig, ax = plt.subplots(figsize=(6, 1.8))
-                                  
-                                  # --- Основная шкала (тонкая серая линия) ---
-                                  ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
-                                  
-                                  # --- Короткие вертикальные палочки по краям ---
-                                  ax.plot([0, 0], [-0.01, 0.01], color='lightgray', linewidth=1)          # начало шкалы
-                                  ax.plot([max_val, max_val], [-0.01, 0.01], color='lightgray', linewidth=1)  # конец шкалы
-                                  
-                                  # --- Подписи по краям ---
-                                  ax.text(0, -0.025, "0", ha='center', va='top', fontsize=9)
-                                  ax.text(max_val, -0.025, str(max_val), ha='center', va='top', fontsize=9)
-                                  
-                                  # --- Треугольники ---
-                                  ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
-                                  ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма
-                                  
-                                  # --- Подписи к точкам ---
-                                  ax.text(current, 0.02, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
-                                  ax.text(target, -0.02, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
-                                  
-                                  # --- Настройки ---
-                                  ax.set_xlim(0, max_val)        # фиксируем ось X
-                                  ax.set_ylim(-0.05, 0.05)       # фиксируем ось Y, чтобы уменьшить высоту
-                                  ax.axis('off')                  # убираем оси для чистого дизайна
-                                  
-                                  # --- Показ в Streamlit ---
-                                  st.pyplot(fig)
+
+
+
+                                  def bar_print(current,target):
+                                        max_val = int(target * 1.2)  # запас по шкале (20% выше нормы)
+                                        fig, ax = plt.subplots(figsize=(6, 1.8))
+                                        ax.plot([0, max_val], [0, 0], color='lightgray', linewidth=2)
+                                        ax.plot([0, 0], [-0.01, 0.01], color='lightgray', linewidth=1)          # начало шкалы
+                                        ax.plot([max_val, max_val], [-0.01, 0.01], color='lightgray', linewidth=1)  # конец шкалы
+                                        ax.text(0, -0.015, "0", ha='center', va='top', fontsize=9)
+                                        ax.scatter(current, 0, color='red', s=80, marker='v', zorder=3)   # текущее
+                                        ax.scatter(target, 0, color='green', s=80, marker='^', zorder=3)  # норма
+                                        ax.text(current, 0.015, f"Текущее\n{current}", color='red', ha='center', va='bottom', fontsize=9)
+                                        ax.text(target, -0.015, f"Норма\n{target}", color='green', ha='center', va='top', fontsize=9)
+                                        ax.set_xlim(0, max_val)        # фиксируем ось X
+                                        ax.set_ylim(-0.05, 0.05)       # фиксируем ось Y, чтобы уменьшить высоту
+                                        ax.axis('off')                  # убираем оси для чистого дизайна
+                                        st.pyplot(fig)
+                                
+                                  col01,col02, col03 = st.columns([1, 3, 1]) 
+                                  with col1:
+                                         st.markdown("Calcium")
+                                  with col2:
+                                      bar_print(1344,2000)
+                                  with col3:
+                                      diff = current - target
+                                      st.write(f"**{'Дефицит' if diff < 0 else 'Избыток'}:** {abs(diff)} единиц")
+                                 
+                                 
+                                
+                                 
+
                                 
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
