@@ -20,7 +20,7 @@ vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitam
 import streamlit as st
 import matplotlib.pyplot as plt
 
-def bar_print(total_norm,current_value,name_ing):
+def bar_print(total_norm,current_value,name_ing,mg):
                                         maxi_lin= total_norm*1.2 if total_norm>current_value else current_value*1.2
                                         diff = current_value - total_norm
                                         fig, ax = plt.subplots(figsize=(6, 1.2))
@@ -38,7 +38,7 @@ def bar_print(total_norm,current_value,name_ing):
                                             ax.plot([0, current_value], [0, 0], color='red', linewidth=20, solid_capstyle='round')
                                             ax.plot([0, total_norm], [0, 0], color='green', linewidth=20, solid_capstyle='round')
                                         ax.text(maxi_lin+10, 0,
-                                                f"{'Дефицит' if diff < 0 else 'Избыток'}: {abs(diff)} ед.",
+                                                f"{'Дефицит' if diff < 0 else 'Избыток'}: {round(abs(diff),1)} {mg}",
                                                 ha='left', va='center', fontsize=10, color='black')
                                         ax.text(current_value, 0.2, f"Текущее\n{current_value}", color='purple', ha='center', va='bottom', fontsize=9)
                                         ax.text(total_norm, -0.2,  f"Норма\n{total_norm}", color='green', ha='center', va='top', fontsize=9)
