@@ -38,22 +38,26 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
 
-other_nutrients=["Зола","Клетчатка","Холестерин, mg","Марганец, mg","Селен, mkg","Сахар общее","Тиамин, mg"]
-major_minerals=["Major Minerals.Calcium, mg","Major Minerals.Copper, mg","Major Minerals.Iron, mg","Major Minerals.Magnesium, mg","Major Minerals.Phosphorus, mg","Major Minerals.Potassium, mg",
-                "Major Minerals.Sodium, mg","Major Minerals.Zinc, mg"]
-vitamins=["Vitamin A - IU, mkg","Vitamin A - RAE, mkg","Vitamin B12, mkg","Vitamin B6, mkg","Vitamin C, mkg","Vitamin E, mkg","Vitamin K, mkg"]
+other_nutrients=["Зола","Клетчатка","Холестерин, мг","Селен, мкг","Сахар общее","Тиамин, мг"]
+
+major_minerals=["Major Minerals.Кальций, мг","Major Minerals.Медь, мг","Major Minerals.Железо, мг","Major Minerals.Магний, мг","Major Minerals.Фосфор, мг","Major Minerals.Калий, мг",
+                "Major Minerals.Натрий, мг","Major Minerals.Цинк, мг", "Major Minerals.Марганец, мг"]
+
+vitamins=["Vitamin A - IU, мкг","Vitamin A - RAE, мкг","Vitamin B12, мкг","Vitamin B6, мкг","Vitamin C, мкг","Vitamin E, мкг","Vitamin K, мкг"]
 
 
-other_for_adult_ = {
-    "Кальций (г)": 0.13,
-    "Фосфор (г)": 0.10,
-    "Магний (мг)": 19.7,
-    "Натрий (мг)": 26.2,
-    "Калий (г)": 0.14,
-    "Железо (мг)": 1.0,
-    "Медь (мг)": 0.2,
-    "Цинк (мг)": 2.0,
-    "Марганец (мг)": 0.16,
+
+other_for_adult = {
+    "Кальций": 130,
+    "Фосфор": 100,
+    "Магний": 19.7,
+    "Натрий": 26.2,
+    "Калий": 140,
+    "Железо": 1.0,
+    "Медь": 0.2,
+    "Цинк": 2.0,
+    "Марганец": 0.16,
+  
     "Селен (мкг)": 11.8,
     "Йод (мкг)": 29.6,
     "Витамин А (МЕ)": 167,
@@ -844,7 +848,7 @@ if user_breed:
                                               else:
                                                 emg="g"
                                               with col:
-                                                  st.pyplot(bar_print(100, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                                  st.pyplot(bar_print(other_for_adult[nutr_text[0]], count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                                   
 
                                 
