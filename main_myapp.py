@@ -38,14 +38,12 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
 
-other_nutrients=["Зола","Клетчатка","Холестерин, мг","Селен, мкг","Сахар общее","Тиамин, мг"]
+other_nutrients_1=["Зола, г","Клетчатка, г","Холестерин, мг","Сахар общее, г"]
+other_nutrients_2 = ["Холин, мг","Селен, мкг","Пантотеновая кислота, мг","Линолевая кислота, г","Фолиевая кислота, мкг","Альфа-линоленовая кислота, г","Арахидоновая кислота, г","ЭПК, г","ДГК, г"]
+major_minerals=["Кальций, мг","Медь, мг","Железо, мг","Магний, мг","Фосфор, мг","Калий, мг",
+                "Натрий, мг","Цинк, мг", "Марганец, мг"]
 
-major_minerals=["Major Minerals.Кальций, мг","Major Minerals.Медь, мг","Major Minerals.Железо, мг","Major Minerals.Магний, мг","Major Minerals.Фосфор, мг","Major Minerals.Калий, мг",
-                "Major Minerals.Натрий, мг","Major Minerals.Цинк, мг", "Major Minerals.Марганец, мг"]
-
-vitamins=["Витамин A - IU, мкг","Витамин A - RAE, мкг","Витамин B12, мкг","Витамин B6, мкг","Витамин C, мкг","Витамин E, мкг","Витамин K, мкг"]
-
-
+vitamins=[ "Витамин A, мкг","Витамин E, мг","Витамин Д, мкг","Витамин В1 (тиамин), мг","Витамин В2 (Рибофлавин), мг","Витамин В3 (Ниацин), мг","Витамин В6, мг","Витамин В12, мкг"]
 
 other_for_adult = {
     "Кальций": 130,
@@ -58,27 +56,24 @@ other_for_adult = {
     "Цинк": 2.0,
     "Марганец": 0.16,
     
-    "Витамин А (МЕ)": 167,
-    "Витамин В6 (мг)": 0.049,
-    "Витамин В12 (мкг)": 1.15,
-    "Витамин Е (мг)": 1.0,
+    "Витамин А": 4,175,
+    "Витамин Д": 0,45,
+    "Витамин Е": 1.0,
+    "Витамин В1 (тиамин)": 0.074,
+    "Витамин В2 (Рибофлавин)": 0.171,
+    "Витамин В3 (Ниацин)": 0.57,
+    "Витамин В6": 0.049,
+    "Витамин В12": 1.15,
   
-  
-    "Селен (мкг)": 11.8,
-    "Йод (мкг)": 29.6,
-    
-    "Витамин Д (МЕ)": 18,
-    "Витамин В1 (мг)": 0.074,
-    "Витамин В2 (мг)": 0.171,
-    "Ниацин (мг)": 0.57,
-    "Пантотеновая кислота (мг)": 0.49,
-    "Фолиевая кислота (мкг)": 8.9,
-    "Биотин (мкг)": 0.1,
-    "Холин (мг)": 56,
-    "Линолевая кислота (г)": 0.36,
-    "Альфа-линоленовая кислота (г)": 0.014,
-    "ЭПК (50-60%) + ДГК (40-50%) (г)": 0.03
+    "Селен": 11.8,
+    "Пантотеновая кислота": 0.49,
+    "Фолиевая кислота": 8.9,
+    "Холин": 56,
+    "Линолевая кислота": 0.36,
+    "Альфа-линоленовая кислота": 0.014,
+    "ЭПК (50-60%) + ДГК (40-50%)": 0.03
 }
+
 
 
 nutrients_per_1000_kcal = {
@@ -620,12 +615,12 @@ if user_breed:
 
 
 
-                      for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
+                      for col in cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins:
 
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
 
-                      df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] = df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] / 100
+                      df_ingr_all[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins] = df_ingr_all[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins] / 100
                       df_ingr_all['ингредиент и описание'] = df_ingr_all['Ингредиенты'] + ' — ' + df_ingr_all['Описание']
 
 
@@ -700,7 +695,7 @@ if user_breed:
                           st.rerun()
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
-                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients+major_minerals+vitamins].to_dict(orient='index')
+                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins].to_dict(orient='index')
 
 
                       # --- Ограничения по количеству каждого ингредиента ---
@@ -805,7 +800,7 @@ if user_breed:
                                   missing = set()
 
                                   count_nutr_cont_all = {}
-                                  for nutr in other_nutrients + major_minerals + vitamins:
+                                  for nutr in other_nutrients_1+other_nutrients_2 + major_minerals + vitamins:
                                       total = 0
                                       for i, name in enumerate(ingredient_names):
                                           if nutr not in food[name]:
@@ -820,14 +815,14 @@ if user_breed:
 
                                   count_nutr_cont_all = {
                                       nutr: round(sum(res.x[i] * food[name][nutr] for i, name in enumerate(ingredient_names)) * 100, 2)
-                                      for nutr in other_nutrients+major_minerals+vitamins
+                                      for nutr in other_nutrients_1+other_nutrients_2+major_minerals+vitamins
                                   }
 
-                                  for i in range(0, len(other_nutrients), 2):
+                                  for i in range(0, len(other_nutrients_1+other_nutrients_2), 2):
                                       cols = st.columns(2)
                                       for j, col in enumerate(cols):
-                                          if i + j < len(other_nutrients):
-                                              nutris = other_nutrients[i + j]
+                                          if i + j < len(other_nutrients_1+other_nutrients_2):
+                                              nutris = other_nutrients_1+other_nutrients_2[i + j]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg=""
                                               if len(nutr_text)>1:
