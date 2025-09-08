@@ -837,14 +837,26 @@ if user_breed:
                                   st.markdown("#### 🪨 Минералы")
                                   coli, colii=st.columns([6,3])
                                   with coli:
-                                     for i in range(0, len(major_minerals), 2):
+                                     for i in range(0, len(major_minerals)):
                                               nutris = major_minerals[i]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg = nutr_text[-1] if len(nutr_text)>1 else "g"
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                                   
-                                
+
+
+
+                                  st.markdown("#### 🍊 Витамины")
+                                  coli, colii=st.columns([6,3])
+                                  with coli:
+                                     for i in range(0, len(vitamins)):
+                                              nutris = vitamins[i]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
+                                              norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
+                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                       
                                   st.markdown("#### 🍊 Витамины")
                                   for i in range(0, len(vitamins), 2):
                                       cols = st.columns(2)
