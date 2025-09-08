@@ -822,7 +822,7 @@ if user_breed:
                                       cols = st.columns(2)
                                       for j, col in enumerate(cols):
                                           if i + j < len(other_nutrients_1+other_nutrients_2):
-                                              nutris = other_nutrients_1+other_nutrients_2[i + j]
+                                              nutris = (other_nutrients_1+other_nutrients_2)[i + j]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg=""
                                               if len(nutr_text)>1:
