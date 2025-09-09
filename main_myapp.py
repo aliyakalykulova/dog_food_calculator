@@ -20,6 +20,7 @@ from kcal_calculate import size_category
 from kcal_calculate import age_type_category
 from kcal_calculate import bar_print
 from kcal_calculate import get_other_nutrient_norms
+from kcal_calculate import show_nutr_content
 
 
 
@@ -746,65 +747,10 @@ if user_breed:
 
                                   for k in cols_to_divide:
                                       st.write(f"**{k}:** {count_nutr_cont_all[k]} г")
-                                
                                   st.write(f"****") 
                                 
-                                  for i in range(0, len(other_nutrients_1), 2):
-                                      cols = st.columns(2)
-                                      for j, col in enumerate(cols):
-                                          if i + j < len(other_nutrients_1):
-                                              nutris = (other_nutrients_1)[i + j]
-                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg=""
-                                              if len(nutr_text)>1:
-                                                emg=nutr_text[-1]
-                                              else:
-                                                emg="g"
-                                              with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
-
-                                  coli, colii=st.columns([6,3])
-                                  with coli:
-                                     for i in range(0, len(other_nutrients_2)):
-                                              nutris = other_nutrients_2[i]
-                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
-                                              if nutr_text[0] in other_nutrient_norms:
-                                                norma = other_nutrient_norms[nutr_text[0]]
-                                                st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
-                               
-                                  
-                                  st.markdown("#### 🪨 Минералы")
-                                  coli, colii=st.columns([6,3])
-                                  with coli:
-                                     for i in range(0, len(major_minerals)):
-                                              nutris = major_minerals[i]
-                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
-                                              norma = other_nutrient_norms[nutr_text[0]]
-                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
-                                                  
-                                  st.markdown("#### 🍊 Витамины")
-                                  coli, colii=st.columns([6,3])
-                                  with coli:
-                                     for i in range(0, len(vitamins)):
-                                              nutris = vitamins[i]
-                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
-                                              norma = other_nutrient_norms[nutr_text[0]]
-                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
-
-                                  st.markdown("### Необходимо добавить")
-                                  for name,amount in count_nutr_cont_all.items():
-                                    name_n=name.split(", ")[0]
-                                    emg=name.split(", ")[-1]
-                                    if name_n in other_nutrient_norms:
-                                      diff=other_nutrient_norms[name_n] - amount
-                                      if diff>0:
-                                         st.write(f"**{name_n}:** {round(diff,1)} {emg}")
-                                  
-    
-                                  
+                                  show_nutr_content(count_nutr_cont_all, other_nutrient_norms)    
+                                
                             
                               else:
                                   st.error("❌ Не удалось найти оптимальное решение. Попробуйте другие параметры.")
