@@ -24,6 +24,18 @@ major_minerals=["Кальций, мг","Медь, мг","Железо, мг","М
 vitamins=[ "Витамин A, мкг","Витамин E, мг","Витамин Д, мкг","Витамин В1 (тиамин), мг","Витамин В2 (Рибофлавин), мг","Витамин В3 (Ниацин), мг","Витамин В6, мг","Витамин В12, мкг"]
 
 
+def protein_need_calc(kkal, age_type_categ,  w, reproductive_status, age, age_mesuare_type):
+   if age_type_categ==age_category_types[0]:
+     if age_mesuare_type==metrics_age_types[1] and age<=3:
+         return 56.3*kkal/1000
+     else: 
+         return 43.8*kkal/1000
+   elif reproductive_status==rep_status_types[1] or reproductive_status==rep_status_types[2]:
+      return 50*kkal/1000
+   else:
+      return 3.28*(w**0.75)
+
+
 def show_nutr_content(count_nutr_cont_all, other_nutrient_norms):
                                   for i in range(0, len(other_nutrients_1), 2):
                                       cols = st.columns(2)
