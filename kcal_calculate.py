@@ -36,7 +36,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
                                             ax.plot([0, curr], [0, 0], color='purple', linewidth=10, solid_capstyle='round')
                                         else:
-                                            ax.plot([0, curr], [0, 0], color='red', linewidth=10, solid_capstyle='round')
+                                            ax.plot([0, curr], [0, 0], color='darkgray', linewidth=10, solid_capstyle='round')
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
                                         ax.text(maxi_lin+10, 0,
                                                 f"{'Дефицит' if diff < 0 else 'Избыток'}: {round(abs(diff),2)} {mg}",
