@@ -41,6 +41,8 @@ activity_level_cat_2 = ["Пассивный", "Средний", "Активны�
 other_nutrients_1=["Зола, г","Клетчатка, г","Холестерин, мг","Сахар общее, г"]
 other_nutrients_2 = ["Холин, мг","Селен, мкг","Пантотеновая кислота, мг","Линолевая кислота, г","Фолиевая кислота, мкг","Альфа-линоленовая кислота, г","Арахидоновая кислота, г"]
 other_nutrients_3 = ["ЭПК, г","ДГК, г"]
+other_nutrients=other_nutrients_1+other_nutrients_2+other_nutrients_3
+
 major_minerals=["Кальций, мг","Медь, мг","Железо, мг","Магний, мг","Фосфор, мг","Калий, мг",
                 "Натрий, мг","Цинк, мг", "Марганец, мг"]
 
@@ -616,12 +618,12 @@ if user_breed:
 
 
 
-                      for col in cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins:
+                      for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
 
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
 
-                      df_ingr_all[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins] = df_ingr_all[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins] / 100
+                      df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] = df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] / 100
                       df_ingr_all['ингредиент и описание'] = df_ingr_all['Ингредиенты'] + ' — ' + df_ingr_all['Описание']
 
 
@@ -696,7 +698,7 @@ if user_breed:
                           st.rerun()
                       # Пример: доступ к выбранным
                       ingredient_names = list(st.session_state.selected_ingredients)
-                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients_1+other_nutrients_2+major_minerals+vitamins].to_dict(orient='index')
+                      food = df_ingr_all.set_index("ингредиент и описание")[cols_to_divide+other_nutrients+major_minerals+vitamins].to_dict(orient='index')
 
 
                       # --- Ограничения по количеству каждого ингредиента ---
@@ -801,7 +803,7 @@ if user_breed:
                                   missing = set()
 
                                   count_nutr_cont_all = {}
-                                  for nutr in other_nutrients_1+other_nutrients_2 + major_minerals + vitamins:
+                                  for nutr in other_nutrients + major_minerals + vitamins:
                                       total = 0
                                       for i, name in enumerate(ingredient_names):
                                           if nutr not in food[name]:
@@ -816,7 +818,7 @@ if user_breed:
 
                                   count_nutr_cont_all = {
                                       nutr: round(sum(res.x[i] * food[name][nutr] for i, name in enumerate(ingredient_names)) * 100, 2)
-                                      for nutr in other_nutrients_1+other_nutrients_2+major_minerals+vitamins
+                                      for nutr in other_nutrients+major_minerals+vitamins
                                   }
 
                                   for i in range(0, len(other_nutrients_1), 2):
