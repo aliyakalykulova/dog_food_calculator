@@ -14,6 +14,70 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
                           "Высокая активность в экстремальных условиях (гонки на собачьих упряжках со скоростью 168 км/день в условиях сильного холода)",
                           "Взрослые, склонные к ожирению"]
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
+other_nutrients_1=["Зола, г","Клетчатка, г","Холестерин, мг","Сахар общее, г"]
+other_nutrients_2 = ["Холин, мг","Селен, мкг","Пантотеновая кислота, мг","Линолевая кислота, г","Фолиевая кислота, мкг","Альфа-линоленовая кислота, г","Арахидоновая кислота, г","ЭПК (50-60%) + ДГК (40-50%), г"]
+other_nutrients=other_nutrients_1+other_nutrients_2
+
+major_minerals=["Кальций, мг","Медь, мг","Железо, мг","Магний, мг","Фосфор, мг","Калий, мг",
+                "Натрий, мг","Цинк, мг", "Марганец, мг"]
+
+vitamins=[ "Витамин A, мкг","Витамин E, мг","Витамин Д, мкг","Витамин В1 (тиамин), мг","Витамин В2 (Рибофлавин), мг","Витамин В3 (Ниацин), мг","Витамин В6, мг","Витамин В12, мкг"]
+
+
+def show_nutr_content(count_nutr_cont_all, other_nutrient_norms):
+                                  for i in range(0, len(other_nutrients_1), 2):
+                                      cols = st.columns(2)
+                                      for j, col in enumerate(cols):
+                                          if i + j < len(other_nutrients_1):
+                                              nutris = (other_nutrients_1)[i + j]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg=""
+                                              if len(nutr_text)>1:
+                                                emg=nutr_text[-1]
+                                              else:
+                                                emg="g"
+                                              with col:
+                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
+
+                                  coli, colii=st.columns([6,3])
+                                  with coli:
+                                     for i in range(0, len(other_nutrients_2)):
+                                              nutris = other_nutrients_2[i]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
+                                              if nutr_text[0] in other_nutrient_norms:
+                                                norma = other_nutrient_norms[nutr_text[0]]
+                                                st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                               
+                                  
+                                  st.markdown("#### 🪨 Минералы")
+                                  coli, colii=st.columns([6,3])
+                                  with coli:
+                                     for i in range(0, len(major_minerals)):
+                                              nutris = major_minerals[i]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
+                                              norma = other_nutrient_norms[nutr_text[0]]
+                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                                  
+                                  st.markdown("#### 🍊 Витамины")
+                                  coli, colii=st.columns([6,3])
+                                  with coli:
+                                     for i in range(0, len(vitamins)):
+                                              nutris = vitamins[i]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
+                                              norma = other_nutrient_norms[nutr_text[0]]
+                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+
+                                  st.markdown("### Необходимо добавить")
+                                  for name,amount in count_nutr_cont_all.items():
+                                    name_n=name.split(", ")[0]
+                                    emg=name.split(", ")[-1]
+                                    if name_n in other_nutrient_norms:
+                                      diff=other_nutrient_norms[name_n] - amount
+                                      if diff>0:
+                                         st.write(f"**{name_n}:** {round(diff,1)} {emg}")
 
 
 def get_other_nutrient_norms(kkal, age_type_categ,  w, reproductive_status):
