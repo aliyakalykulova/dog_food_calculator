@@ -821,6 +821,31 @@ if user_breed:
                                       for nutr in other_nutrients+major_minerals+vitamins
                                   }
 
+
+                                  st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
+                                  needed_feed_g = (metobolic_energy * 100) / en_nutr_100
+                                  ingredients_required = {
+                                      name: round((weight * needed_feed_g / 100), 2)
+                                      for name, weight in result.items()
+                                  }                                  
+                                  st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
+                                  st.write("🧾 Количество ингредиентов для этой порции:")
+                                  for ingredient, amount in ingredients_required.items():
+                                      st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {amount} г")
+
+                                
+                                  count_nutr_cont_all = {
+                                      nutr: round(sum(amount * food[ingredient][nutr] for ingredient, amount in ingredients_required.items()) * 100, 2)
+                                      for nutr in other_nutrients+major_minerals+vitamins
+                                  }
+
+                                  st.markdown(f"### 💪 Питательная ценность на {round(needed_feed_g, 2)} г:")
+
+                                  for k in cols_to_divide:
+                                      st.write(f"**{k}:** {count_nutr_cont_all[k]} г")
+                                
+                                  st.write(f"****") 
+                                
                                   for i in range(0, len(other_nutrients_1), 2):
                                       cols = st.columns(2)
                                       for j, col in enumerate(cols):
@@ -844,6 +869,7 @@ if user_breed:
                                               if nutr_text[0] in other_for_adult:
                                                 norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                                 st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                                
                                   coli, colii=st.columns([6,3])
                                   with coli:
                                       emg = "g"
@@ -862,9 +888,6 @@ if user_breed:
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                                   
-
-
-
                                   st.markdown("#### 🍊 Витамины")
                                   coli, colii=st.columns([6,3])
                                   with coli:
@@ -874,22 +897,6 @@ if user_breed:
                                               emg = nutr_text[-1] if len(nutr_text)>1 else "g"
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
-                                       
-    
-                                                
-                                                                                                   
-
-
-                                  st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {round(metobolic_energy,1)} ккал")           
-                                  needed_feed_g = (metobolic_energy * 100) / en_nutr_100
-                                  ingredients_required = {
-                                      name: round((weight * needed_feed_g / 100), 2)
-                                      for name, weight in result.items()
-                                  }                                  
-                                  st.write(f"📌 Корм: {round(needed_feed_g, 2)} г")
-                                  st.write("🧾 Количество ингредиентов для этой порции:")
-                                  for ingredient, amount in ingredients_required.items():
-                                      st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {amount} г")
 
 
   
