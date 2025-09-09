@@ -903,8 +903,8 @@ if user_breed:
                                     name_n=name.split(", ")[0]
                                     emg=name.split(", ")[-1]
                                     if name_n in other_for_adult:
-                                      diff=other_for_adult[name_n] - amount
-                                      if True:
+                                      diff=other_for_adult[name_n]*(st.session_state.weight_sel**0.75) - amount
+                                      if diff>0:
                                          st.write(f"**{name_n}:** {round(diff,1)} {emg}")
                                   
     
