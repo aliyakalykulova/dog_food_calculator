@@ -26,7 +26,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         fig, ax = plt.subplots(figsize=(5, 1))
                                         ax.axis('off')
                                         # Добавляем запас 20% справа и фиксируем начало оси X
-                                        ax.set_xlim(-50, maxi_lin+8)
+                                        ax.set_xlim(-60, maxi_lin+8)
                                         ax.set_ylim(-0.5, 0.5)
                                         ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=10, solid_capstyle='round', alpha=0.8)
                                         fixed_space = -10 
