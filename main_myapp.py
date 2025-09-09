@@ -839,8 +839,9 @@ if user_breed:
                                               nutris = other_nutrients_2[i]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg = nutr_text[-1] if len(nutr_text)>1 else "g"
-                                              norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
-                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                              if nutr_text[0] in other_for_adult:
+                                                norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
+                                                st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                 
                                           
                                   st.markdown("#### 🪨 Минералы")
