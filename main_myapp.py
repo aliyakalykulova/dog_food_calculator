@@ -21,7 +21,7 @@ from kcal_calculate import age_type_category
 from kcal_calculate import bar_print
 from kcal_calculate import get_other_nutrient_norms
 from kcal_calculate import show_nutr_content
-
+from kcal_calculate import protein_need_calc
 
 
 # все спсики-------------------------------------------------------------------------
@@ -630,8 +630,11 @@ if user_breed:
                           # --- Ограничения по нутриентам ---
                           st.subheader("Ограничения по нутриентам:")
                           nutr_ranges = {}
+                        
+                          needeble_proterin = protein_need_calc(st.session_state.kkal_sel, age_type_categ,  st.session_state.weight_sel, st.session_state.select_reproductive_status, age ,age_metric):
+                        
                           nutr_ranges['Влага'] = st.slider(f"{'Влага'}", 0, 100, (70, 85))
-                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (int(float(nutrient_preds["protein"])-2),int(float(nutrient_preds["protein"])+2)))
+                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (int(needeble_proterin-1),int(needeble_proterin+1)))
                           nutr_ranges['Углеводы'] = st.slider(f"{'Углеводы'}", 0, 100, (5,10))
                           nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (1,15))
 
