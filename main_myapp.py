@@ -877,7 +877,7 @@ if user_breed:
                                       norma = other_for_adult[nutr_text]*(st.session_state.weight_sel**0.75)
                                       nutris=count_nutr_cont_all.get(other_nutrients_3[0], '')*0.5+count_nutr_cont_all.get(other_nutrients_3[1], '')*0.5
                                       st.pyplot(bar_print(norma, nutris, nutr_text+", "+ emg, str(emg)))
-                                
+                                  
                                   st.markdown("#### 🪨 Минералы")
                                   coli, colii=st.columns([6,3])
                                   with coli:
@@ -898,7 +898,11 @@ if user_breed:
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
 
-
+                                  st.markdown("### Необходимо добавить")
+                                  for name,amount in count_nutr_cont_all.item():
+                                    diff=other_for_adult[name] - amount
+                                    if diff>0:
+                                       st.write(f"**{name}:** {diff}")
   
                                   
                             
