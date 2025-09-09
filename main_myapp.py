@@ -19,6 +19,7 @@ from kcal_calculate import kcal_calculate
 from kcal_calculate import size_category
 from kcal_calculate import age_type_category
 from kcal_calculate import bar_print
+from kcal_calculate import get_other_nutrient_norms
 
 
 
@@ -77,8 +78,8 @@ other_for_adult = {
 }
 
 
-
-nutrients_per_1000_kcal = {
+#для беременых и кормящих
+other_for_adult = {
     "Сырой жир (г)": 21.3,
     "Кальций (г)": 3.0,
     "Фосфор (г)": 2.5,
@@ -540,6 +541,9 @@ if user_breed:
             kcal, formula, page =kcal_calculate(st.session_state.select_reproductive_status, st.session_state.show_res_berem_time, st.session_state.show_res_num_pup ,  st.session_state.show_res_lact_time, 
                                 age_type_categ, st.session_state.weight_sel, avg_wight,  st.session_state.activity_level_sel, user_breed, age)
             
+
+
+            
             
             st.markdown(f"Было рассчитано по формуле")
             st.latex(formula)
@@ -553,7 +557,9 @@ if user_breed:
                st.session_state.kkal_sel=metobolic_energy
                st.session_state.show_result_1 = True
                st.session_state.show_result_2 = False
-           
+              
+            other_nutrient_norms=get_other_nutrient_norms(st.session_state.kkal_sel, age_type_categ, age , age_metric, st.session_state.weight_sel, st.session_state.select_reproductive_status)
+                                                          
             # 10.1) Build query vector
             keywords = disorder_keywords.get(disorder_type, selected_disorder).lower()
             kw_tfidf = vectorizer.transform([keywords])
@@ -729,7 +735,7 @@ if user_breed:
                           nutr_ranges['Влага'] = st.slider(f"{'Влага'}", 0, 100, (70, 85))
                           nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (int(float(nutrient_preds["protein"])-2),int(float(nutrient_preds["protein"])+2)))
                           nutr_ranges['Углеводы'] = st.slider(f"{'Углеводы'}", 0, 100, (5,10))
-                          nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (5,15))
+                          nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (1,15))
 
                           if ingr_ranges != st.session_state.prev_ingr_ranges:
                                 st.session_state.show_result_2 = False
