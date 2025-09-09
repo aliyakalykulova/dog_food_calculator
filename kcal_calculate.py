@@ -12,7 +12,7 @@ activity_level_cat_1 = ["Пассивный (гуляеет на поводке 
 activity_level_cat_2 = ["Пассивный", "Средний", "Активный"]
 
 
-
+import textwrap
 import streamlit as st
 import matplotlib.pyplot as plt
 
