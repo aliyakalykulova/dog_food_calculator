@@ -635,7 +635,7 @@ if user_breed:
 
 ###################################################################################################################################################################
                 
-                      if "selected_ingredients" not in st.session_state:
+                      if "selected_ingredients" not in st.session_state or st.session_state.show_result_1==False:
                           # Преобразуем ingredients_finish в set и сохраняем
                           st.session_state.selected_ingredients = set(ingredients_finish)
 
@@ -818,11 +818,11 @@ if user_breed:
                                       for nutr in other_nutrients_1+other_nutrients_2+major_minerals+vitamins
                                   }
 
-                                  for i in range(0, len(other_nutrients_1+other_nutrients_2), 2):
+                                  for i in range(0, len(other_nutrients_1), 2):
                                       cols = st.columns(2)
                                       for j, col in enumerate(cols):
-                                          if i + j < len(other_nutrients_1+other_nutrients_2):
-                                              nutris = (other_nutrients_1+other_nutrients_2)[i + j]
+                                          if i + j < len(other_nutrients_1):
+                                              nutris = (other_nutrients_1)[i + j]
                                               nutr_text=nutris.replace("Major Minerals.","").split(", ")
                                               emg=""
                                               if len(nutr_text)>1:
@@ -832,7 +832,15 @@ if user_breed:
                                               with col:
                                                   st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
 
-                                  
+                                  coli, colii=st.columns([6,3])
+                                  with coli:
+                                     for i in range(0, len(other_nutrients_2)):
+                                              nutris = other_nutrients_2[i]
+                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
+                                              emg = nutr_text[-1] if len(nutr_text)>1 else "g"
+                                              norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
+                                              st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
+                                
                                           
                                   st.markdown("#### 🪨 Минералы")
                                   coli, colii=st.columns([6,3])
@@ -857,20 +865,7 @@ if user_breed:
                                               norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                        
-                                  st.markdown("#### 🍊 Витамины")
-                                  for i in range(0, len(vitamins), 2):
-                                      cols = st.columns(2)
-                                      for j, col in enumerate(cols):
-                                          if i + j < len(vitamins):
-                                              nutris = vitamins[i + j]
-                                              nutr_text=nutris.replace("Major Minerals.","").split(", ")
-                                              emg=""
-                                              if len(nutr_text)>1:
-                                                emg=nutr_text[-1]
-                                              else:
-                                                emg="g"
-                                              with col:
-                                                  st.markdown(f"**{nutr_text[0]}**: {count_nutr_cont_all.get(nutris, '')} {emg}")
+    
                                                 
                                                                                                    
 
