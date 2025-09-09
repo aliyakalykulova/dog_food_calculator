@@ -900,10 +900,12 @@ if user_breed:
 
                                   st.markdown("### Необходимо добавить")
                                   for name,amount in count_nutr_cont_all.items():
-                                    diff=other_for_adult[name] - amount
-                                    if diff>0:
-                                       st.write(f"**{name}:** {diff}")
-  
+                                    name_n=name.split(", ")[0]
+                                    if name_n in other_for_adult:
+                                      diff=other_for_adult[name_n] - amount
+                                      if diff>0:
+                                         st.write(f"**{name}:** {diff}")
+    
                                   
                             
                               else:
