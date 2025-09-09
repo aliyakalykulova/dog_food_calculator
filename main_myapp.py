@@ -844,7 +844,7 @@ if user_breed:
                                                 st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                 
                                   emg = "g"
-                                  nutr_text="ЭПК (50-60%) + ДГК (40-50%), g"
+                                  nutr_text="ЭПК (50-60%) + ДГК (40-50%)"
                                   norma = other_for_adult[nutr_text]*(st.session_state.weight_sel**0.75)
                                   nutris=count_nutr_cont_all.get(other_nutrients_3[0], '')+count_nutr_cont_all.get(other_nutrients_3[1], '')
                                   st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text+", "+ emg, str(emg)))
