@@ -835,7 +835,7 @@ if user_breed:
 
                                 
                                   count_nutr_cont_all = {
-                                      nutr: round(sum(amount * food[ingredient][nutr] for ingredient, amount in ingredients_required.items()) * 100, 2)
+                                      nutr: round(sum(amount * food[ingredient][nutr] for ingredient, amount in ingredients_required.items()), 2)
                                       for nutr in cols_to_divide+other_nutrients+major_minerals+vitamins
                                   }
 
