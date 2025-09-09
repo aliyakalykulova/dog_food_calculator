@@ -625,6 +625,7 @@ if user_breed:
 
                       df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] = df_ingr_all[cols_to_divide+other_nutrients+major_minerals+vitamins] / 100
                       df_ingr_all['ингредиент и описание'] = df_ingr_all['Ингредиенты'] + ' — ' + df_ingr_all['Описание']
+                      df_ingr_all['ЭПК (50-60%) + ДГК (40-50%), г'] = df_ingr_all['ЭПК, г']*0.5 + df_ingr_all['ДГК, г']*0.5
 
 
                       proteins=df_ingr_all[df_ingr_all["Категория"].isin(["Яйца и Молочные продукты", "Мясо"])]["ингредиент и описание"].tolist()
@@ -869,14 +870,7 @@ if user_breed:
                                               if nutr_text[0] in other_for_adult:
                                                 norma = other_for_adult[nutr_text[0]]*(st.session_state.weight_sel**0.75)
                                                 st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
-                                                
-                                  coli, colii=st.columns([6,3])
-                                  with coli:
-                                      emg = "g"
-                                      nutr_text="ЭПК (50-60%) + ДГК (40-50%)"
-                                      norma = other_for_adult[nutr_text]*(st.session_state.weight_sel**0.75)
-                                      nutris=count_nutr_cont_all.get(other_nutrients_3[0], '')*0.5+count_nutr_cont_all.get(other_nutrients_3[1], '')*0.5
-                                      st.pyplot(bar_print(norma, nutris, nutr_text+", "+ emg, str(emg)))
+                               
                                   
                                   st.markdown("#### 🪨 Минералы")
                                   coli, colii=st.columns([6,3])
