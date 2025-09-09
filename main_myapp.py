@@ -618,7 +618,7 @@ if user_breed:
 
 
                       for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
-
+                        if col !='ЭПК (50-60%) + ДГК (40-50%), г':
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
                         
@@ -635,7 +635,7 @@ if user_breed:
 
                       meat_len=len(set(proteins).intersection(set(ingredients_finish)))
 
-
+                      
 ###################################################################################################################################################################
                 
                       if "selected_ingredients" not in st.session_state or st.session_state.show_result_1==False:
