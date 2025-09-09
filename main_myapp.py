@@ -836,7 +836,7 @@ if user_breed:
                                 
                                   count_nutr_cont_all = {
                                       nutr: round(sum(amount * food[ingredient][nutr] for ingredient, amount in ingredients_required.items()) * 100, 2)
-                                      for nutr in other_nutrients+major_minerals+vitamins
+                                      for nutr in cols_to_divide+other_nutrients+major_minerals+vitamins
                                   }
 
                                   st.markdown(f"### 💪 Питательная ценность на {round(needed_feed_g, 2)} г:")
