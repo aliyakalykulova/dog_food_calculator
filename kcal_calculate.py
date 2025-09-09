@@ -30,7 +30,8 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         ax.set_ylim(-0.5, 0.5)
                                         ax.plot([0, maxi_lin], [0, 0], color='#e0e0e0', linewidth=10, solid_capstyle='round', alpha=0.8)
                                         fixed_space = -10 
-                                        ax.text(fixed_space, 0, name_ing, ha='right', va='center', fontsize=13)
+                                        wrapped_text = "\n".join(textwrap.wrap(name_ing, width=15))
+                                        ax.text(fixed_space, 0, wrapped_text, ha='right', va='center', fontsize=13)
                                         if current_value < total_norm:
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
                                             ax.plot([0, curr], [0, 0], color='purple', linewidth=10, solid_capstyle='round')
