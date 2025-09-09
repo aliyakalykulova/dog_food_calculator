@@ -899,7 +899,7 @@ if user_breed:
                                               st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
 
                                   st.markdown("### Необходимо добавить")
-                                  for name,amount in count_nutr_cont_all.item():
+                                  for name,amount in count_nutr_cont_all.items():
                                     diff=other_for_adult[name] - amount
                                     if diff>0:
                                        st.write(f"**{name}:** {diff}")
