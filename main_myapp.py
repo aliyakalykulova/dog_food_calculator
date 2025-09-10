@@ -634,7 +634,7 @@ if user_breed:
                           needeble_proterin = protein_need_calc(st.session_state.kkal_sel, age_type_categ,  st.session_state.weight_sel, st.session_state.select_reproductive_status, age ,age_metric)
                         
                           nutr_ranges['Влага'] = st.slider(f"{'Влага'}", 0, 100, (70, 85))
-                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (4,21))
+                          nutr_ranges['Белки'] = st.slider(f"{'Белки'}", 0, 100, (6,21))
                           nutr_ranges['Углеводы'] = st.slider(f"{'Углеводы'}", 0, 100, (5,10))
                           nutr_ranges['Жиры'] = st.slider(f"{'Жиры'}", 0, 100, (1,15))
 
