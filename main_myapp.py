@@ -87,6 +87,10 @@ if gender != st.session_state.select_gender:
             st.session_state.select_gender = gender
             st.session_state.show_result_1 = False
             st.session_state.show_result_2 = False
+            st.session_state.select_reproductive_status = False
+            st.session_state.show_res_berem_time = False
+            st.session_state.show_res_num_pup = False
+            st.session_state.show_res_lact_time = False
               
 
 if st.session_state.select_gender == gender_types[1]:
