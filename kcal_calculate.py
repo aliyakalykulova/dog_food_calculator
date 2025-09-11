@@ -235,7 +235,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                         else:
                                             ax.plot([0, curr], [0, 0], color='darkgray', linewidth=10, solid_capstyle='round')
                                             ax.plot([0, norma], [0, 0], color='green', linewidth=10, solid_capstyle='round')
-                                            if diff < 0:
+                                        if diff < 0:
                                               ax.text(maxi_lin+10, 0,
                                                 f"Дефицит: {round(abs(diff),2)} {mg}",
                                                 ha='left', va='center', fontsize=13, color='black')
