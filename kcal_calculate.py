@@ -240,7 +240,7 @@ def bar_print(total_norm,current_value,name_ing,mg):
                                                 f"Дефицит: {round(abs(diff),2)} {mg}",
                                                 ha='left', va='center', fontsize=13, color='black')
                                         else:
-                                               ax.text(maxi_lin+10, 0,"                 ", ha='left', va='center', fontsize=13, color='black')
+                                               ax.text(maxi_lin+10, 0,"                                  ", ha='left', va='center', fontsize=13, color='black')
                                         ax.text(curr, 0.2, f"Текущее\n{round(current_value,2)}", color='purple', ha='center', va='bottom', fontsize=9)
                                         ax.text(norma, -0.2,  f"Норма\n{round(total_norm,2)}", color='green', ha='center', va='top', fontsize=9)
                                         return fig
