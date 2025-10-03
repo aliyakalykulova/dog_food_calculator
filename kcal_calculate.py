@@ -329,12 +329,12 @@ def kcal_calculate(reproductive_status, berem_time, num_pup, L_time, age_type, w
          
     else:
       if age_type==age_category_types[0]:
-          if age<8:
+          if age<2:
             kcal=25 * weight 
             formula= r"kcal = 25 \cdot вес"
             page = "56"
             
-          elif age>=8 and age <12:
+          elif age>=2 and age <12:
             kcal=(254.1-135*(weight/expected) )*(weight**0.75)
             formula=fr"kcal = \left(254.1 - 135 \cdot \frac{{вес}}{{w}}\right) \cdot вес^{{0.75}}  \\  w = {round(expected,2)}  \text{{кг ;  предположительный вес для породы {user_breed}}}"
             page = "56"
