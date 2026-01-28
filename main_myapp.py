@@ -570,7 +570,9 @@ if user_breed:
                       vitamin_a_mcg,  vitamin_e_mg,  vitamin_d_mcg, vitamin_b1_mg, vitamin_b2_mg,vitamin_b3_mg, 
                       vitamin_b5_mg, vitamin_b6_mg,vitamin_b9_mcg,vitamin_b12_mcg, vitamin_c_mg, vitamin_k_mcg,
                       
-                      alpha_carotene_mcg,beta_carotene_mcg, beta_cryptoxanthin_mcg, lutein_zeaxanthin_mcg, lycopene_mcg, retinol_mcg
+                      alpha_carotene_mcg,beta_carotene_mcg, beta_cryptoxanthin_mcg, lutein_zeaxanthin_mcg, lycopene_mcg, retinol_mcg, 
+
+                      linoleic_acid_g, alpha_linolenic_acid_g , arachidonic_acid_g ,epa_g, dha_g
                       
                       FROM  ingredient
                       inner join ingredient_translate on ingredient_translate.id_ingredient=ingredient.id_ingredient
@@ -578,7 +580,10 @@ if user_breed:
                       inner join nutrient_macro on nutrient_macro.id_ingredient=ingredient.id_ingredient
                       inner join nutrient_micro on nutrient_micro.id_ingredient=ingredient.id_ingredient
                       inner join vitamin on vitamin.id_ingredient=ingredient.id_ingredient
-                      inner join vitamin_a_related_compounds on vitamin_a_related_compounds.id_ingredient=ingredient.id_ingredient""", conn)
+                      inner join vitamin_a_related_compounds on vitamin_a_related_compounds.id_ingredient=ingredient.id_ingredient
+                      inner join fatty_acids on fatty_acids.id_ingredient=ingredient.id_ingredient
+
+                      """, conn)
 
                       df_ingr_all = df_ingr_all.rename(columns=ingredients_rename)
 
