@@ -61,7 +61,7 @@ def show_nutr_content(count_nutr_cont_all, other_nutrient_norms):
                                                 st.pyplot(bar_print(norma, count_nutr_cont_all.get(nutris, ''), nutr_text[0]+", "+ emg, str(emg)))
                                
                                   
-                                  st.markdown("#### 🪨 Минералы")
+                                  st.markdown("#### 🔹 Минералы")
                                   coli, colii=st.columns([6,3])
                                   with coli:
                                      for i in range(0, len(major_minerals)):
