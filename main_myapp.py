@@ -141,7 +141,9 @@ elif st.session_state.select_reproductive_status==rep_status_types[2] and st.ses
 def load_data():
     conn = sqlite3.connect("pet_food.db")
     food=pd.read_sql("""SELECT name_product, description,key_benefit, helpful_tip,
-               recomendations,ingredients, purpose, alternate_purpose
+               recomendations,ingredients, purpose, alternate_purpose, 
+               protein, fat, carbohydrate, crude_fibre, calcium,phospohorus, potassium, 
+               sodium, magnesium, vitamin_e,vitamin_c, omega_3, omega_6
                 FROM dog_food 
                 inner join dog_food_characteristics on dog_food_characteristics.id_dog_food = dog_food.id_dog_food
                 inner join purpose on purpose.id_purpose= dog_food_characteristics.id_purpose""", conn)
