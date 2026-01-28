@@ -227,8 +227,8 @@ def preprocess_food(df):
     df["combined_text"] = (
         df["ingredients"].fillna("")
         .str.cat(df["key_benefit"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["product_title"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["product_description"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["name_product"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["description"].fillna(""), sep=" ", na_rep="")
         .str.cat(df["helpful_tip"].fillna(""), sep=" ", na_rep="")
         .str.cat(df["purpose"].fillna(""), sep=" ", na_rep="")
         .str.cat(df["alternate_purpose"].fillna(""), sep=" ", na_rep="")
