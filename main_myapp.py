@@ -143,7 +143,7 @@ def load_data():
     food=pd.read_sql("""SELECT name_product, description,key_benefit, helpful_tip,
                recomendations,ingredients, purpose, alternate_purpose,
                protein, fat, carbohydrate, crude_fibre, calcium, phospohorus, potassium, 
-               sodium, magnesium, vitamin_e,vitamin_c, omega_3, omega_6
+               sodium, magnesium, vitamin_e,vitamin_c, omega_3, omega_6, breed_size, life_stage
                 FROM dog_food 
                 inner join dog_food_characteristics on dog_food_characteristics.id_dog_food = dog_food.id_dog_food
                 inner join purpose on purpose.id_purpose= dog_food_characteristics.id_purpose
@@ -151,6 +151,8 @@ def load_data():
                 inner join dog_food_mineral on dog_food_mineral.id_dog_food = dog_food.id_dog_food
                 inner join dog_food_vitamin on dog_food_vitamin.id_dog_food = dog_food.id_dog_food
                 inner join  dog_food_fatty_acid on dog_food_fatty_acid.id_dog_food = dog_food.id_dog_food
+                inner join  breed_size on breed_size.id_breed_size=dog_food_characteristics.id_breed_size
+                inner join life_stage  on  life_stage.id_life_stage=dog_food_characteristics.id_life_stage
                 """, conn)
 
     conn = sqlite3.connect("breed_disease.db")
