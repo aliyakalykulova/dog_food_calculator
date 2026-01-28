@@ -14,6 +14,8 @@ import numpy as np
 import itertools
 import matplotlib.pyplot as plt
 import textwrap
+import sqlite3
+
 
 from kcal_calculate import kcal_calculate
 from kcal_calculate import size_category
@@ -124,15 +126,36 @@ elif st.session_state.select_reproductive_status==rep_status_types[2] and st.ses
               
 
 
+
+
 @st.cache_data(show_spinner=False)
 def load_data():
-    food = pd.read_csv("FINAL_COMBINED.csv")
-    disease = pd.read_csv("Disease.csv")
+    conn = sqlite3.connect("pet_food.db")
+    food=pd.read_sql("""SELECT name_product, description,key_benefit, helpful_tip,
+               recomendations,ingredients, purpose, alternate_purpose
+                FROM dog_food 
+                inner join dog_food_characteristics on dog_food_characteristics.id_dog_food = dog_food.id_dog_food
+                inner join purpose on purpose.id_purpose= dog_food_characteristics.id_purpose""", conn)
+  
+    conn = sqlite3.connect("breed_disease.db")
+    disease = pd.read_sql("""SELECT name_breed,  min_weight, max_weight, name_disease, name_disorder
+
+                FROM breed 
+                inner join breed_disease on breed.id_breed = breed_disease.id_breed
+                inner join disease on disease.id_disease= breed_disease.id_disease
+                inner join disease_disorder on disease.id_disease= disease_disorder.id_disease
+                inner join disorder on disorder.id_disorder=disease_disorder.id_disorder
+                """, conn)
     return food, disease
 
 food_df, disease_df = load_data()
 
-df_standart = pd.read_csv("merge_tab.csv")
+conn = sqlite3.connect("ingredients.db")
+df_standart = pd.read_sql("""SELECT name_feed_ingredient,  name_ingredient_ru || " — " || format_ingredient_ru AS ingredient_full,category_ru   FROM  feed_ingredient_map
+inner join ingredient on ingredient.id_ingredient=feed_ingredient_map.id_ingredient
+inner join ingredient_translate on ingredient_translate.id_ingredient=ingredient.id_ingredient
+inner join ingredient_category on ingredient_category.id_category = ingredient.id_category""", conn)
+
 proteins=df_standart[df_standart["Type"].isin(["Яйца и Молочные продукты", "Мясо"])]["Ingredient"].tolist()
 oils=df_standart[df_standart["Type"].isin([ "Масло и жир"])]["Ingredient"].tolist()
 carbonates_cer=df_standart[df_standart["Type"].isin(["Крупы"])]["Ingredient"].tolist()
@@ -520,7 +543,21 @@ if user_breed:
             if len(ingredients_finish)>0:
                
                       # --- Загрузка данных ---
-                      df_ingr_all = pd.read_csv('food_ingrediets.csv')
+                      conn = sqlite3.connect("ingredients.db")
+                      df_ingr_all = pd.read_sql("""SELECT name_ingredient, format_ingredient, name_ingredient_ru ,format_ingredient_ru, category_ru, 
+                      calories_kcal, moisture_per, protein_per, carbohydrate_per,fats_per, ash_g, fiber_g, cholesterol_mg, total_sugar_g,
+                      calcium_mg, phosphorus_mg, magnesium_mg, sodium_mg, potassium_mg, iron_mg, copper_mg, zinc_mg, manganese_mg, selenium_mcg, iodine_mcg, choline_mg,
+                      vitamin_a_mcg,  vitamin_e_mg,  vitamin_d_mcg, vitamin_b1_mg, vitamin_b2_mg,vitamin_b3_mg, 
+                      vitamin_b5_mg, vitamin_b6_mg,vitamin_b9_mcg,vitamin_b12_mcg, vitamin_c_mg, vitamin_k_mcg,
+                      alpha_carotene_mcg,beta_carotene_mcg, beta_cryptoxanthin_mcg, lutein_zeaxanthin_mcg, lycopene_mcg, retinol_mcg
+                      FROM  ingredient
+                      inner join ingredient_translate on ingredient_translate.id_ingredient=ingredient.id_ingredient
+                      inner join ingredient_category on ingredient_category.id_category = ingredient.id_category
+                      inner join nutrient_macro on nutrient_macro.id_ingredient=ingredient.id_ingredient
+                      inner join nutrient_micro on nutrient_micro.id_ingredient=ingredient.id_ingredient
+                      inner join vitamin on vitamin.id_ingredient=ingredient.id_ingredient
+                      inner join vitamin_a_related_compounds on vitamin_a_related_compounds.id_ingredient=ingredient.id_ingredient""", conn)
+
                       cols_to_divide = ['Влага', 'Белки', 'Углеводы', 'Жиры']
 
 
