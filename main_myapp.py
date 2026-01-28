@@ -51,6 +51,17 @@ major_minerals=["Кальций, мг","Медь, мг","Железо, мг","М
 
 vitamins=[ "Витамин A, мкг","Витамин E, мг","Витамин Д, мкг","Витамин В1 (тиамин), мг","Витамин В2 (Рибофлавин), мг","Витамин В3 (Ниацин), мг","Витамин В6, мг","Витамин В12, мкг"]
 
+ingredients_rename={'name_ingredient': 'Category', 'format_ingredient': 'Description', 'category_ru': 'Категория', 'name_ingredient_ru': 'Ингредиенты', 'format_ingredient_ru': 'Описание',
+ 'calories_kcal': 'Калории, ккал', 'moisture_per': 'Влага', 'protein_per': 'Белки', 'carbohydrate_per': 'Углеводы', 'fats_per': 'Жиры', 'ash_g': 'Зола, г', 'fiber_g': 'Клетчатка, г',
+ 'cholesterol_mg': 'Холестерин, мг', 'total_sugar_g': 'Сахар общее, г',
+ 'calcium_mg': 'Кальций, мг', 'phosphorus_mg': 'Фосфор, мг', 'magnesium_mg': 'Магний, мг', 'sodium_mg': 'Натрий, мг', 'potassium_mg': 'Калий, мг', 'iron_mg': 'Железо, мг', 'copper_mg': 'Медь, мг',
+ 'zinc_mg': 'Цинк, мг', 'manganese_mg': 'Марганец, мг', 'selenium_mcg': 'Селен, мкг', 'iodine_mcg': 'Йод, мкг', 'choline_mg': 'Холин, мг',
+ 'vitamin_a_mcg': 'Витамин A, мкг', 'vitamin_e_mg': 'Витамин E, мг', 'vitamin_d_mcg': 'Витамин Д, мкг', 'vitamin_b1_mg': 'Витамин В1 (тиамин), мг', 'vitamin_b2_mg': 'Витамин В2 (Рибофлавин), мг',
+ 'vitamin_b3_mg': 'Витамин В3 (Ниацин), мг', 'vitamin_b5_mg': 'Пантотеновая кислота, мг', 'vitamin_b6_mg': 'Витамин В6, мг', 'vitamin_b9_mcg': 'Фолиевая кислота, мкг',
+ 'vitamin_b12_mcg': 'Витамин В12, мкг', 'vitamin_c_mg': 'Vitamin C', 'vitamin_k_mcg': 'Vitamin K',
+  'alpha_carotene_mcg': 'Alpha Carotene', 'beta_carotene_mcg': 'Beta Carotene', 'beta_cryptoxanthin_mcg': 'Beta Cryptoxanthin', 'lutein_zeaxanthin_mcg': 'Lutein and Zeaxanthin',
+ 'lycopene_mcg': 'Lycopene', 'retinol_mcg': 'Retinol', 'linoleic_acid_g': 'Линолевая кислота, г', 'alpha_linolenic_acid_g': 'Альфа-линоленовая кислота, г',
+ 'arachidonic_acid_g': 'Арахидоновая кислота, г', 'epa_g': 'ЭПК, г', 'dha_g': 'ДГК, г'}
 
 # -------------------------------------------------------------------------------------
 
@@ -126,8 +137,6 @@ elif st.session_state.select_reproductive_status==rep_status_types[2] and st.ses
               
 
 
-
-
 @st.cache_data(show_spinner=False)
 def load_data():
     conn = sqlite3.connect("pet_food.db")
@@ -136,7 +145,7 @@ def load_data():
                 FROM dog_food 
                 inner join dog_food_characteristics on dog_food_characteristics.id_dog_food = dog_food.id_dog_food
                 inner join purpose on purpose.id_purpose= dog_food_characteristics.id_purpose""", conn)
-  
+
     conn = sqlite3.connect("breed_disease.db")
     disease = pd.read_sql("""SELECT name_breed,  min_weight, max_weight, name_disease, name_disorder
 
@@ -151,18 +160,18 @@ def load_data():
 food_df, disease_df = load_data()
 
 conn = sqlite3.connect("ingredients.db")
-df_standart = pd.read_sql("""SELECT name_feed_ingredient,  name_ingredient_ru || " — " || format_ingredient_ru AS ingredient_full,category_ru   FROM  feed_ingredient_map
+df_standart = pd.read_sql("""SELECT name_feed_ingredient,  name_ingredient_ru || " — " || format_ingredient_ru AS ingredient_full_ru,category_ru   FROM  feed_ingredient_map
 inner join ingredient on ingredient.id_ingredient=feed_ingredient_map.id_ingredient
 inner join ingredient_translate on ingredient_translate.id_ingredient=ingredient.id_ingredient
 inner join ingredient_category on ingredient_category.id_category = ingredient.id_category""", conn)
 
-proteins=df_standart[df_standart["Type"].isin(["Яйца и Молочные продукты", "Мясо"])]["Ingredient"].tolist()
-oils=df_standart[df_standart["Type"].isin([ "Масло и жир"])]["Ingredient"].tolist()
-carbonates_cer=df_standart[df_standart["Type"].isin(["Крупы"])]["Ingredient"].tolist()
-carbonates_veg=df_standart[df_standart["Type"].isin(["Зелень и специи","Овощи и фрукты"])]["Ingredient"].tolist()
-other=df_standart[df_standart["Type"].isin(["Вода, соль и сахар"])]["Ingredient"].tolist()
+proteins=df_standart[df_standart["category_ru"].isin(["Яйца и Молочные продукты", "Мясо"])]["name_feed_ingredient"].tolist()
+oils=df_standart[df_standart["category_ru"].isin([ "Масло и жир"])]["name_feed_ingredient"].tolist()
+carbonates_cer=df_standart[df_standart["category_ru"].isin(["Крупы"])]["name_feed_ingredient"].tolist()
+carbonates_veg=df_standart[df_standart["category_ru"].isin(["Зелень и специи","Овощи и фрукты"])]["name_feed_ingredient"].tolist()
+other=df_standart[df_standart["category_ru"].isin(["Вода, соль и сахар"])]["name_feed_ingredient"].tolist()
 water=["Вода — Обыкновенный"]
-dele = df_standart[df_standart["Standart"].isna()]["Ingredient"].tolist()
+dele = df_standart[df_standart["ingredient_full_ru"].isna()]["name_feed_ingredient"].tolist()
 
 stop_words=["Beta-Carotene","With Natural Antioxidant", "Minerals","Digest","Dicalcium Phosphate","L-Carnitine","L-Threonine","Composition:","L-Tryptophan","Chicken Flavor","Manganese Sulfate"
 "Hydrolyzed Chicken Flavor", "Monosodium Phosphate","Magnesium Oxide","Powdered Cellulose","Taurine","Mixed Tocopherols For Freshness","Natural Flavor","Potassium Alginate","Sodium Tripolyphosphate",
@@ -200,9 +209,9 @@ disease_df = preprocess_disease(disease_df)
 def preprocess_food(df):
     df = df.copy()
     nutrients = [
-        "protein", "fat", "carbohydrate (nfe)", "crude fibre", "calcium",
-        "phospohorus", "potassium", "sodium", "magnesium", "vitamin e",
-        "vitamin c", "omega-3-fatty acids", "omega-6-fatty acids",
+        "protein", "fat", "carbohydrate", "crude_fibre", "calcium",
+        "phospohorus", "potassium", "sodium", "magnesium", "vitamin_e",
+        "vitamin_c", "omega_3", "omega_6",
     ]
     for col in nutrients:
         df[col] = (
@@ -217,12 +226,12 @@ def preprocess_food(df):
 
     df["combined_text"] = (
         df["ingredients"].fillna("")
-        .str.cat(df["key benefits"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["product title"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["product description"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["helpful tips"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["need/preference"].fillna(""), sep=" ", na_rep="")
-        .str.cat(df["alternate product recommendation"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["key_benefit"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["product_title"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["product_description"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["helpful_tip"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["purpose"].fillna(""), sep=" ", na_rep="")
+        .str.cat(df["alternate_purpose"].fillna(""), sep=" ", na_rep="")
     )
     return df
 
@@ -251,7 +260,7 @@ vectorizer, svd, X_text_reduced = build_text_pipeline(food_df["combined_text"], 
 @st.cache_resource(show_spinner=False)
 def build_categorical_encoder(df):
     enc = OneHotEncoder(sparse_output=True, handle_unknown="ignore")
-    cats = df[["breed size", "lifestage"]].fillna("Unknown")
+    cats = df[["breed_size", "life_stage"]].fillna("Unknown")
     enc.fit(cats)
     return enc, enc.transform(cats)
 
@@ -279,14 +288,14 @@ def train_nutrient_models(food, _X):
     scalers = {}
 
     nutrients = [
-        "protein", "fat", "carbohydrate (nfe)", "crude fibre", "calcium",
-        "phospohorus", "potassium", "sodium", "magnesium", "vitamin e",
-        "vitamin c", "omega-3-fatty acids", "omega-6-fatty acids",
+        "protein", "fat", "carbohydrate", "crude_fibre", "calcium",
+        "phospohorus", "potassium", "sodium", "magnesium", "vitamin_e",
+        "vitamin_c", "omega_3", "omega_6",
     ]
     to_scale = {
         "sodium",
-        "omega-3-fatty acids",
-        "omega-6-fatty acids",
+        "omega_3",
+        "omega_6",
         "calcium",
         "phospohorus",
         "potassium",
@@ -407,11 +416,11 @@ if "activity_level_sel" not in st.session_state:
 if "kkal_sel" not in st.session_state:
     st.session_state.kkal_sel = None
 
-breed_list = sorted(disease_df["Breed"].unique())
+breed_list = sorted(disease_df["name_breed"].unique())
 user_breed = st.selectbox("Порода собаки:", breed_list)
 
-min_weight = disease_df.loc[disease_df["Breed"] == user_breed, "min_weight"].values
-max_weight = disease_df.loc[disease_df["Breed"] == user_breed, "max_weight"].values
+min_weight = disease_df.loc[disease_df["name_breed"] == user_breed, "min_weight"].values
+max_weight = disease_df.loc[disease_df["name_breed"] == user_breed, "max_weight"].values
 avg_wight=(max_weight[0]+min_weight[0])/2
 
 size_categ = size_category(avg_wight)
@@ -446,12 +455,12 @@ if age_type_categ==age_category_types[2]:
         st.session_state.show_result_2 = False
 
 if user_breed:
-    info = disease_df[disease_df["Breed"] == user_breed]
+    info = disease_df[disease_df["name_breed"] == user_breed]
     if not info.empty:
         breed_size = info["breed_size_category"].values[0]
-        disorders = info["Disease"].unique().tolist()
+        disorders = info["name_disease"].unique().tolist()
         selected_disorder = st.selectbox("Заболевание:", disorders)
-        disorder_type = info[info["Disease"] == selected_disorder]["Disorder"].values[0]
+        disorder_type = info[info["name_disease"] == selected_disorder]["name_disorder"].values[0]
 
         if user_breed != st.session_state.select1 or selected_disorder!= st.session_state.select2:
             st.session_state.select1 = user_breed
@@ -512,25 +521,25 @@ if user_breed:
 
             prot=sorted([i for i in top_ings if i[0].title() in proteins and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             prot = [i.title() for i, _ in prot]
-            prot=df_standart[df_standart["Ingredient"].isin(prot)]["Standart"].tolist()
+            prot=df_standart[df_standart["name_feed_ingredient"].isin(prot)]["ingredient_full_ru"].tolist()
 
             carb_cer=sorted([i for i in top_ings if i[0].title() in carbonates_cer and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             carb_cer = [i.title() for i, _ in carb_cer]
-            carb_cer=df_standart[df_standart["Ingredient"].isin(carb_cer)]["Standart"].tolist()
+            carb_cer=df_standart[df_standart["name_feed_ingredient"].isin(carb_cer)]["ingredient_full_ru"].tolist()
 
             carb_veg=sorted([i for i in top_ings if i[0].title() in carbonates_veg and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             carb_veg = [i.title() for i, _ in carb_veg]
-            carb_veg=df_standart[df_standart["Ingredient"].isin(carb_veg)]["Standart"].tolist()
+            carb_veg=df_standart[df_standart["name_feed_ingredient"].isin(carb_veg)]["ingredient_full_ru"].tolist()
 
 
             fat=sorted([i for i in top_ings if i[0].title() in oils and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             fat = [i.title() for i, _ in fat]
-            fat=df_standart[df_standart["Ingredient"].isin(fat)]["Standart"].tolist()
+            fat=df_standart[df_standart["name_feed_ingredient"].isin(fat)]["ingredient_full_ru"].tolist()
 
             oth=sorted([i for i in top_ings[:20] if i[0].title() in other and i[0].title() not in dele], key=lambda x: x[1], reverse=True)[:1]
             if len(oth)>0:
               oth = [i.title() for i, _ in oth]
-              oth=df_standart[df_standart["Ingredient"].isin(oth)]["Standart"].tolist()
+              oth=df_standart[df_standart["name_feed_ingredient"].isin(oth)]["ingredient_full_ru"].tolist()
             else:
               oth=[]
             
@@ -545,11 +554,16 @@ if user_breed:
                       # --- Загрузка данных ---
                       conn = sqlite3.connect("ingredients.db")
                       df_ingr_all = pd.read_sql("""SELECT name_ingredient, format_ingredient, name_ingredient_ru ,format_ingredient_ru, category_ru, 
+                      
                       calories_kcal, moisture_per, protein_per, carbohydrate_per,fats_per, ash_g, fiber_g, cholesterol_mg, total_sugar_g,
+                      
                       calcium_mg, phosphorus_mg, magnesium_mg, sodium_mg, potassium_mg, iron_mg, copper_mg, zinc_mg, manganese_mg, selenium_mcg, iodine_mcg, choline_mg,
+                      
                       vitamin_a_mcg,  vitamin_e_mg,  vitamin_d_mcg, vitamin_b1_mg, vitamin_b2_mg,vitamin_b3_mg, 
                       vitamin_b5_mg, vitamin_b6_mg,vitamin_b9_mcg,vitamin_b12_mcg, vitamin_c_mg, vitamin_k_mcg,
+                      
                       alpha_carotene_mcg,beta_carotene_mcg, beta_cryptoxanthin_mcg, lutein_zeaxanthin_mcg, lycopene_mcg, retinol_mcg
+                      
                       FROM  ingredient
                       inner join ingredient_translate on ingredient_translate.id_ingredient=ingredient.id_ingredient
                       inner join ingredient_category on ingredient_category.id_category = ingredient.id_category
@@ -557,6 +571,8 @@ if user_breed:
                       inner join nutrient_micro on nutrient_micro.id_ingredient=ingredient.id_ingredient
                       inner join vitamin on vitamin.id_ingredient=ingredient.id_ingredient
                       inner join vitamin_a_related_compounds on vitamin_a_related_compounds.id_ingredient=ingredient.id_ingredient""", conn)
+
+                      df_ingr_all = df_ingr_all.rename(columns=ingredients_rename)
 
                       cols_to_divide = ['Влага', 'Белки', 'Углеводы', 'Жиры']
 
