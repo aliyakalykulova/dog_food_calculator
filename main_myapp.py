@@ -588,6 +588,8 @@ if user_breed:
 
                       for col in cols_to_divide+other_nutrients+major_minerals+vitamins:
                         if col !='ЭПК (50-60%) + ДГК (40-50%), г':
+                          if col not in df_ingr_all.columns:
+                            st.write(col)
                           df_ingr_all[col] = df_ingr_all[col].astype(str).str.replace(',', '.', regex=False)
                           df_ingr_all[col] = pd.to_numeric(df_ingr_all[col], errors='coerce')
                         
