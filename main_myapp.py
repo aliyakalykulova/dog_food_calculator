@@ -150,6 +150,7 @@ def load_data():
                 inner join dog_food_nutrient_macro on  dog_food_nutrient_macro.id_dog_food = dog_food.id_dog_food
                 inner join dog_food_mineral on dog_food_mineral.id_dog_food = dog_food.id_dog_food
                 inner join dog_food_vitamin on dog_food_vitamin.id_dog_food = dog_food.id_dog_food
+                inner join  dog_food_fatty_acid on dog_food_fatty_acid.id_dog_food = dog_food.id_dog_food
                 """, conn)
 
     conn = sqlite3.connect("breed_disease.db")
