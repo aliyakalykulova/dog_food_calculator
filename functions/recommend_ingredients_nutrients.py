@@ -37,7 +37,7 @@ def ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disor
    # --- Расчёт / предсказание рейтинга ингредиентов	
    ing_scores = {ing: clf.decision_function(kw_combined)[0] for ing, clf in ingredient_models.items()} 
 	
-   proteins=df_standart[df_standart["category_ru"].isin(["Мясо","Яйца и Молочные продукты"])]["name_feed_ingredient"].tolist()
+   proteins=df_standart[df_standart["category_ru"].isin(["Мясо","Яйца и молочные продукты"])]["name_feed_ingredient"].tolist()
    oils=df_standart[df_standart["category_ru"].isin([ "Масло и жир"])]["name_feed_ingredient"].tolist()
    carbonates_cer=df_standart[df_standart["category_ru"].isin(["Крупы"])]["name_feed_ingredient"].tolist()
    carbonates_veg=df_standart[df_standart["category_ru"].isin(["Зелень и специи","Овощи и фрукты"])]["name_feed_ingredient"].tolist()
