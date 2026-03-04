@@ -20,9 +20,8 @@ def ingredients_choose(ingredirents_df,ingredients_finish):
    ingredirents_df['epa_g(50-60%) + dha_g(40-50%)'] = ingredirents_df['epa_g']*0.5 + ingredirents_df['dha_g']*0.5
    ingredirents_df[all_nutrs] = ingredirents_df[all_nutrs]
 
-   # --- Инициализация глобального списка ингредиентов корма
-   # --- По умолчанию список заполняется рекомендованными ингредиентами	
-   if "selected_ingredients" not in st.session_state:
+   # --- Список заполняется рекомендованными ингредиентами	
+   if len(st.session_state.selected_ingredients) == 0:
       st.session_state.selected_ingredients = set(ingredients_finish)
 
    # --- Инструмент добавления ингредиентов в состав корма (раскрывающиеся списки)
