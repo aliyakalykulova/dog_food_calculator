@@ -18,7 +18,7 @@ def maximize_function(food_df, nutrient_preds):
 def ingredients_limits(ingredirents_df, ingredient_names):
 
    # --- Формирование списков ингредиентов по источникам основных нутриентов 	
-   proteins=ingredirents_df[ingredirents_df["category_ru"].isin(["Яйца и Молочные продукты", "Мясо"])]["ingredient_format_cat"].tolist()
+   proteins=ingredirents_df[ingredirents_df["category_ru"].isin(["Яйца и молочные продукты", "Мясо"])]["ingredient_format_cat"].tolist()
    oils=ingredirents_df[ingredirents_df["category_ru"].isin([ "Масло и жир"])]["ingredient_format_cat"].tolist()
    carbonates_cer=ingredirents_df[ingredirents_df["category_ru"].isin(["Крупы"])]["ingredient_format_cat"].tolist()
    carbonates_veg=ingredirents_df[ingredirents_df["category_ru"].isin(["Зелень и специи","Овощи и фрукты"])]["ingredient_format_cat"].tolist()
