@@ -113,9 +113,16 @@ def show_figures_ingr_nutr(ingr_ranges, nutr_ranges, ingredients_combo, nutrient
    ingr_lims = ingr_ranges
    wrapped_ingredients = [  '\n'.join(textwrap.wrap(label.replace(" — Обыкновенный", ""), 10))
                              for label in ingredient_names]
+
    for i, (val, (low, high)) in enumerate(zip(ingr_vals, ingr_lims)):
-      ax1.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5, label="Установленные лимиты")
-      ax1.plot(i, val, 'o', color='#FF4B4B', label="Текущее значение")
+      if i == 0:
+         ax1.plot([i, i], [low, high], color='#1E90FF',linewidth=4,alpha=0.5,label="Установленные лимиты")
+      else:
+         ax1.plot([i, i], [low, high],color='#1E90FF',linewidth=4,alpha=0.5)
+      if i == 0:
+         ax1.plot(i, val,'o',color='#FF4B4B',label="Текущее значение")
+      else:
+         ax1.plot(i, val,'o',color='#FF4B4B')
    ax1.set_xticks(range(len(wrapped_ingredients)))
    ax1.set_xticklabels(wrapped_ingredients, rotation=0)
    ax1.set_ylabel("Значение")
