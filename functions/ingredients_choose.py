@@ -22,7 +22,7 @@ def ingredients_choose(ingredirents_df,ingredients_finish):
 
    # --- Инициализация глобального списка ингредиентов корма
    # --- По умолчанию список заполняется рекомендованными ингредиентами	
-   if "selected_ingredients" not in st.session_state or st.session_state.show_result_1==False:
+   if "selected_ingredients" not in st.session_state:
       st.session_state.selected_ingredients = set(ingredients_finish)
 
    # --- Инструмент добавления ингредиентов в состав корма (раскрывающиеся списки)
