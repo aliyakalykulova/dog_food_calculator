@@ -45,4 +45,6 @@ def init_global():
 	   
    if "selected_ingredients" not in st.session_state:
       st.session_state.selected_ingredients = set()         # --- Список ингредиентов
+   if st.session_state.show_result_1 == False: 
+      st.session_state.selected_ingredients = set()
 		
