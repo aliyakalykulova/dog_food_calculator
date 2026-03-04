@@ -61,7 +61,8 @@ def ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disor
 	
    # --- Вывод списка рекомендованных ингредиентов
    ingredients_finish = [i for i in prot+carb_cer+carb_veg+fat+wat if len(i)>0]
-   additional_ingrs=[i[0] for i in top_ings[:3] if i[0] not in [pr,c_c,c_v,f] and i[0] in df_standart["name_feed_ingredient"].tolist()]
+   additional_ingrs=sorted([i for i in top_ings], key=lambda x: x[1], reverse=True)[:3]	
+   additional_ingrs=[i[0] for i in additional_ingrs if i[0] not in [pr,c_c,c_v,f] and i[0] in df_standart["name_feed_ingredient"].tolist()]
    st.write(additional_ingrs)
    if len(additional_ingrs)	>0:
 	   additional_ingrs=[df_standart[df_standart["name_feed_ingredient"]==i]["ingredient_full_ru"].tolist() for i in additional_ingrs]
