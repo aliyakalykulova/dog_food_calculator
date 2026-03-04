@@ -117,7 +117,7 @@ def show_figures_ingr_nutr(ingr_ranges, nutr_ranges, ingredients_combo, nutrient
    for i, (val, (low, high)) in enumerate(zip(ingr_vals, ingr_lims)):
       if i == 0:
          ax1.plot([i, i], [low, high], color='#1E90FF',linewidth=4,alpha=0.5,label="Установленные лимиты")
-         ax1.plot(i, val,'o',color='#FF4B4B',label="Текущее значение")
+         ax1.plot(i, val,'o',color='#FF4B4B',label="Количество в рецептуре")
       else:
          ax1.plot([i, i], [low, high],color='#1E90FF',linewidth=4,alpha=0.5)
          ax1.plot(i, val,'o',color='#FF4B4B')
@@ -140,7 +140,7 @@ def show_figures_ingr_nutr(ingr_ranges, nutr_ranges, ingredients_combo, nutrient
    for i, (nutrient, val, (low, high)) in enumerate(zip(nutrients, nutr_vals, nutr_lims)):
       if i==0:
          ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5,label="Установленные лимиты")
-         ax2.plot(i, val, 'o', color='#FF4B4B',label="Текущее значение") 
+         ax2.plot(i, val, 'o', color='#FF4B4B',label="Количество в рецептуре") 
       else: 
          ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5)
          ax2.plot(i, val, 'o', color='#FF4B4B')                              
