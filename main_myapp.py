@@ -60,7 +60,7 @@ if user_breed:
    info = disease_df[disease_df["name_breed"] == user_breed]
    if not info.empty:
 	  # ---- Вывод списка возможных заболеваний в зависимости от породы
-      disorders = info["name_disease"].unique().tolist()+["food sensitivity","weight management"]+[i for i in  ["aging care","puppy care","adult care"] if age_type_categ in i]
+      disorders = info["name_disease"].unique().tolist()
       selected_disorder = st.selectbox("Заболевание:", disorders)
       match = info.loc[info["name_disease"] == selected_disorder, "name_disorder"]
       disorder_type = match.iloc[0] if not match.empty else selected_disorder
