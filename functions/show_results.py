@@ -117,11 +117,9 @@ def show_figures_ingr_nutr(ingr_ranges, nutr_ranges, ingredients_combo, nutrient
    for i, (val, (low, high)) in enumerate(zip(ingr_vals, ingr_lims)):
       if i == 0:
          ax1.plot([i, i], [low, high], color='#1E90FF',linewidth=4,alpha=0.5,label="Установленные лимиты")
-      else:
-         ax1.plot([i, i], [low, high],color='#1E90FF',linewidth=4,alpha=0.5)
-      if i == 0:
          ax1.plot(i, val,'o',color='#FF4B4B',label="Текущее значение")
       else:
+         ax1.plot([i, i], [low, high],color='#1E90FF',linewidth=4,alpha=0.5)
          ax1.plot(i, val,'o',color='#FF4B4B')
    ax1.set_xticks(range(len(wrapped_ingredients)))
    ax1.set_xticklabels(wrapped_ingredients, rotation=0)
@@ -140,13 +138,18 @@ def show_figures_ingr_nutr(ingr_ranges, nutr_ranges, ingredients_combo, nutrient
    nutr_vals = [nutrients_combo[n] for n in nutrients]
    nutr_lims = [nutr_ranges[n] for n in nutrients]
    for i, (nutrient, val, (low, high)) in enumerate(zip(nutrients, nutr_vals, nutr_lims)):
-      ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5)
-      ax2.plot(i, val, 'o', color='#FF4B4B')                              
+      if i==0:
+         ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5,label="Установленные лимиты")
+         ax2.plot(i, val, 'o', color='#FF4B4B',label="Текущее значение") 
+      else: 
+         ax2.plot([i, i], [low, high], color='#1E90FF', linewidth=4, alpha=0.5)
+         ax2.plot(i, val, 'o', color='#FF4B4B')                              
    ax2.set_xticks(range(len(nutrients)))
    ax2.set_xticklabels([nutrients_transl.loc[nutrients_transl["name_in_database"] == nutr,"name_ru"].iloc[0].split(",")[0] for nutr in  nutrients], rotation=0)
    ax2.set_ylabel("Значение")
    ax2.set_title("Питательные вещества: значения и допустимые границы")
    ax2.set_ylim(0, 100)
+   ax2.legend()  
    ax2.grid(True, axis='y', linestyle='-', color='#e6e6e6', alpha=0.7)
    ax2.spines['top'].set_color('white')
    ax2.spines['right'].set_visible(False)
