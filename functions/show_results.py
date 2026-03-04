@@ -154,7 +154,8 @@ def show_resuts_success(best_recipe,food,nutrients_transl,metobolic_energy, age_
    # --- Соотношение ингредиентов и количество нутриентов на 100 г корма        
    st.markdown("### 📦 Состав (в граммах на 100 г):")
    for ingredient, value in ingredients_combo.items():
-      st.write(f"{ingredient.replace(" — Обыкновенный", "")}: **{int(round(value,0))} г**")
+      if value>0:
+         st.write(f"{ingredient.replace(" — Обыкновенный", "")}: **{int(round(value,0))} г**")
            
    st.markdown("### 💪 Питательная ценность на 100 г:")
    for nutrient, value in nutrients_combo.items():
@@ -174,7 +175,8 @@ def show_resuts_success(best_recipe,food,nutrients_transl,metobolic_energy, age_
                                   for name, weight in ingredients_combo.items() }  
    st.write("🧾 Количество ингредиентов для этой порции:")
    for ingredient, value in ingredients_required.items():
-      st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {value} г")
+      if value>0:
+         st.write(f" - {ingredient.replace(" — Обыкновенный", "")}: {value} г")
          
    count_all_nutr = {nutr: round(sum(amount * food[ingredient][nutr]/100 for ingredient, amount in ingredients_required.items()), 2)
                                 for nutr in main_nutrs+other_nutrients+major_minerals+vitamins}
