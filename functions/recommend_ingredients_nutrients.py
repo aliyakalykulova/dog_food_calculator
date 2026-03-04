@@ -63,7 +63,7 @@ def ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disor
    ingredients_finish = [i for i in prot+carb_cer+carb_veg+fat+wat if len(i)>0]
    st.subheader("🌿 Рекомендуемые ингредиенты")
    for ing in ingredients_finish:
-      st.write("• " + ing)
+      st.write("• " + ing.replace("— Обыкновенный",""))
    return ingredients_finish,keywords
 
 # ---- Функция рекомендации количества нутриентов
