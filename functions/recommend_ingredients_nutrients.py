@@ -40,27 +40,31 @@ def ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disor
    proteins=df_standart[df_standart["category_ru"].isin(["Мясо","Яйца и молочные продукты"])]["name_feed_ingredient"].tolist()
    oils=df_standart[df_standart["category_ru"].isin([ "Масло и жир"])]["name_feed_ingredient"].tolist()
    carbonates_cer=df_standart[df_standart["category_ru"].isin(["Крупы"])]["name_feed_ingredient"].tolist()
-   carbonates_veg=df_standart[df_standart["category_ru"].isin(["Зелень и специи","Овощи и фрукты"])]["name_feed_ingredient"].tolist()
+   carbonates_veg=df_standart[df_standart["category_ru"].isin(["Овощи и фрукты"])]["name_feed_ingredient"].tolist()
    water=["water"]
   
    top_ings = sorted(ing_scores.items(), key=lambda x: x[1], reverse=True)   # --- Сортировка ингредиентов по убыванию оценки
 
    # --- Выбор ингредиентов с максимальным значением по основному нутриенту-источнику
-   prot=sorted([i for i in top_ings if i[0] in proteins], key=lambda x: x[1], reverse=True)[0][0]
-   prot=df_standart[df_standart["name_feed_ingredient"]==prot]["ingredient_full_ru"].tolist()
+   pr=sorted([i for i in top_ings if i[0] in proteins], key=lambda x: x[1], reverse=True)[0][0]
+   prot=df_standart[df_standart["name_feed_ingredient"]==pr]["ingredient_full_ru"].tolist()
 
-   carb_cer=sorted([i for i in top_ings if i[0] in carbonates_cer and i[0]!="flaxseed"], key=lambda x: x[1], reverse=True)[0][0]
-   carb_cer=df_standart[df_standart["name_feed_ingredient"]==carb_cer]["ingredient_full_ru"].tolist()
+   c_c=sorted([i for i in top_ings if i[0] in carbonates_cer ], key=lambda x: x[1], reverse=True)[0][0]
+   carb_cer=df_standart[df_standart["name_feed_ingredient"]==c_c]["ingredient_full_ru"].tolist()
 
-   carb_veg=sorted([i for i in top_ings if i[0] in carbonates_veg], key=lambda x: x[1], reverse=True)[0][0]
-   carb_veg=df_standart[df_standart["name_feed_ingredient"]==carb_veg]["ingredient_full_ru"].tolist()
+   c_v=sorted([i for i in top_ings if i[0] in carbonates_veg], key=lambda x: x[1], reverse=True)[0][0]
+   carb_veg=df_standart[df_standart["name_feed_ingredient"]==c_v]["ingredient_full_ru"].tolist()
 
-   fat=sorted([i for i in top_ings if i[0] in oils], key=lambda x: x[1], reverse=True)[0][0]
-   fat=df_standart[df_standart["name_feed_ingredient"]==fat]["ingredient_full_ru"].tolist()
+   f=sorted([i for i in top_ings if i[0] in oils], key=lambda x: x[1], reverse=True)[0][0]
+   fat=df_standart[df_standart["name_feed_ingredient"]==f]["ingredient_full_ru"].tolist()
    wat=df_standart[df_standart["name_feed_ingredient"].isin(water)]["ingredient_full_ru"].tolist()
 	
    # --- Вывод списка рекомендованных ингредиентов
    ingredients_finish = [i for i in prot+carb_cer+carb_veg+fat+wat if len(i)>0]
+   additional_ingrs=[i for i in top_ings[:3] if i[0] not in [pr,c_c,c_v,f] and i[0] in df_standart["name_feed_ingredient"].tolist()]
+   if len(additional_ingrs)	>0:
+	   ingredients_finish+=additional_ingrs
+	   
    st.subheader("🌿 Рекомендуемые ингредиенты")
    for ing in ingredients_finish:
       st.write("• " + ing.replace("— Обыкновенный",""))
