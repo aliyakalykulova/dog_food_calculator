@@ -19,9 +19,9 @@ disorder_keywords = {
    "Inherited urinary and reproductive disorders": " urinary bladder stones urinary bladder kidney renal urine reproductive",
    "Inherited respiratory disorders": "breath respiratory airway lung cough breathing nasal",
    "Inherited blood disorders": "anemia blood iron hemoglobin platelets clotting hemophilia",
-   "aging care":"aging senior mature",
-   "puppy care":"puppy grow start",
-   "adult care":"adult immune optimal delicious",
+   "Aging care":"aging senior mature",
+   "Puppy care":"puppy grow start",
+   "Adult care":"adult immune optimal delicious",
    "weight management":"weight management overweight",
    "food sensitivity":"food sensitivity hypoallergenic stomach"	}
 
