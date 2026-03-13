@@ -22,7 +22,7 @@ def ingredients_limits(ingredirents_df, ingredient_names):
    oils=ingredirents_df[ingredirents_df["category_ru"].isin([ "Масло и жир"])]["ingredient_format_cat"].tolist()
    carbonates_cer=ingredirents_df[ingredirents_df["category_ru"].isin(["Крупы"])]["ingredient_format_cat"].tolist()
    carbonates_veg=ingredirents_df[ingredirents_df["category_ru"].isin(["Зелень и специи","Овощи и фрукты"])]["ingredient_format_cat"].tolist()
-   other=ingredirents_df[ingredirents_df["category_ru"].isin(["Вода, соль и сахар"])]["ingredient_format_cat"].tolist()
+   other=ingredirents_df[ingredirents_df["category_ru"].isin(["Вода, соль и сахар","Дополнительные пищевые компоненты"])]["ingredient_format_cat"].tolist()
 
    st.subheader("Ограничения по количеству ингредиентов (в % от 100 г):")
    ingr_ranges = []	
