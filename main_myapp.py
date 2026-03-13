@@ -71,7 +71,7 @@ if user_breed:
       selected_disease = st.selectbox("Заболевание:", diseases)
       match = info.loc[info["name_disease"] == selected_disease, "name_disorder"]
       disorder_type = match.iloc[0] if not match.empty else selected_disease
-      st.write(disorder_type)
+
 	  # ---- При изменении данных о собаке (порода, заболевание) сбрасываются текущие рекомендации корма 
       if user_breed != st.session_state.user_breed or selected_disease!= st.session_state.disorder:
          st.session_state.user_breed = user_breed
