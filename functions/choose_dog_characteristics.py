@@ -122,7 +122,7 @@ def choose_dog_characteristics(disease_df):
    st.sidebar.title("🐶 Smart Dog Diet Advisor")
    st.sidebar.write("Select breed + disorder → get personalized food suggestions")
    st.sidebar.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", width=80)   
-  
+   st.write(disease_df)  
    breed_list = sorted(disease_df["name_breed"].unique())
    user_breed = st.selectbox("Порода собаки:", breed_list)   # --- Ввод породы собаки
    breed_size, avg_wight = size_category(disease_df[disease_df["name_breed"] == user_breed])  # --- Присвоение категории размера породы
