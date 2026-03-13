@@ -55,20 +55,27 @@ init_global()
 # ---- Ввод характеристик собаки (choose_dog_characteristics.py)
 user_breed, breed_size, avg_wight, age_type_categ = choose_dog_characteristics(disease_df)
 
+standard_care_map = {
+    "puppy": "Уход за щенками",
+    "adult": "Уход за взрослыми",
+    "senior": "Уход за пожилыми"
+}
+st_c = standard_care_map.get(age_type_categ)
 
 if user_breed:
    info = disease_df[disease_df["name_breed"] == user_breed]
    if not info.empty:
 	  # ---- Вывод списка возможных заболеваний в зависимости от породы
-      disorders = info["name_disease"].unique().tolist()
-      selected_disorder = st.selectbox("Заболевание:", disorders)
-      match = info.loc[info["name_disease"] == selected_disorder, "name_disorder"]
-      disorder_type = match.iloc[0] if not match.empty else selected_disorder
+      diseases = [  dis for dis in info["name_disease"].unique().tolist()
+                    if dis not in standard_care_map.values() or dis == st_c]
+      selected_disease = st.selectbox("Заболевание:", diseases)
+      match = info.loc[info["name_disease"] == selected_disease, "name_disorder"]
+      disorder_type = match.iloc[0] if not match.empty else selected_disease
 
 	  # ---- При изменении данных о собаке (порода, заболевание) сбрасываются текущие рекомендации корма 
-      if user_breed != st.session_state.user_breed or selected_disorder!= st.session_state.disorder:
+      if user_breed != st.session_state.user_breed or selected_disease!= st.session_state.disorder:
          st.session_state.user_breed = user_breed
-         st.session_state.disorder = selected_disorder
+         st.session_state.disorder = selected_disease
          st.session_state.show_result_1 = False
          st.session_state.show_result_2 = False
             
@@ -88,7 +95,7 @@ if user_breed:
             st.session_state.show_result_2 = False
 
 		 # --- Вычисление рекомендаций ингредиентов и количества нутриентов с помощью обученных моделей (recommend_ingredients_nutrients.py)
-         ingredients_finish,keywords=ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disorder_type, selected_disorder,vectorizer,svd,encoder, df_standart)
+         ingredients_finish,keywords=ingredient_recommendation(ingredient_models,breed_size, age_type_categ,disorder_type, selected_disease,vectorizer,svd,encoder, df_standart)
          nutrient_preds = nutrients_recommendation(vectorizer_wet,keywords,svd_wet,encoder_wet, breed_size, age_type_categ, ridge_models,scalers )
          
          if len(ingredients_finish)>0: 
