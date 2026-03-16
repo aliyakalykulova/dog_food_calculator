@@ -120,17 +120,17 @@ if user_breed:
 	  
 			   # ---- Проверка соотношения ингредиентов и пропорциональная корректировка минимальных и максимальных пределов при нарушении условий
 			   # ---- Проверка условия: сумма минимальных долей ингредиентов < 100, сумма максимальных долей > 100
-			   lowest=sum([low for (low, high) in ingr_ranges])
-			   highest=sum([high for (low, high) in ingr_ranges])
-			   ingr_ranges_2=ingr_ranges
-			   if lowest>100:
-			      st.write("Минимальные доли ингредиентов превышают 100%. Значения были пропорционально уменьшены.")
-			      factor=99/lowest
-			      ingr_ranges_2=[(low*factor, high) for (low, high) in ingr_ranges]
-			   elif highest<100:
-			       st.write("Максимальные доли ингредиентов меньше 100%. Значения были пропорционально увеличены.")
-			       factor=101/highest
-			       ingr_ranges_2=[(low, high*factor) for (low, high) in ingr_ranges]
+               lowest=sum([low for (low, high) in ingr_ranges])
+               highest=sum([high for (low, high) in ingr_ranges])
+               ingr_ranges_2=ingr_ranges
+               if lowest>100:
+                  st.write("Минимальные доли ингредиентов превышают 100%. Значения были пропорционально уменьшены.")
+                  factor=99/lowest
+                  ingr_ranges_2=[(low*factor, high) for (low, high) in ingr_ranges]
+               elif highest<100:
+                  st.write("Максимальные доли ингредиентов меньше 100%. Значения были пропорционально увеличены.")
+                  factor=101/highest
+                  ingr_ranges_2=[(low, high*factor) for (low, high) in ingr_ranges]
 				
 			   # --- Подготовка параметров на основе заданных условий для расчёта рецептуры методом линейного программирования (parameters_for_linear_programming.py) 	   
                A, b, A_eq, b_eq,selected_maximize,f,bounds = lin_prog_parametrs(food,ingredient_names,nutr_ranges,ingr_ranges_2,maximaze_nutrs,nutrients_transl)
