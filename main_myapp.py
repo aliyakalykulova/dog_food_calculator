@@ -117,14 +117,29 @@ if user_breed:
                if nutr_ranges != st.session_state.prev_nutr_ranges:
                   st.session_state.show_result_2 = False
                   st.session_state.prev_nutr_ranges = nutr_ranges.copy()
-				   
+	  
+			   # ---- Проверка соотношения ингредиентов и пропорциональная корректировка минимальных и максимальных пределов при нарушении условий
+			   # ---- Проверка условия: сумма минимальных долей ингредиентов < 100, сумма максимальных долей > 100
+			   lowest=sum([low for (low, high) in ingr_ranges])
+			   highest=sum([high for (low, high) in ingr_ranges])
+			   ingr_ranges_2=ingr_ranges
+			   if lowest>100:
+			      st.write("Минимальные доли ингредиентов превышают 100%. Значения были пропорционально уменьшены.")
+			      factor=99/lowest
+			      ingr_ranges_2=[(low*factor, high) for (low, high) in ingr_ranges]
+			   elif highest<100:
+			       st.write("Максимальные доли ингредиентов меньше 100%. Значения были пропорционально увеличены.")
+			       factor=101/highest
+			       ingr_ranges_2=[(low, high*factor) for (low, high) in ingr_ranges]
+				
 			   # --- Подготовка параметров на основе заданных условий для расчёта рецептуры методом линейного программирования (parameters_for_linear_programming.py) 	   
-               A, b, A_eq, b_eq,selected_maximize,f,bounds = lin_prog_parametrs(food,ingredient_names,nutr_ranges,ingr_ranges,maximaze_nutrs,nutrients_transl)
-
+               A, b, A_eq, b_eq,selected_maximize,f,bounds = lin_prog_parametrs(food,ingredient_names,nutr_ranges,ingr_ranges_2,maximaze_nutrs,nutrients_transl)
+             
 			   # --- Кнопка расчёта рецептуры	
                if st.button("🔍 Рассчитать оптимальный состав"):
                   st.session_state.show_result_2 = True
-	                         
+
+			
                if st.session_state.show_result_2:
 				  # --- Расчёт рецептуры методом линейного программирования
                   res = linprog(f, A_ub=A, b_ub=b, A_eq=A_eq, b_eq=b_eq, bounds=bounds, method="highs")
@@ -144,21 +159,6 @@ if user_breed:
                                         ingredient_names, ingr_ranges,nutr_ranges)                         
                   else:
 					 # ---- Если решение не найдено, используется комбинаторный метод
-					  
-					 # ---- Проверка соотношения ингредиентов и пропорциональная корректировка минимальных и максимальных пределов при нарушении условий
-					 # ---- Проверка условия: сумма минимальных долей ингредиентов < 100, сумма максимальных долей > 100
-                     lowest=sum([low for (low, high) in ingr_ranges])
-                     highest=sum([high for (low, high) in ingr_ranges])
-                     ingr_ranges_2=ingr_ranges
-                     if lowest>100:
-                        st.write("Минимальные доли ингредиентов превышают 100%. Значения были пропорционально уменьшены.")
-                        factor=99/lowest
-                        ingr_ranges_2=[(low*factor, high) for (low, high) in ingr_ranges]
-                     elif highest<100:
-                        st.write("Максимальные доли ингредиентов меньше 100%. Значения были пропорционально увеличены.")
-                        factor=101/highest
-                        ingr_ranges_2=[(low, high*factor) for (low, high) in ingr_ranges]
-					
 					 # ---- Расчёт рецептуры комбинаторным методом с выбором варианта с минимальным отклонением от нутриентных лимитов (calc_recipe_method_2.py)	 
                      best_recipe=calc_recipe(ingr_ranges_2,nutr_ranges,ingredient_names,food)
                      if best_recipe:
