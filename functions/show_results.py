@@ -48,11 +48,11 @@ def bar_print(total_norm,current_value,name_ing,mg):
 # ---- Вывод содержания нутриентов в рассчитанной рецептуре 
 def show_nutr_content(count_all_nutr, nutrients_transl, kkal_sel, age_type_categ, weight_sel, select_reproductive_status):
    other_nutrient_norms = nutrient_norm(kkal_sel, age_type_categ, weight_sel, select_reproductive_status)
-   for i in range(0, len(other_nutrients_1), 2):
+   for i in range(0, len(other_nutrients), 2):
       cols = st.columns(2)
       for j, col in enumerate(cols):
          if i + j < len(other_nutrients):
-            nutris = (other_nutrients_1)[i + j]
+            nutris = (other_nutrients)[i + j]
             nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",")    
             emg=""
             if len(nutr_text)>1:
