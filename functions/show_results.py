@@ -177,6 +177,22 @@ def show_resuts_success(best_recipe,food,nutrients_transl,metobolic_energy, age_
    en_nutr_100=int(round(3.5*nutrients_combo["protein_per"]+8.5*nutrients_combo["fats_per"]+3.5*nutrients_combo["carbohydrate_per"],0))
    st.write(f"**Энергетическая ценность:** {en_nutr_100} ккал")
    st.write(f"****") 
+          
+   count_all_nutr_100 = {nutr: round(sum(amount * food[ingredient][nutr]/100 for ingredient, amount in ingredients_combo.items()), 2)
+                                for nutr in main_nutrs+other_nutrients+major_minerals+vitamins}
+   for i in range(0, len(other_nutrients+major_minerals+vitamins), 2):
+      cols = st.columns(2)
+      for j, col in enumerate(cols):
+         if i + j < len(other_nutrients+major_minerals+vitamins):
+            nutris = (other_nutrients+major_minerals+vitamins)[i + j]
+            nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",")    
+            emg=""
+            if len(nutr_text)>1:
+                  emg=nutr_text[-1].strip() if "%" not in nutr_text[-1] else "g"
+            else:
+               emg="g"
+            with col:
+               st.markdown(f"**{nutr_text[0]}**: {count_all_nutr_100.get(nutris, '')} {emg}")
 
    # --- Необходимое количество корма и ингредиентов для удовлетворения суточной потребности в калориях       
    st.markdown(f"### Сколько нужно в граммах корма и ингредиентов на {metobolic_energy} ккал") 
