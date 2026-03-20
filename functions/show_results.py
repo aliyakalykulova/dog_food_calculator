@@ -51,7 +51,7 @@ def show_nutr_content(count_all_nutr, nutrients_transl, kkal_sel, age_type_categ
    for i in range(0, len(other_nutrients_1), 2):
       cols = st.columns(2)
       for j, col in enumerate(cols):
-         if i + j < len(other_nutrients_1):
+         if i + j < len(other_nutrients):
             nutris = (other_nutrients_1)[i + j]
             nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",")    
             emg=""
@@ -67,7 +67,7 @@ def show_nutr_content(count_all_nutr, nutrients_transl, kkal_sel, age_type_categ
       for i in range(0, len(other_nutrients_2)):
          nutris = other_nutrients_2[i]
          nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",") 
-         st.write(nutris,nutr_text,nutr_text[0])
+        
          emg = nutr_text[-1].strip() if len(nutr_text)>1 and "%" not in nutr_text[-1] else "g"
          if nutr_text[0] in other_nutrient_norms:
             norma = other_nutrient_norms[nutr_text[0]]
