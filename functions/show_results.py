@@ -66,7 +66,8 @@ def show_nutr_content(count_all_nutr, nutrients_transl, kkal_sel, age_type_categ
    with coli:
       for i in range(0, len(other_nutrients_2)):
          nutris = other_nutrients_2[i]
-         nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",")    
+         nutr_text=nutrients_transl.loc[nutrients_transl["name_in_database"] == nutris,"name_ru"].iloc[0].split(",") 
+         st.write(nutris,nutr_text,nutr_text[0])
          emg = nutr_text[-1].strip() if len(nutr_text)>1 and "%" not in nutr_text[-1] else "g"
          if nutr_text[0] in other_nutrient_norms:
             norma = other_nutrient_norms[nutr_text[0]]
